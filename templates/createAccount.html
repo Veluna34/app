@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1e374f;
+        }
+        form {
+            border: 1px solid #ced4da;
+            padding: 20px;        
+            border-radius: 5px;
+            background-color: rgb(95, 17, 61);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            margin-top: 1px;
+        }
+        input[type="submit"] {
+            background-color: #6f00ff;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+<body>
+
+    <form method="post" action="/homepage" onsubmit="validateForm(event)" target="_blank">
+        <h2 style="color: rgb(255, 255, 255);">Create Account</h2>
+        <label style="color: rgb(255, 255, 255);" for="username">Username:</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+        <label style="color: rgb(255, 255, 255);" for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+        <div id="error-message" class="error"></div>
+
+        <input type="submit" name="submit" value="Submit">
+    </form>
+
+</body>
+</html>
