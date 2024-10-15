@@ -26,7 +26,7 @@ h1 {
     position: absolute; /* Position it absolutely */
     top: 50%; /* Center it vertically */
     left: 0; /* Align to the left */
-    width: 200%; /* Full width */
+    width: 500%; /* Full width */
     height: 6.7px; /* Height of the line */
     background-color: #235fff;
     z-index: 10; /* Make sure it’s above other elements */

@@ -50,6 +50,7 @@ h1{
 .createAccountButton{
     margin-left: 637px;
     margin-top: 115px;
+    z-index: 5;
 }
 
 .signInButton{
@@ -57,6 +58,7 @@ h1{
     margin-left: 785px;
     margin-top: -37.1px;
     pointer-events: auto;
+    z-index: 5;
 }
 
 .createAccountMessage{
