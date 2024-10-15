@@ -1,11 +1,9 @@
 body {
-	background: radial-gradient(ellipse at center, rgba(127,0,173,0.6) 0%,
-  rgba(0,0,0,0.8) 60%, 
-  rgba(0,0,0,1) 90%), 
-  url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/31787/stars.jpg);
-	background-size: 1080px;
+    background: radial-gradient(ellipse at center, rgb(0 255 22 / 41%) 0%, rgb(84 0 128 / 42%) 60%, rgb(9 210 145 / 0%) 90%), url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/31787/stars.jpg);	z-index:-5;
+	background-size:cover;
 	z-index:-5;
 	color: white;
+	size: cover;
 	overflow: hidden;
 	font-family: 'Monoton', monospace;
 	font-size: 2em;
@@ -28,11 +26,13 @@ h1 {
     position: absolute; /* Position it absolutely */
     top: 50%; /* Center it vertically */
     left: 0; /* Align to the left */
-    width: 100%; /* Full width */
+    width: 200%; /* Full width */
     height: 6.7px; /* Height of the line */
     background-color: #235fff;
     z-index: 10; /* Make sure it’s above other elements */
-    border: none; /* Remove default border */
+	border-radius: 10px;
+	    /* Glowing effect */
+		box-shadow: 0 0 10px rgb(18 0 255), 0 0 20px rgb(37 0 255);
 }
 
 #layer-0 {

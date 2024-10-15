@@ -1,12 +1,13 @@
 body{
-    overflow-x: auto;
+    overflow-x:scroll;
 }
+
 
 #tennisForTwo {
     position: absolute; /* Position it absolutely */
-    top: 46%; 
-    left: 6%; /* Center it horizontally */
-    transform: translate(-50%, -50%) scale(1); /* Center both horizontally and vertically */
+    top: 46.7%; 
+    left: 7.5%; /* Center it horizontally */
+    transform: translate(-53%, -53%) scale(1); /* Center both horizontally and vertically */
     background-color: rgb(0, 0, 0); /* Semi-transparent background */
     border-radius: 8px; /* Rounded corners */
     padding: 10px 20px; /* Padding for spacing */
@@ -24,13 +25,16 @@ body{
 }
 
 #tennisForTwo:hover {
-    transform: translate(-50%, -50%) scale(1.2); /* Scale up while maintaining position */
-    color:#035bff
+    transform: translate(-57%, -57%) scale(1.6); /* Scale up while maintaining position */
+    box-shadow: 
+        0 0 15px rgba(35, 95, 255, 0.9), /* Stronger outer glow */
+        0 0 30px rgba(35, 95, 255, 0.7), /* More spread */
+        0 0 45px rgba(35, 95, 255, 0.5); /* Even more spread */
 }
 
 .dateOne {
     position: absolute; /* Make it absolutely positioned */
-    top: 37.3%;
+    top: 37.5%;
     left: 5%; /* Center it horizontally */
     color: #035bff; /* Text color */
     font-size: .5em; /* Match font size */
@@ -38,8 +42,8 @@ body{
 
 #spaceWar {
     position: absolute; /* Position it absolutely */
-    top: 58.7%; /* Adjust this value to position it above the timeline */
-    left: 16.5%; /* Center it horizontally */
+    top: 59.5%; /* Adjust this value to position it above the timeline */
+    left: 18%; /* Center it horizontally */
     transform: translate(-50%, -50%) scale(1); /* Center both horizontally and vertically */
     background-color: rgb(0, 0, 0); /* Semi-transparent background */
     border-radius: 8px; /* Rounded corners */
@@ -58,13 +62,16 @@ body{
 }
 
 #spaceWar:hover {
-    transform: translate(-50%, -50%) scale(1.2); /* Scale up while maintaining position */
-    color:#035bff
+    transform: translate(-57%, -57%) scale(1.6); /* Scale up while maintaining position */
+    box-shadow: 
+    0 0 15px rgba(35, 95, 255, 0.9), /* Stronger outer glow */
+    0 0 30px rgba(35, 95, 255, 0.7), /* More spread */
+    0 0 45px rgba(35, 95, 255, 0.5); /* Even more spread */
 }
 
 .dateTwo {
     position: absolute; /* Make it absolutely positioned */
-    top: 64%;
+    top: 64.8%;
     left: 15%; /* Center it horizontally */
     color: #035bff; /* Text color */
     font-size: .5em; /* Match font size */
@@ -72,14 +79,14 @@ body{
 
 #computerSpace{
     position: absolute; /* Position it absolutely */
-    top: 46%; /* Adjust this value to position it above the timeline */
-    left: 27%; /* Center it horizontally */
+    top: 46.2%; /* Adjust this value to position it above the timeline */
+    left: 28.5%; /* Center it horizontally */
     transform: translate(-50%, -50%) scale(1); /* Center both horizontally and vertically */
     background-color: rgb(0, 0, 0); /* Semi-transparent background */
     border-radius: 8px; /* Rounded corners */
     padding: 10px 20px; /* Padding for spacing */
     color: #ffffff; /* Text color */
-    font-size: .34em; /* Font size */
+    font-size: .3em; /* Font size */
     text-align: center; /* Center the text */
     z-index: 15; /* Ensure it's above the timeline */
     transition: background-color 0.5s, transform 0.5s; /* Smooth transition for transform */
@@ -92,13 +99,16 @@ body{
 }
 
 #computerSpace:hover {
-    transform: translate(-50%, -50%) scale(1.2); /* Scale up while maintaining position */
-    color:#035bff
+    transform: translate(-57%, -57%) scale(1.6); /* Scale up while maintaining position */
+    box-shadow: 
+    0 0 15px rgba(35, 95, 255, 0.9), /* Stronger outer glow */
+    0 0 30px rgba(35, 95, 255, 0.7), /* More spread */
+    0 0 45px rgba(35, 95, 255, 0.5); /* Even more spread */
 }
 
 .dateThree {
     position: absolute; /* Make it absolutely positioned */
-    top: 37.3%;
+    top: 37.5%;
     left: 25.9%; /* Center it horizontally */
     color: #035bff; /* Text color */
     font-size: .5em; /* Match font size */
@@ -106,8 +116,8 @@ body{
 
 #magnavoxOdessey{
     position: absolute; /* Position it absolutely */
-    top: 58.7%; /* Adjust this value to position it above the timeline */
-    left: 37.5%; /* Center it horizontally */
+    top: 59.5%; /* Adjust this value to position it above the timeline */
+    left: 39%; /* Center it horizontally */
     transform: translate(-50%, -50%) scale(1); /* Center both horizontally and vertically */
     background-color: rgb(0, 0, 0); /* Semi-transparent background */
     border-radius: 8px; /* Rounded corners */
@@ -126,13 +136,16 @@ body{
 }
 
 #magnavoxOdessey:hover {
-    transform: translate(-50%, -50%) scale(1.2); /* Scale up while maintaining position */
-    color:#035bff
+    transform: translate(-57%, -57%) scale(1.6); /* Scale up while maintaining position */
+    box-shadow: 
+    0 0 15px rgba(35, 95, 255, 0.9), /* Stronger outer glow */
+    0 0 30px rgba(35, 95, 255, 0.7), /* More spread */
+    0 0 45px rgba(35, 95, 255, 0.5); /* Even more spread */
 }
 
 .dateFour {
     position: absolute; /* Make it absolutely positioned */
-    top: 64%;
+    top: 64.8%;
     left: 36.8%; /* Center it horizontally */
     color: #035bff; /* Text color */
     font-size: .5em; /* Match font size */
@@ -141,7 +154,7 @@ body{
 #pong{
     position: absolute; /* Position it absolutely */
     top: 46.2%; /* Adjust this value to position it above the timeline */
-    left: 48%; /* Center it horizontally */
+    left: 49.5%; /* Center it horizontally */
     transform: translate(-50%, -50%) scale(1); /* Center both horizontally and vertically */
     background-color: rgb(0, 0, 0); /* Semi-transparent background */
     border-radius: 8px; /* Rounded corners */
@@ -160,13 +173,16 @@ body{
 }
 
 #pong:hover {
-    transform: translate(-50%, -50%) scale(1.2); /* Scale up while maintaining position */
-    color:#035bff
+    transform: translate(-57%, -57%) scale(1.6); /* Scale up while maintaining position */
+    box-shadow: 
+    0 0 15px rgba(35, 95, 255, 0.9), /* Stronger outer glow */
+    0 0 30px rgba(35, 95, 255, 0.7), /* More spread */
+    0 0 45px rgba(35, 95, 255, 0.5); /* Even more spread */
 }
 
 .dateFive {
     position: absolute; /* Make it absolutely positioned */
-    top: 37.3%;
+    top: 37.5%;
     left: 47%; /* Center it horizontally */
     color: #035bff; /* Text color */
     font-size: .5em; /* Match font size */
@@ -174,8 +190,8 @@ body{
 
 #tableTennis{
     position: absolute; /* Position it absolutely */
-    top: 58.7%; /* Adjust this value to position it above the timeline */
-    left: 58.5%; /* Center it horizontally */
+    top: 59.5%; /* Adjust this value to position it above the timeline */
+    left: 60%; /* Center it horizontally */
     transform: translate(-50%, -50%) scale(1); /* Center both horizontally and vertically */
     background-color: rgb(0, 0, 0); /* Semi-transparent background */
     border-radius: 8px; /* Rounded corners */
@@ -194,13 +210,16 @@ body{
 }
 
 #tableTennis:hover {
-    transform: translate(-50%, -50%) scale(1.2); /* Scale up while maintaining position */
-    color:#035bff
+    transform: translate(-57%, -57%) scale(1.6); /* Scale up while maintaining position */
+    box-shadow: 
+    0 0 15px rgba(35, 95, 255, 0.9), /* Stronger outer glow */
+    0 0 30px rgba(35, 95, 255, 0.7), /* More spread */
+    0 0 45px rgba(35, 95, 255, 0.5); /* Even more spread */
 }
 
 .dateSix {
     position: absolute; /* Make it absolutely positioned */
-    top: 64%;
+    top: 64.8%;
     left: 57.7%; /* Center it horizontally */
     color: #035bff; /* Text color */
     font-size: .5em; /* Match font size */
@@ -208,8 +227,8 @@ body{
 
 #homePong{
     position: absolute; /* Position it absolutely */
-    top: 46%; /* Adjust this value to position it above the timeline */
-    left: 69%; /* Center it horizontally */
+    top: 46.2%; /* Adjust this value to position it above the timeline */
+    left: 70.5%; /* Center it horizontally */
     transform: translate(-50%, -50%) scale(1); /* Center both horizontally and vertically */
     background-color: rgb(0, 0, 0); /* Semi-transparent background */
     border-radius: 8px; /* Rounded corners */
@@ -228,28 +247,68 @@ body{
 }
 
 #homePong:hover {
-    transform: translate(-50%, -50%) scale(1.2); /* Scale up while maintaining position */
-    color:#035bff
+    transform: translate(-57%, -57%) scale(1.6); /* Scale up while maintaining position */
+    box-shadow: 
+    0 0 15px rgba(35, 95, 255, 0.9), /* Stronger outer glow */
+    0 0 30px rgba(35, 95, 255, 0.7), /* More spread */
+    0 0 45px rgba(35, 95, 255, 0.5); /* Even more spread */
 }
 
 .dateSeven {
     position: absolute; /* Make it absolutely positioned */
-    top: 37.3%;
+    top: 37.5%;
     left: 68.4%; /* Center it horizontally */
+    color: #035bff; /* Text color */
+    font-size: .5em; /* Match font size */
+}
+
+#gunFight{
+    position: absolute; /* Position it absolutely */
+    top: 59.5%; /* Adjust this value to position it above the timeline */
+    left: 81%; /* Center it horizontally */
+    transform: translate(-50%, -50%) scale(1); /* Center both horizontally and vertically */
+    background-color: rgb(0, 0, 0); /* Semi-transparent background */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for spacing */
+    color: #ffffff; /* Text color */
+    font-size: .27em; /* Font size */
+    text-align: center; /* Center the text */
+    z-index: 15; /* Ensure it's above the timeline */
+    transition: background-color 0.5s, transform 0.5s; /* Smooth transition for transform */
+    width: 9%;
+    height: 12%;
+}
+
+#gunFight a {
+    text-decoration: none; /* Remove underline */
+}
+
+#gunFight:hover {
+    transform: translate(-57%, -57%) scale(1.6); /* Scale up while maintaining position */
+    box-shadow: 
+    0 0 15px rgba(35, 95, 255, 0.9), /* Stronger outer glow */
+    0 0 30px rgba(35, 95, 255, 0.7), /* More spread */
+    0 0 45px rgba(35, 95, 255, 0.5); /* Even more spread */
+}
+
+.dateEight {
+    position: absolute; /* Make it absolutely positioned */
+    top: 64.8%;
+    left: 79.1%; /* Center it horizontally */
     color: #035bff; /* Text color */
     font-size: .5em; /* Match font size */
 }
 
 #farChildChannelF{
     position: absolute; /* Position it absolutely */
-    top: 58.7%; /* Adjust this value to position it above the timeline */
-    left: 79.5%; /* Center it horizontally */
+    top: 46.2%; /* Adjust this value to position it above the timeline */
+    left: 91.5%; /* Center it horizontally */
     transform: translate(-50%, -50%) scale(1); /* Center both horizontally and vertically */
     background-color: rgb(0, 0, 0); /* Semi-transparent background */
     border-radius: 8px; /* Rounded corners */
     padding: 10px 20px; /* Padding for spacing */
     color: #ffffff; /* Text color */
-    font-size: .34em; /* Font size */
+    font-size: .32em; /* Font size */
     text-align: center; /* Center the text */
     z-index: 15; /* Ensure it's above the timeline */
     transition: background-color 0.5s, transform 0.5s; /* Smooth transition for transform */
@@ -262,47 +321,16 @@ body{
 }
 
 #farChildChannelF:hover {
-    transform: translate(-50%, -50%) scale(1.2); /* Scale up while maintaining position */
-    color:#035bff
-}
-
-.dateEight {
-    position: absolute; /* Make it absolutely positioned */
-    top: 64%;
-    left: 79.1%; /* Center it horizontally */
-    color: #035bff; /* Text color */
-    font-size: .5em; /* Match font size */
-}
-
-#famimaga{
-    position: absolute; /* Position it absolutely */
-    top: 46%; /* Adjust this value to position it above the timeline */
-    left: 90%; /* Center it horizontally */
-    transform: translate(-50%, -50%) scale(1); /* Center both horizontally and vertically */
-    background-color: rgb(0, 0, 0); /* Semi-transparent background */
-    border-radius: 8px; /* Rounded corners */
-    padding: 10px 20px; /* Padding for spacing */
-    color: #ffffff; /* Text color */
-    font-size: .26em; /* Font size */
-    text-align: center; /* Center the text */
-    z-index: 15; /* Ensure it's above the timeline */
-    transition: background-color 0.5s, transform 0.5s; /* Smooth transition for transform */
-    width: 9%;
-    height: 12%;
-}
-
-#famimaga a {
-    text-decoration: none; /* Remove underline */
-}
-
-#famimaga:hover {
-    transform: translate(-50%, -50%) scale(1.2); /* Scale up while maintaining position */
-    color:#035bff
+    transform: translate(-57%, -57%) scale(1.6); /* Scale up while maintaining position */
+    box-shadow: 
+    0 0 15px rgba(35, 95, 255, 0.9), /* Stronger outer glow */
+    0 0 30px rgba(35, 95, 255, 0.7), /* More spread */
+    0 0 45px rgba(35, 95, 255, 0.5); /* Even more spread */
 }
 
 .dateNine {
     position: absolute; /* Make it absolutely positioned */
-    top: 64%;
+    top: 37.5%;
     left: 89.8%; /* Center it horizontally */
     color: #035bff; /* Text color */
     font-size: .5em; /* Match font size */
@@ -310,14 +338,14 @@ body{
 
 #atari{
     position: absolute; /* Position it absolutely */
-    top: 58.7%; /* Adjust this value to position it above the timeline */
-    left: 100.5%; /* Center it horizontally */
+    top: 59.5%; /* Adjust this value to position it above the timeline */
+    left: 102%; /* Center it horizontally */
     transform: translate(-50%, -50%) scale(1); /* Center both horizontally and vertically */
     background-color: rgb(0, 0, 0); /* Semi-transparent background */
     border-radius: 8px; /* Rounded corners */
     padding: 10px 20px; /* Padding for spacing */
     color: #ffffff; /* Text color */
-    font-size: .26em; /* Font size */
+    font-size: .25em; /* Font size */
     text-align: center; /* Center the text */
     z-index: 15; /* Ensure it's above the timeline */
     transition: background-color 0.5s, transform 0.5s; /* Smooth transition for transform */
@@ -330,20 +358,117 @@ body{
 }
 
 #atari:hover {
-    transform: translate(-50%, -50%) scale(1.2); /* Scale up while maintaining position */
-    color:#035bff
+    transform: translate(-57%, -57%) scale(1.6); /* Scale up while maintaining position */
+    box-shadow: 
+    0 0 15px rgba(35, 95, 255, 0.9), /* Stronger outer glow */
+    0 0 30px rgba(35, 95, 255, 0.7), /* More spread */
+    0 0 45px rgba(35, 95, 255, 0.5); /* Even more spread */
 }
 
 .dateTen {
     position: absolute; /* Make it absolutely positioned */
-    top: 37.3%;
+    top: 64.8%;
     left: 100.5%; /* Center it horizontally */
     color: #035bff; /* Text color */
     font-size: .5em; /* Match font size */
 }
 
-.soundcloudContainer{
-    margin-top: 581px;
-    margin-left: 0px;
+#breakout{
+    position: absolute; /* Position it absolutely */
+    top: 46.2%; /* Adjust this value to position it above the timeline */
+    left: 112.5%; /* Center it horizontally */
+    transform: translate(-50%, -50%) scale(1); /* Center both horizontally and vertically */
+    background-color: rgb(0, 0, 0); /* Semi-transparent background */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for spacing */
+    color: #ffffff; /* Text color */
+    font-size: .25em; /* Font size */
+    text-align: center; /* Center the text */
+    z-index: 15; /* Ensure it's above the timeline */
+    transition: background-color 0.5s, transform 0.5s; /* Smooth transition for transform */
+    width: 9%;
+    height: 12%;
 }
+
+#breakout {
+    text-decoration: none; /* Remove underline */
+}
+
+#breakout:hover {
+    transform: translate(-57%, -57%) scale(1.6); /* Scale up while maintaining position */
+    box-shadow: 
+    0 0 15px rgba(35, 95, 255, 0.9), /* Stronger outer glow */
+    0 0 30px rgba(35, 95, 255, 0.7), /* More spread */
+    0 0 45px rgba(35, 95, 255, 0.5); /* Even more spread */
+}
+
+.dateEleven {
+    position: absolute; /* Make it absolutely positioned */
+    top: 37.5%;
+    left: 111.2%; /* Center it horizontally */
+    color: #035bff; /* Text color */
+    font-size: .5em; /* Match font size */
+}
+
+#combat{
+    position: absolute; /* Position it absolutely */
+    top: 59.5%; /* Adjust this value to position it above the timeline */
+    left: 123%; /* Center it horizontally */
+    transform: translate(-50%, -50%) scale(1); /* Center both horizontally and vertically */
+    background-color: rgb(0, 0, 0); /* Semi-transparent background */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for spacing */
+    color: #ffffff; /* Text color */
+    font-size: .25em; /* Font size */
+    text-align: center; /* Center the text */
+    z-index: 15; /* Ensure it's above the timeline */
+    transition: background-color 0.5s, transform 0.5s; /* Smooth transition for transform */
+    width: 9%;
+    height: 12%;
+}
+
+#combat {
+    text-decoration: none; /* Remove underline */
+}
+
+#combat:hover {
+    transform: translate(-57%, -57%) scale(1.6); /* Scale up while maintaining position */
+    box-shadow: 
+    0 0 15px rgba(35, 95, 255, 0.9), /* Stronger outer glow */
+    0 0 30px rgba(35, 95, 255, 0.7), /* More spread */
+    0 0 45px rgba(35, 95, 255, 0.5); /* Even more spread */
+}
+
+.dateThirteen {
+    position: absolute; /* Make it absolutely positioned */
+    top: 64.8%;
+    left: 121.9%; /* Center it horizontally */
+    color: #035bff; /* Text color */
+    font-size: .5em; /* Match font size */
+}
+
+.soundcloudContainer{
+    position: absolute; /* Change to absolute positioning */
+    top: 50%; /* Adjust as needed */
+    left: 30%; /* Adjust as needed */
+    z-index: 1; /* Ensure it’s lower than starman */
+}
+
+.starman{
+    position:absolute;
+    top: 92.5%;
+    left: 0%;
+    z-index: 1;
+
+}
+
+.starmanMessage {
+    margin-top: 38.5%;
+    margin-left: 0%;
+    font-size: .5em;
+    color: rgb(1, 32, 32);
+    z-index: 1;
+}
+
+
 
