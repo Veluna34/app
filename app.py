@@ -140,7 +140,7 @@ TEMPLATES = [
     'currency.html',
     'gambling.html',
     'credit.html',
-    'financial.html'
+    'financial.html',
     'supply.html',
     'delivery.html',
     'marketplace.html',
@@ -205,8 +205,8 @@ TEMPLATE_TITLES = {
     'gambing.html': 'Gambling & Betting (Finances)',
     'credit.html': 'Credit Cards/Services (Finances)',
     'financial.html': 'General Financial Tools (Finances)',
-    'supply.html': 'Projects And Home Improvement Supplies (Shopping)',
     'delivery.html': 'Delivery/Transportation Services',
+    'supply.html': 'Supplies For Home & DIY Projects (Shopping)',
     'marketplace.html': 'Marketplaces (Shopping)',
     'internet.html': 'Internet Services'
 }
