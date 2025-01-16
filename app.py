@@ -872,6 +872,10 @@ def settings():
 def internet():
     return render_template('internet.html')
 
+@app.route('/submit')
+def submit():
+    return render_template('submit.html')
+
 
 
 @app.route('/submitted', methods=['GET', 'POST'])

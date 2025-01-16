@@ -415,7 +415,6 @@ window.onload = function() {
         </div>
     
         <!-- Favorite Websites Section -->
-         <p class="reload">Reload After Removing A Website</p>
         <div class="hearted-websites">
             <h2>Favorite Websites ❤️</h2>
             <ul class="website-list" id="favorite-websites-list">
@@ -467,7 +466,10 @@ window.onload = function() {
             </ul>
         </div>
     
+        <!--
         <button id="clearAllButton">Clear All Websites</button>
+    -->
+
     </div>
     <script>
     function removeWebsite(button) {
@@ -486,26 +488,26 @@ window.onload = function() {
     
         // Send a request to remove the website from the database
         fetch('/toggle_website', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        url: url,
-        name: name,
-        type: type
-    })
-})
-.then(response => response.json())
-.then(data => {
-    // Update the HTML as before
-})
-.catch(error => {
-    console.error('Error:', error);
-    alert('Failed to remove the website. Please try again.');
-    document.getElementById('favorite-websites-list').appendChild(websiteItem);
-});
-
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                url: url,
+                name: name,
+                type: type
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Reload the page after successful removal
+            location.reload();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to remove the website. Please try again.');
+            document.getElementById('favorite-websites-list').appendChild(websiteItem);
+        });
     }
 </script>
 

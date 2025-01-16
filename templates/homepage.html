@@ -76,7 +76,7 @@ canvas {
     box-sizing: border-box;
     overflow: hidden;
     margin-top: 1vh;
-    right: 3.4vw;
+    right: 3vw;
 }
 
 h1 {
@@ -645,6 +645,13 @@ footer {
     margin-bottom: 20px;
 }
 
+.lofiMessage {
+            position: fixed;
+            color: aliceblue;
+            margin-left: 83.5%;
+            transform: translate(0vw, -17vh);
+        }
+
 
 </style>
 <script>
@@ -762,7 +769,23 @@ footer {
         <div class="button-container">
             <button id="open-form-btn" class="toggle-menu">Share A Missing Website</button>
             <button id="open-create-website-btn" class="toggle-menu" style="margin-left: 10px;">Submit Your Created Website</button>
+
+            
+        <iframe title="background" allow="autoplay" controls="loop"
+        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1921149395&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true" 
+        style="width: 15%; height: 15%; position: fixed; top: 10%; left: 85%; z-index: 10;">
+    </iframe>
+
+
+    <div style="font-size: 10px; color: #cccccc; position: fixed; top:10%; left: 85.89%; line-break: anywhere; word-break: normal; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+        <a href="https://soundcloud.com/aiden-figueroa-634927617" title="Aiden Figueroa" target="_blank" style="color: #cccccc; text-decoration: none;">the RED RAT</a> ·
+        <a href="https://soundcloud.com/aiden-figueroa-634927617/flowers" title="flowers" target="_blank" style="color: #cccccc; text-decoration: none;">flowers</a>
+    </div>
+    <p class="lofiMessage"> Press Play And Chill Out With Me</p>
+
+
         </div>
+
  
 
         <a href="/profile">
@@ -894,7 +917,7 @@ footer {
                     <h2>Submitted & Independant Websites</h2>
                     <nav>
                         <img src="https://muzawed.com/wp-content/uploads/2019/10/What-is-Website.png" alt="Browser Games" class="sewer-icon">
-                        <a href="{{ url_for('submitted') }}" class="sewer-link" data-title="Vote On Weather Or Not These Websites Should Be Added" target="_blank">User Submitted Websites</a>
+                        <a href="{{ url_for('submit') }}" class="sewer-link" data-title="Vote On Weather Or Not These Websites Should Be Added" target="_blank">User Submitted Websites</a>
                         <a href="{{ url_for('users') }}" class="sewer-link" target="_blank" data-title="Explore User Created Websites From Independant Developers">From Independent Developers</a>
                         <img src="https://media.licdn.com/dms/image/v2/D5612AQEnCyUjfOL6Rg/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1684774459220?e=2147483647&v=beta&t=eFaZ7vWWjupDW09R7eke7sLu44qW6rqvgD-8a6RXMrM" alt="Browser Games" class="sewer-icon">                    </nav>
                 </section>
