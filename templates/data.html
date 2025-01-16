@@ -1,0 +1,117 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Top 10 Most Searched Websites</title>
+
+        <!-- Include Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <!-- Include Socket.IO -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.min.js"></script>
+
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f9;
+            }
+
+            header {
+                text-align: center;
+                padding: 20px;
+                background-color: #007bff;
+                color: white;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+
+            #myChart {
+                max-width: 100%;
+                height: 400px;
+                margin-top: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Top 10 Most Searched Websites</h1>
+            <p>Updated in Real-Time</p>
+        </header>
+
+        <div class="container">
+            <canvas id="myChart"></canvas>
+        </div>
+
+        <script>
+            // Get the canvas context where the chart will be rendered
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = null;
+
+            // Function to update the chart with new data
+            function updateChart(websites, searchVolumes) {
+                // Ensure that the websites and searchVolumes arrays are not empty
+                if (websites && searchVolumes && websites.length > 0 && searchVolumes.length > 0) {
+                    // Destroy any previous chart instance to prevent multiple charts
+                    if (myChart) {
+                        myChart.destroy();
+                    }
+
+                    // Create a new chart with the updated data
+                    myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: websites,  // Websites on the x-axis
+                            datasets: [{
+                                label: 'Search Volume',
+                                data: searchVolumes,  // Search volumes on the y-axis
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    console.error('Invalid data received:', websites, searchVolumes);
+                }
+            }
+
+            // Connect to the WebSocket server
+            var socket = io.connect('http://127.0.0.1:5000');
+
+            // Listen for real-time updates from the server
+            socket.on('update_data', function(data) {
+                console.log('Data received:', data);  // Log the data to check its structure
+                const websites = data.Websites;
+                const searchVolumes = data['Search Volume'];
+
+                // Only update the chart if valid data is received
+                if (websites && searchVolumes) {
+                    updateChart(websites, searchVolumes);
+                } else {
+                    console.error('Received empty data.');
+                }
+            });
+
+            // Log when the connection to the WebSocket server is established
+            socket.on('connect', function() {
+                console.log("Connected to WebSocket server!");
+            });
+        </script>
+    </body>
+    </html>

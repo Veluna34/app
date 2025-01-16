@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate to Red Rat Gaming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #1e1e2f;
+            color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        footer {
+    background-color: #1e374f;
+    color: #ffffff;
+    padding: 2em 1em;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    position: relative; /* Use 'fixed' if you want it always visible at the bottom */
+    width: 100%;
+    top: 2vh;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1.5em; /* Adds space between the footer columns */
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 1em; /* Adds spacing between rows on smaller screens */
+}
+
+.footer-column h3 {
+    color: #c192ff;
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.footer-column p, 
+.footer-column a {
+    color: #ced4da;
+    font-size: 1em;
+    text-decoration: none;
+    margin-bottom: 0.5em;
+    display: block;
+}
+
+.footer-column a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 1em;
+    font-size: 0.9em;
+    color: #ced4da;
+    border-top: 1px solid #ced4da;
+    padding-top: 1em;
+}
+
+        .about{
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        .donation-section {
+            padding: 50px;
+            text-align: center;
+        }
+
+        .donation-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #e63946;
+        }
+
+        .donation-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #c9c9d9;
+        }
+
+        .donation-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #2c2c3e;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .donation-form label {
+            color: #f5f5f5;
+        }
+
+        .btn-donate {
+            background-color: #e63946;
+            border: none;
+            padding: 10px 20px;
+            color: #fff;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-donate:hover {
+            background-color: #b22d38;
+        }
+
+        header {
+            position: fixed; /* Keep it at the top of the screen */
+            top: 0;
+            left: 0;
+            width: 100%; /* Ensures it spans the full width of the screen */
+            background-color: #191d1e; /* Dark background for visibility */
+            color: #ffffff; /* White text */
+            display: flex; /* Flexbox for layout */
+            align-items: center; /* Aligns items vertically in the header */
+            padding: 1.4em 1em; /* Add padding */
+            z-index: 10; /* Ensures it appears above other content */
+            justify-content: space-between; /* Spreads the content across the header */
+        }
+    
+        nav {
+            display: flex; /* Ensure the navigation links are in a row */
+            justify-content: flex-start; /* Align the links to the left */
+            flex-grow: 1; /* Allow the nav to take the remaining space */
+            margin-left: 10vw;
+        }
+    
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            font-size: 1.17em;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-right: 1.3vw;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        nav ul li a {
+            color: #ffffff; /* White text color */
+            text-decoration: none; /* Remove underline */
+            transition: color 0.3s; /* Smooth color transition */
+        }
+    
+        nav ul li a:hover {
+            color: #a3a3a3; /* Change color on hover */
+        }
+    
+        .logo {
+            position: absolute; /* Position logo absolutely within header */
+            right: 1em; /* Push logo to the right */
+        }
+    
+        .logo img {
+            height: 50px; /* Set logo height */
+        }
+    
+        canvas {
+            margin-top: 6em; /* Push content below fixed header */
+            width: 100%; /* Ensure it takes the full width */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        #search {
+    padding: 5px 10px; /* Adds some padding inside the search bar */
+    border: 1px solid #ccc; /* Adds border to search bar */
+    border-radius: 4px; /* Rounds the corners */
+    width: 200px; /* Adjust width as needed */
+    transition: width 0.3s ease-in-out; /* Optional: makes the width grow/shrink smoothly */
+}
+
+form {
+    margin-right: 180px; /* Adjust this value to control the distance between the search and nav */
+}
+.username {
+    margin-right: 250px;  /* Space between logo and username */
+    font-size: 16px;
+    font-weight: bold;
+}
+    
+        canvas {
+            margin-top: 6em; /* Push content below fixed header */
+            width: 100%; /* Ensure it takes the full width */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .aboutHeader{
+            margin-left: 5em;
+        }
+#paypal-container-EJZRVC33UHXQW{
+    display: flex;
+    justify-content: center;
+}
+
+.username {
+    margin-right: 250px;  /* Space between logo and username */
+    font-size: 16px;
+}
+
+
+        @media (max-width: 800px) {
+            .hello {
+                transform: translate(0vw, 14vh); /* Push the .hello content further down */
+            }
+            
+            /* Add margin to the body or .hello element to prevent overlap with the header */
+            body {
+                padding-top: 6em; /* Ensure there's enough space below the header */
+            }
+            
+            /* Stacking navigation items and adjusting other elements in the header */
+            nav ul {
+                flex-direction: column; /* Stack nav items on smaller screens */
+                align-items: flex-start;
+            }
+
+            nav ul li {
+                margin-left: 0;
+                margin-bottom: 0.5em;
+            }
+
+            header {
+                display: flex;
+                flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+            }
+
+            .logo img {
+                height: 40px; /* Adjust logo size for smaller screens */
+            }
+
+
+            .carousel-caption {
+                font-size: 0.9em; /* Smaller font size on mobile */
+                padding: 0.5em; /* Less padding */
+            }
+
+            .createAccountMessage{
+                flex-wrap: nowrap;
+                transform: translate(0vw, 5vh);
+                justify-content: center; /* Push the .hello content further down */
+
+            }
+
+            .buttons{
+                transform: translate(0vw, 5vh);
+            }
+
+            .createAccountButton{
+                margin-right: 5vw;
+            }
+
+            .carousel-indicators {
+                bottom: 10px; /* Move indicators closer to the bottom */
+            }
+
+            .pfp img{
+                transform: translate(0vw, 4.5vh);
+            }
+
+
+
+            #carouselExampleCaptions {
+                max-width: 100%; /* Use full width for smaller screens */
+                transform: translate(0vw, 0vh);
+            }
+
+            .carousel-caption {
+                font-size: 0.9em; /* Smaller font for captions on mobile */
+            }
+
+            .carousel-border-wrapper {
+                padding: 10px; /* Reduce padding on smaller screens */
+                transform: translate(0vw, -139.1vh);
+            }
+
+                /* Adjust image size on smaller screens */
+            .carousel-inner img {
+                width: 100%; /* Ensure it occupies full width */
+                height: 40vh; /* Maintain a reasonable height */
+            }
+
+            .carousel-indicators {
+            padding: 10px; /* Rounded corners */
+            background-color: #191d1e;
+
+            }
+
+            .content-container {
+            flex-direction: column; /* Stack items on smaller screens */
+            }
+
+            .description{
+                display: flex;
+                justify-content: center;
+            }
+
+            .description-container {
+                height: 40vh; /* Reduce height for smaller screens */
+                margin-top: 5vh; /* Adjust top margin for responsiveness */
+            }
+
+            .description {
+                font-size: 1.2em; /* Slightly smaller font size */
+                text-align: center; /* Ensure text alignment on smaller screens */
+            }
+        }
+
+        @media (min-width: 1778px) {
+            .carousel-border-wrapper {
+                transform: translate(0vw, -160.7vh);
+            }
+
+        }
+    </style>
+    <script>
+        document.getElementById('search').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                this.form.submit();  // Automatically submit the form when Enter is pressed
+            }
+        });
+    </script>
+
+</head>
+
+<body>
+        <h1>Support The Red Rat Web</h1>
+
+        <section class="donation-section">
+            <h2>Keep the Legacy Alive!</h2>
+            <p>Your contribution helps us create original content, maintain our community, and <br> expand the Red Rat Web experience. <br> <br> Every donation makes a difference.</p>
+        
+            <form class="donation-form" id="donation-form">
+                <div class="mb-3">
+                    <script src="https://www.paypal.com/sdk/js?client-id=BAAza-6my0O40ZMh25jIfC8MSyR2NUIc_oBT3MYu9T8N4-JUYABXqf5EMyFBPKAm661b6SyjJgW9at-rIo&components=hosted-buttons&enable-funding=venmo&currency=USD"></script>
+                    <div id="paypal-container-EJZRVC33UHXQW"></div>
+                    <script>
+                     paypal.HostedButtons({
+                        hostedButtonId: "EJZRVC33UHXQW",
+                    }).render("#paypal-container-EJZRVC33UHXQW")
+                    </script>
+                    </div>
+            </form>
+        </section>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Sign In</a></li>
+
+            </ul>
+        </nav>
+        <form action="{{ url_for('search') }}" method="get">
+            <input type="text" name="query" id="search" placeholder="Search for anything..." value="{{ query or '' }}" />
+        </form>
+        {% if session.get('username') %}
+        <span class="username">Welcome: {{ session['username'] }}!</span>
+    {% else %}
+        <span>Welcome: Guest!</span>
+    {% endif %}
+
+    </header>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                    <h3 class="aboutHeader">About Me</h3>
+                    <p class="about">I am An Aspiring Game Designer Hoping <br> To Inrodce The World To My Imagination <br> And Bring People Together With Entertainment</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <div class="column1">
+                        <a href="{{ url_for('donate') }}">Donate</a>
+                        <a href="{{ url_for('contact') }}">Contact</a>
+                        <a href="{{ url_for('share') }}">Share</a>
+                        <a href="{{ url_for('socialMedia') }}">My Socials</a>
+                        <a href="{{ url_for('settings') }}">Account Settings</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <div class="column2">
+                        <p>Email: redratgames1@gmail.com</p>
+                        <p>Support Number: +1 (973) 934-0804</p>
+                     </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Pages</h3>
+                    <a href="{{ url_for('games') }}">Games</a>
+                    <a href="{{ url_for('media') }}">Streaming</a>
+                    <a href="{{ url_for('shopping') }}">Shopping</a>
+                    <a href="{{ url_for('social') }}">Social Platforms</a>
+                    <a href="{{ url_for('work') }}">Productivity</a>
+                    <a href="{{ url_for('design') }}">Design</a>
+                    <a href="{{ url_for('information') }}">Information</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2025 Red Rat Games. All rights reserved.
+            </div>
+        </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

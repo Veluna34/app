@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Rat Gaming</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Custom Scripts -->
+    <script src="../static/background2.js" defer></script>
+    <script src="https://code.createjs.com/1.0.0/easeljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../static/background2.css">
+
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Flexbox Layout for Body */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Content Wrapper */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding-top: 80px; /* To prevent content from being hidden behind fixed header */
+        }
+
+        /* Header Styling */
+        header {
+            position: fixed; /* Keep it at the top of the screen */
+            top: 0;
+            left: 0;
+            width: 100%; /* Full width */
+            background-color: #191d1e; /* Dark background */
+            color: #ffffff; /* White text */
+            display: flex; /* Flex layout */
+            align-items: center; /* Vertical alignment */
+            padding: 1.4em 1em; /* Padding */
+            z-index: 10; /* Above other content */
+            justify-content: space-between; /* Space between items */
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-start;
+            flex-grow: 1;
+            margin-left: 10vw;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            font-size: 1.17em;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-right: 1.3vw;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #a3a3a3;
+        }
+
+        .logo {
+            position: absolute;
+            right: 1em;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .support {
+            display: flex;
+            justify-content: center;
+            border-radius: 8em;
+            background-color: rgb(202, 137, 57);
+            border: .5em solid rgb(202, 137, 57);
+            width: 30%; /* Adjust the width as needed */
+            max-width: 20%; /* Optional: Limit the maximum width */
+            margin: 0 auto; /* Center the element horizontally */
+            margin-top: 0vh;
+        }
+
+
+        .support:hover {
+            background-color: rgb(160, 103, 45); /* Lighter shade on hover */
+            transform: scale(1.05); /* Slight zoom effect */
+            text-decoration: none;
+        }
+
+        button {
+            background: none;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+
+        .support:hover button {
+            color: rgb(255, 255, 255); /* Optional: Change button text color on hover */
+        }
+
+        h1{
+            display: flex;
+            font-size: 5em;
+            color: aquamarine;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        h1 a {
+            color: aquamarine !important;
+            text-decoration: none;
+            font-size: inherit;
+            transition: color 0.3s;
+        }
+
+        h1 a:hover{
+            color: aqua !important;
+        }
+
+        .row1, .row2, .row3, .row4, .row5, .row6, .row7, .row8{
+            display: flex;
+            justify-content: center;
+            gap: 3%;
+            margin-top: 13%; /* Add spacing between rows */
+        }
+
+        .gameImgs {
+            border-left: 1em solid #647282;
+            border-right: 1em solid #6e7e8f;
+            border-top: 100%;
+            padding-left: 1em;
+            padding-right: 1em;
+        }
+
+        .row1 {
+            margin-top: 3%; /* Adjust as needed */
+        }
+
+        .row1 img, .row2 img, .row3 img, .row4 img, .row5 img, .row6 img, .row7 img, .row8 img{
+            border: .5em solid #437c94;
+            border-radius: 1em;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .gameImgs img:hover {
+            border-color: #38464c;
+            transform: scale(1.1);
+        }
+
+        .lofiMessage {
+            position: fixed;
+            color: aliceblue;
+            margin-left: 83.5%;
+            transform: translate(0vw, 14.5vh);
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #1e374f;
+            color: #ffffff;
+            padding: 5em 5em;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            transform: translate(0vw, 1vh);
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            transform: translate(5vw, -7vh);
+        }
+
+        .column1{
+            transform: translate(.25vw, -.25vh);
+        }
+
+        .column2{
+            transform: translate(0vw, -.4vh);
+        }
+
+        .footer-column h3 {
+            color: #c192ff;
+            font-size: 1.5em;
+            margin-bottom: 1.5vh;
+        }
+
+        .footer-column p, 
+        .footer-column a {
+            color: #ced4da;
+            font-size: 1em;
+            text-decoration: none;
+            margin-bottom: 0.2vw;
+            display: block;
+        }
+
+        .footer-column a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5em;
+            font-size: 1em;
+            color: #ced4da;
+            border-top: .5vh solid #ced4da;
+        }
+
+        .about{
+            text-align: center;
+            transform: translate(-7vw, 0vw);
+        }
+
+        iframe{
+            position: fixed;
+        }
+
+        .row1 img, .row2 img, .row3 img{
+            display: flex;
+            justify-content: center; /* Center align the items */
+            gap: 1%; /* Adjust gap between images */
+            margin-top: 3%; /* Provide space above the row */
+            flex-wrap: wrap; /* Allow wrapping of images if the screen width is narrow */
+            width: 100%; /* Fixed width for consistent size */
+            max-width: 270px; /* Optional: Set a maximum width for large screens */
+            height: auto; /* Maintain aspect ratio */
+            padding: 0 2%; /* Add padding to ensure spacing from the edges */
+            object-fit: contain; /* Fit image within bounds without cropping */
+            border: .5em solid #437c94;
+            border-radius: 1em;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .row1 {
+            display: flex;
+            justify-content: center;
+            gap: 6%; /* Increase the gap between images */
+            margin-top: 2%; /* Adjust spacing above the row */
+            flex-wrap: wrap;
+        }
+
+        .row2, .row3{
+            display: flex;
+            justify-content: center;
+            gap: 6%; /* Increase the gap between images */
+            margin-top: 10%; /* Adjust spacing above the row */
+            flex-wrap: wrap;
+        }
+
+        .click {
+            display: flex;
+            flex-direction: column; /* Stack the text for better readability on smaller screens */
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            text-align: center;
+            padding: .1em; /* Add some padding */
+            border-radius: 50px; /* Round the edges more for a modern look */
+            background-color: rgb(202, 137, 57);
+            border: 0.5em solid rgb(202, 137, 57);
+            width: 20%; /* Use a percentage for adaptability */
+            max-width: 30em; /* Limit the width for large screens */
+            margin: 2em auto; /* Center on the page with spacing */
+            font-size: 1.2em; /* Set a default font size */
+            line-height: 1.5; /* Improve text readability */
+            margin-top: .5%;
+        }
+        #search {
+    padding: 5px 10px; /* Adds some padding inside the search bar */
+    border: 1px solid #ccc; /* Adds border to search bar */
+    border-radius: 4px; /* Rounds the corners */
+    width: 200px; /* Adjust width as needed */
+    transition: width 0.3s ease-in-out; /* Optional: makes the width grow/shrink smoothly */
+}
+
+#search:focus {
+    width: 250px; /* Optional: expands search bar when focused */
+}
+
+form {
+    margin-right: 180px; /* Adjust this value to control the distance between the search and nav */
+}
+.username {
+    margin-right: 250px;  /* Space between logo and username */
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.emoji {
+    font-size: .9em; /* Adjust emoji font size */
+    display: flex;
+    gap: 10px; /* Space between emoji items */
+    justify-content: center;
+}
+
+.emoji:hover{
+    font-size: 1.1em;
+}
+        .counter {
+            font-size: 1.1em;
+            margin-left: 5px;
+            color: #ced4da;
+        }
+        /* Responsive Styling */
+        @media (max-width: 800px) {
+            h1{
+                transform: translate(0vw, 14vh);
+            }
+
+            body {
+                padding-top: 6em; /* Space below fixed header */
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav ul li {
+                margin-left: 0;
+                margin-bottom: 0.5em;
+            }
+
+            header {
+                flex-wrap: wrap;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+
+            h1{
+                transform: translate(0vw, 1vh);
+            }
+
+            .lofiMessage{
+                transform: translate(0vw, 3vh);
+                z-index: 5;
+            }
+
+            .click {
+            width: 80%; /* Make it occupy more space on smaller screens */
+            font-size: 0.9em; /* Adjust font size for readability */
+            padding: 1.5em; /* Add more padding for touch devices */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .click {
+            width: 90%; /* Almost full width on very small screens */
+            font-size: 0.8em; /* Slightly smaller font for compact screens */
+            padding: 1.2em; /* Reduce padding to fit */
+        }
+    }
+    </style>
+    <script>
+        document.getElementById('search').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                this.form.submit();  // Automatically submit the form when Enter is pressed
+            }
+        });
+    </script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Sign In</a></li>
+
+            </ul>
+        </nav>
+        <form action="{{ url_for('search') }}" method="get">
+            <input type="text" name="query" id="search" placeholder="Search for anything..." value="{{ query or '' }}" />
+        </form>
+        {% if session.get('username') %}
+        <span class="username">Welcome: {{ session['username'] }}!</span>
+    {% else %}
+        <span>Welcome: Guest!</span>
+    {% endif %}
+
+    </header>
+    <!-- Main Content -->
+    <div class="content">
+        <canvas></canvas>
+
+        <h1>Luxurious Brands All In One Place</h1>
+        <p class="click">Experience Elegance</p>
+
+
+        <div class="gameImgs">
+            <!-- Row 1 -->
+            <div class="row1">
+                <div class="gameItem">
+                <a href="https://www.gucci.com/us/en/" target="_blank" data-name="Gucci">
+                    <img class="gucci" title="Discover The Elegance Of Gucci" src="https://www.thefactshop.com/wp-content/uploads/2017/12/gucci-facts.webp"  alt="Gucci">
+                </a>
+                <div class="emoji" data-link="gucci">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.versace.com/us/en/?wt_mc=US.SEM.Google.Text.01_Top_Brand_Exact_US.Exact&utm_campaignname=01_Top_Brand_Exact_US&utm_adgroup=Exact&utm_term=versace&s_kwcid=AL!6089!3!Keyword!EXACT!!g!!versace&gclid=Cj0KCQiA4L67BhDUARIsADWrl7E0DymuWuMT2sIQu7VPBBuanOVXjQXn3HPGhygpFvN3dB8vUXdKXt4aAii5EALw_wcB&gclsrc=aw.ds&gad_source=1" target="_blank" data-name="Versace">
+                    <img class="versace" title="Discover The Elegance Of Versace" src="https://logo.com/image-cdn/images/kts928pd/production/ede876838fea33f3023070c103a055edf6ed65a0-1140x620.png?w=1920&q=72&fm=webp"  alt="Versace">
+                </a>
+                <div class="emoji" data-link="versace">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.prada.com/us/en.html?utm_campaign=GoogleSearch_US&utm_medium=CPC&utm_source=Google&utm_content=Pure_Brand_Exact&s_kwcid=AL!8549!3!717383702603!e!!g!!prada&gad_source=1&gclid=Cj0KCQiA4L67BhDUARIsADWrl7G5XedSgi6lpDhh8f3-F8HQiGjIH_KbGYnFvGWKGO5xILk1kDxYZSYaApqkEALw_wcB&gclsrc=aw.ds" target="_blank" data-name="Prada">
+                    <img class="prada" title="Discover The Elegance Of Prada" src="https://moneyinc.com/wp-content/uploads/2018/12/prada-milano-logo-traxex-gringer.jpg"  alt="Prada">                </a>
+                    <div class="emoji" data-link="prada">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+                <div class="gameItem">
+                    <a href="https://www.marcjacobs.com/us-en/home?gad_source=1&gclid=Cj0KCQiA4L67BhDUARIsADWrl7FBOmgxSZbhaXY7Gt3CYebYcXdHVT9joAy1iNm2VxxrwhMQCEv56Z0aAqCnEALw_wcB&gclsrc=aw.ds" target="_blank" data-name="Marc Jacobs">
+                        <img class="marc" title="Discover The Elegance Of Marc Jacobs" src="https://1000logos.net/wp-content/uploads/2019/11/Marc-Jacobs-Logo.jpg"  alt="Marc Jacobs">                </a>
+                        <div class="emoji" data-link="marc">
+                            <span class="emoji-icon">👍</span> 
+                            <span class="counter">0</span> <!-- Thumbs up counter -->
+                            <span class="emoji-icon">❤️</span> 
+                            <span class="counter">0</span> <!-- Heart counter -->
+                        </div>
+                    </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="row2">
+                <div class="gameItem">
+                <a href="https://www.rolex.com/en-us/watches?gclid=Cj0KCQiA4L67BhDUARIsADWrl7H8K_rAxcXeSlVYASjZIbpgISxBpy4FltecURbWv30o0H8JCkHJgDQaAgEFEALw_wcB&ef_id=Cj0KCQiA4L67BhDUARIsADWrl7H8K_rAxcXeSlVYASjZIbpgISxBpy4FltecURbWv30o0H8JCkHJgDQaAgEFEALw_wcB:G:s&s_kwcid=AL!141!3!682931455649!e!!g!!rolex!8684308457!87935379260&gad_source=1" target="_blank" data-name="Rolex">
+                    <img class="rolex" title="Discover The Elegance Of Rolex" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj4GiTQxynfoft9_rg2VgN1qbv64xlogRMFewOTwSYAlbdT1nn5O7RZuKBt1IW7Ei1vFbJXQ1sfmUZQSiBQEnEIzFa6cTCIXZNHAzQEc2fdfCZOzmUkOmUrlQCCaAM4AxBM6aJV04-mj4w/s3200/2018-Rolex-Logo.jpg"  alt="Rolex">
+                </a>
+                <div class="emoji" data-link="rolex">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.moncler.com/en-us/men/outerwear?utm_source=google&utm_medium=cpc&utm_campaign=US_CONV_SRC_BRN-PURE&gad_source=1&gclid=CjwKCAiApsm7BhBZEiwAvIu2XwsqfVUL-7L6DMCMPFe4IXbwq9PfX2LBbuAu6vKitLIrMEozF-NTOhoCoe4QAvD_BwE&gclsrc=aw.ds" target="_blank" data-anme="Moncler">
+                    <img class="mocler" title="Discover The Elegance With Moncler" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVWk_5yzOIcauKnDNvgFBd9yytjNeSNfmE0Q&s"  alt="Moncler">
+                </a>
+                <div class="emoji" data-link="mocler">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCounters(); // Initialize counters from localStorage
+            setupEmojiClickListeners(); // Add listeners to emoji groups
+        });
+    
+        // Function to initialize counters from localStorage
+        function initializeCounters() {
+    document.querySelectorAll('.emoji').forEach(emojiGroup => {
+        const websiteKey = emojiGroup.dataset.link;
+        emojiGroup.querySelectorAll('.emoji-icon').forEach((emoji, index) => {
+            const counter = emoji.nextElementSibling;
+            const emojiKey = `${websiteKey}-${emoji.textContent.trim()}`; // Use the emoji text content as part of the key
+            const savedCount = localStorage.getItem(emojiKey);
+
+            if (savedCount !== null) {
+                counter.textContent = savedCount; // Set the counter to the saved value
+            } else {
+                counter.textContent = '0'; // Default to 0 if no saved count
+            }
+        });
+    });
+}
+
+// Function to set up emoji click listeners
+async function setupEmojiClickListeners() {
+    document.querySelectorAll('.emoji-icon').forEach(emoji => {
+        emoji.addEventListener('click', async event => {
+            event.stopPropagation(); // Prevent click from propagating to parent elements
+            const emoji = event.target;
+            const counter = emoji.nextElementSibling;
+            const emojiGroup = emoji.closest('.emoji');
+            const websiteLink = emoji.closest('.gameItem').querySelector('a');
+            const websiteName = websiteLink.dataset.name;
+            const websiteType = emoji.textContent.trim() === '❤️' ? 'favorite' : emoji.textContent.trim() === '👍' ? 'liked' : ''; // Determine the type of the emoji (❤️ = favorite, 👍 = liked)
+
+            if (!websiteType) return; // Exit if it's an invalid emoji type
+
+            let currentCount = parseInt(counter.textContent, 10) || 0;
+            if (currentCount > 0) {
+                // Decrement if the counter is greater than 0
+                currentCount--;
+            } else {
+                // Increment if the counter is 0
+                currentCount++;
+            }
+            counter.textContent = currentCount; // Update the counter on the page
+
+            // Use emoji text (❤️ or 👍) as part of the unique key
+            const emojiKey = `${emojiGroup.dataset.link}-${emoji.textContent.trim()}`;
+            localStorage.setItem(emojiKey, currentCount.toString()); // Store the count in localStorage
+
+            const payload = {
+                url: websiteLink.href,
+                name: websiteName,
+                type: websiteType
+            };
+
+            try {
+                const response = await fetch('/toggle_website', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    const updatedHTML = await response.text(); // Get the HTML response
+                    document.getElementById('favorite-websites-list').innerHTML = updatedHTML.match(/<ul id="favorite-websites-list">([\s\S]*?)<\/ul>/)[1];
+                    document.getElementById('liked-websites-list').innerHTML = updatedHTML.match(/<ul id="liked-websites-list">([\s\S]*?)<\/ul>/)[1];
+
+                    // Reinitialize the counters after HTML is updated
+                    initializeCounters(); 
+                } else {
+                    console.error('Failed to toggle website');
+                }
+            } catch (error) {
+                console.error('Error toggling website:', error);
+            }
+        });
+    });
+}
+    
+        // Clear LocalStorage for debugging purposes
+        function clearLocalStorage() {
+            localStorage.clear();
+            alert('Local Storage cleared!');
+        }
+    </script>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                    <h3>About Me</h3>
+                    <p class="about">I am An Aspiring Game Designer Hoping <br> To Inrodce The World To My Imagination <br> And Bring People Together With Entertainment</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <div class="column1">
+                        <a href="{{ url_for('donate') }}">Donate</a>
+                        <a href="{{ url_for('contact') }}">Contact</a>
+                        <a href="{{ url_for('share') }}">Share</a>
+                        <a href="{{ url_for('socialMedia') }}">My Socials</a>
+                        <a href="{{ url_for('settings') }}">Account Settings</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <div class="column2">
+                        <p>Email: redratgames1@gmail.com</p>
+                        <p>Support Number: +1 (973) 934-0804</p>
+                     </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Pages</h3>
+                    <a href="{{ url_for('games') }}">Games</a>
+                    <a href="{{ url_for('media') }}">Streaming</a>
+                    <a href="{{ url_for('shopping') }}">Shopping</a>
+                    <a href="{{ url_for('social') }}">Social Platforms</a>
+                    <a href="{{ url_for('work') }}">Productivity</a>
+                    <a href="{{ url_for('design') }}">Design</a>
+                    <a href="{{ url_for('information') }}">Information</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2025 Red Rat Games. All rights reserved.
+            </div>
+        </footer>
+</body>
+</html>

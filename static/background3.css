@@ -1,39 +1,9 @@
-body {
-    background: radial-gradient(ellipse at center, rgb(0 255 22 / 41%) 0%, rgb(84 0 128 / 42%) 60%, rgb(9 210 145 / 0%) 90%), url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/31787/stars.jpg);	z-index:-5;
-	background-size:cover;
-	z-index:-5;
-	color: white;
-	size: cover;
-	overflow: hidden;
-	font-family: 'Monoton', monospace;
-	font-size: 2em;
-}
-
-h1 {
-	animation: neon1 1.5s ease-in-out infinite alternate;
-}
-
-#overlay {
-	right: 0;
-	left: 0;
-	margin: auto;
-	width: 100%;
-	text-align: center;
-}
 
 
-#timeline {
-    position: absolute; /* Position it absolutely */
-    top: 50%; /* Center it vertically */
-    left: 0; /* Align to the left */
-    width: 500%; /* Full width */
-    height: 6.7px; /* Height of the line */
-    background-color: #235fff;
-    z-index: 10; /* Make sure it’s above other elements */
-	border-radius: 10px;
-	    /* Glowing effect */
-		box-shadow: 0 0 10px rgb(18 0 255), 0 0 20px rgb(37 0 255);
-}
+
+
+
+
 
 #layer-0 {
 	background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 25%, rgba(255,71,255,1) 100%);

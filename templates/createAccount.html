@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
-    <title>Create Account</title>
+    <title>Sign In</title>
     <style>
         body {
             display: flex;
@@ -11,55 +10,148 @@
             align-items: center;
             height: 100vh;
             background-color: #1e374f;
+            margin: 0; /* Remove default margin */
         }
         form {
             border: 1px solid #ced4da;
-            padding: 20px;        
+            padding: 30px; /* Increased padding for better spacing */
             border-radius: 5px;
             background-color: rgb(95, 17, 61);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Reduced gap between form elements */
+            width: 100%;
+            max-width: 400px; /* Limit form width for better presentation */
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        label {
+            color: rgb(255, 255, 255);
         }
         input[type="text"],
         input[type="password"] {
-            width: 90%;
+            width: 100%; /* Full width of form container */
             padding: 10px;
-            margin: 10px 0;
+            margin-top: 5px; /* Adjusted for better spacing */
             border: 1px solid #ced4da;
             border-radius: 4px;
-            margin-top: 1px;
+            box-sizing: border-box; /* Ensure padding doesn't affect width */
         }
         input[type="submit"] {
             background-color: #6f00ff;
             color: white;
             border: none;
-            padding: 10px;
+            padding: 12px 0; /* Increased padding for better button appearance */
             cursor: pointer;
             border-radius: 4px;
+            font-size: 16px; /* Slightly larger text */
         }
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
+
         .error {
-            color: red;
-            margin-top: 10px;
+            color: rgb(255, 122, 122);
+            font-weight: bold;
+            font-size: 1.5em;
+            margin-top: 1.53m; /* Adjusted for better spacing */
+        }
+
+        .success {
+            color: green;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        h1 {
+            color: rgb(255, 255, 255);
+            text-align: center;
+            margin-bottom: 5px; /* Reduced space between title and inputs */
         }
     </style>
+    <script>
+    document.getElementById('search').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            this.form.submit();  // Automatically submit the form when Enter is pressed
+        }
+    });
+</script>
+        <script>
+        function validateForm(event) {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const email = document.getElementById('email').value;
+            const errorMessage = document.getElementById('error-message');
+            
+            // Reset previous error message
+            errorMessage.textContent = '';
 
+            // Check if username or password is empty
+            if (username === '' || password === '') {
+                event.preventDefault(); // Prevent form submission
+                errorMessage.textContent = 'Username and password cannot be empty';
+                return;
+            }
+
+            // Simple email regex to check for a valid email format
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+            // Check if email is valid
+            if (!emailRegex.test(email)) {
+                event.preventDefault(); // Prevent form submission
+                alert('Please enter a valid email address.');
+                return;
+            }
+        }
+        </script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('createAccountForm');
+            form.addEventListener('submit', function(event) {
+                validateForm(event); // Validate the form when submitting
+            });
+        });
+    </script>
 </head>
 <body>
 
-    <form method="post" action="/homepage" onsubmit="validateForm(event)" target="_blank">
-        <h2 style="color: rgb(255, 255, 255);">Create Account</h2>
-        <label style="color: rgb(255, 255, 255);" for="username">Username:</label>
-        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+    <form id="createAccountForm" method="post" action="/createaccount" target="_blank">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <p class="{{ category }}">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% endwith %}
+        <h1>Create Account</h1>
 
-        <label style="color: rgb(255, 255, 255);" for="password">Password:</label>
-        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        <!-- Username Section -->
+        <div class="input-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        </div>
+
+        <!-- Email Section -->
+        <div class="input-group">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" placeholder="Enter your Email" required>
+        </div>
+
+        <!-- Password Section -->
+        <div class="input-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        </div>
 
         <div id="error-message" class="error"></div>
 
-        <input type="submit" name="submit" value="Submit">
+        <input type="submit" name="submit" value="Create Account">
     </form>
-
 </body>
 </html>

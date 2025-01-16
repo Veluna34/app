@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synthwave Timeline</title>
+    <style>
+        /* General reset */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+        }
+
+                /* Sidebar for Years */
+        .timeline-sidebar {
+            position: fixed;
+            right: 0;
+            top: 11%;
+            width: 20%;
+            max-width: 200px;
+            min-width: 100px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            max-height: calc(105vh - 20%); /* Dynamically adjusts for mobile */
+            overflow-y: auto;
+            transition: all 0.3s ease; /* Smooth resizing for responsiveness */
+            box-shadow: 0 0 20px #ff00d4, 0 0 40px #ff0084;
+            
+        }
+
+        .timeline-sidebar h3{
+            text-align: center;
+            color:#a79dff;
+        }
+
+        /* Style for scrollbars (optional, for better appearance) */
+        .timeline-sidebar::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .timeline-sidebar::-webkit-scrollbar-thumb {
+            background: #ff6ec7;
+            border-radius: 4px;
+        }
+
+        .timeline-sidebar::-webkit-scrollbar-thumb:hover {
+            background: #ffffff;
+        }
+
+        .timeline-sidebar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: left;
+        }
+
+        .timeline-sidebar ul li {
+            margin: 25px 0;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .timeline-sidebar ul li a {
+            color: #ff6ec7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .timeline-sidebar ul li a:hover {
+            color: #ffffff;
+            transform: scale(1.1); /* Slight zoom on hover */
+        }
+
+        .timeline-sidebar ul li span {
+            font-size: 1rem;
+            color: #a3a3a3;
+            display: block;
+            margin-top: 5px;
+        }
+
+
+        .timeline-sidebar ul li a.active {
+            color: #ffffff;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Synthwave Background */
+        body {
+            background: linear-gradient(to bottom, #242459, #4c0181, #450784, #21064c);
+            background-size: cover;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        h1 {
+            text-align: center;
+            margin-top: 1.5em; /* Push the title below the header */
+            font-size: 3rem;
+            color: #ff6ec7;
+            text-shadow: 0 0 10px #ff6ec7, 0 0 20px #f000ff, 0 0 30px #a000ff;
+        }
+
+        #clickMessage{
+            position: relative;
+            bottom: 7vh;
+            text-align: center;
+            margin-top: .5em; /* Push the title below the header */
+            color: #ff0099;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+        }
+
+        /* Timeline Container */
+        .timeline {
+            position: relative;
+            margin: 40px 0;
+            padding: 10px 0;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #ff6ec7;
+            z-index: 1;
+        }
+
+        /* Timeline Item */
+        .timeline-item {
+            position: relative;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Align odd items to the right and even items to the left */
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse; /* Aligns content to the right */
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row; /* Aligns content to the left */
+        }
+
+        /* Styling for the timeline item content */
+        .timeline-item-content {
+            display: inline-block;
+            max-width: 45%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgb(255, 0, 204);
+            border-radius: 8px;
+            padding: 15px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 0 3px rgba(0, 249, 245, 0.475);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        /* Hover effect for items */
+        .timeline-item-content:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #0d00ff, 0 0 40px #0d00ff;
+        }
+
+        /* Add timeline circle */
+        .timeline-item-content::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            background: #ff009d;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        /* Adjust circle position for odd and even items */
+        .timeline-item:nth-child(odd) .timeline-item-content::after {
+            right: -6px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-item-content::after {
+            left: -6px;
+        }
+
+        /* Adjust margin to ensure the timeline items are properly spaced */
+        .timeline-item:nth-child(odd) .timeline-item-content {
+            margin-right: calc(50% + 15px); /* Push odd items to the right */
+        }
+
+        .timeline-item:nth-child(even) .timeline-item-content {
+            margin-left: calc(50% + 15px); /* Push even items to the left */
+        }
+
+        footer {
+            background-color: #1e374f;
+            color: #ffffff;
+            padding: 5em 5em;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            transform: translate(0vw, 0vh);
+            left: 0;
+            min-width: 100%;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            transform: translate(5vw, -7vh);
+        }
+
+        .column1{
+            transform: translate(.25vw, -.25vh);
+        }
+
+        .column2{
+            transform: translate(0vw, -.4vh);
+        }
+        
+        .footer-column h3 {
+            color: #c192ff;
+            font-size: 1.5em;
+            margin-bottom: 1.5vh;
+        }
+
+        .footer-column p, 
+        .footer-column a {
+            color: #ced4da;
+            font-size: 1em;
+            text-decoration: none;
+            margin-bottom: 0.2vw;
+            display: block;
+        }
+
+        .footer-column a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5em;
+            font-size: 1em;
+            color: #ced4da;
+            border-top: .5vh solid #ced4da;
+        }
+
+        .about{
+            text-align: center;
+            transform: translate(-7vw, 0vw);
+        }
+
+        header {
+            position: fixed; /* Keep it at the top of the screen */
+            top: 0;
+            left: 0;
+            width: 100%; /* Ensures it spans the full width of the screen */
+            background-color: #191d1e; /* Dark background for visibility */
+            color: #ffffff; /* White text */
+            display: flex; /* Flexbox for layout */
+            align-items: center; /* Aligns items vertically in the header */
+            padding: 1.4em 1em; /* Add padding */
+            z-index: 10; /* Ensures it appears above other content */
+            justify-content: space-between; /* Spreads the content across the header */
+        }
+
+        nav {
+            display: flex; /* Ensure the navigation links are in a row */
+            justify-content: flex-start; /* Align the links to the left */
+            flex-grow: 1; /* Allow the nav to take the remaining space */
+            margin-left: 10vw;
+        }
+    
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            font-size: 1.17em;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-right: 1.3vw;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+    
+        nav ul li a {
+            color: #ffffff; /* White text color */
+            text-decoration: none; /* Remove underline */
+            transition: color 0.3s; /* Smooth color transition */
+        }
+    
+        nav ul li a:hover {
+            color: #a3a3a3; /* Change color on hover */
+        }
+    
+        .logo {
+            position: absolute; /* Position logo absolutely within header */
+            right: 1em; /* Push logo to the right */
+        }
+    
+        .logo img {
+            height: 50px; /* Set logo height */
+        }
+
+        canvas {
+            margin-top: 6em; /* Push content below fixed header */
+            width: 100%; /* Ensure it takes the full width */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .timeline-item-content button{
+            all: unset;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .timeline-item-content h3{
+            display: flex;
+            text-decoration: none; 
+            color: inherit;
+            justify-content: center;
+        }
+
+        .timeline-item-content h2{
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #f000ff, 0 0 30px #1e00ff;
+        }
+
+        .timeline-item-content li{
+            text-align: center;
+            font-size: larger;
+        }
+        .timeline-image {
+    width: 100%; /* Make image take full width of the container */
+    max-width: 200px; /* Max width to prevent the image from becoming too large */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Optional, for rounded corners */
+    margin-top: 10px; /* Space between the text and the image */
+    margin-bottom: 10px; /* Space between the image and the list */
+    object-fit: cover; /* Ensure the image fits well without stretching */
+    display: block; /* Ensures it is treated as a block element */
+    margin-left: auto;
+    margin-right: auto; /* Centers the image */
+}
+
+/* Make sure timeline content adjusts its layout properly */
+.timeline-item-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers content horizontally */
+    justify-content: flex-start; /* Align items vertically */
+    text-align: center; /* Center text */
+}
+
+
+        /* Center the <ul> and <li> inside the .timeline-item-content */
+            .timeline-item-content {
+            display: inline-block;
+            max-width: 45%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgb(255, 0, 204);
+            border-radius: 8px;
+            padding: 15px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 0 3px rgba(0, 249, 245, 0.475);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centers content horizontally */
+            justify-content: center; /* Centers content vertically */
+        }
+
+        /* Remove bullet points and center the list */
+        .timeline-item-content ul {
+            padding-left: 0; /* Remove default padding */
+            margin: 0; /* Remove margin */
+            display: flex;
+            flex-direction: column; /* Stack the list items vertically */
+            align-items: center; /* Centers list items horizontally */
+        }
+
+        #search {
+    padding: 5px 10px; /* Adds some padding inside the search bar */
+    border: 1px solid #ccc; /* Adds border to search bar */
+    border-radius: 4px; /* Rounds the corners */
+    width: 200px; /* Adjust width as needed */
+    transition: width 0.3s ease-in-out; /* Optional: makes the width grow/shrink smoothly */
+}
+
+#search:focus {
+    width: 250px; /* Optional: expands search bar when focused */
+}
+
+form {
+    margin-right: 180px; /* Adjust this value to control the distance between the search and nav */
+}
+.username {
+    margin-right: 250px;  /* Space between logo and username */
+    font-size: 16px;
+    font-weight: bold;
+}
+
+        /* Center the <li> elements */
+        .timeline-item-content ul li {
+            margin: 15px 0; /* Add space between items */
+        }
+
+        .audio-section {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px; /* Increased space between players for a cleaner look */
+    margin-top: 3em;
+}
+
+.audio-player {
+    background: rgba(255, 0, 0, 0.1); /* Lighter background with less opacity */
+    border: 2px solid #ff6ec7; /* Border color matching the theme */
+    border-radius: 10px;
+    padding: 10px;
+    width: 280px; /* Control width */
+    text-align: center;
+    box-shadow: 0 0 8px rgba(0, 249, 245, 0.3); /* Subtle shadow effect */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+}
+
+.audio-title {
+    font-size: 1.1em; /* Slightly smaller font size */
+    color: #ff6ec7;
+    margin-bottom: 8px; /* Reduced space between title and audio controls */
+    text-shadow: 0 0 3px rgba(0, 249, 245, 0.4); /* Subtle text shadow */
+}
+
+/* Optional: Hover Effect on the Audio Players */
+.audio-player:hover {
+    transform: scale(1.03); /* Slightly less scaling */
+    box-shadow: 0 0 15px #ff00d4, 0 0 30px #ff0084; /* Subtle glow on hover */
+}
+
+.audio-player audio {
+    width: 100%; /* Make audio player take up full width */
+    margin-top: 10px;
+}
+
+.audio-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px; /* Space between rows */
+}
+
+#musicMessage {
+    position: relative;
+    top: 5vh;
+    color: #ff6ec7 !important;
+    margin-top: -3vh;
+}
+
+.audio-row1{
+    display: flex !important;
+    justify-content: center !important;
+}
+/* For responsiveness */
+@media (max-width: 768px) {
+    .audio-player {
+        width: 220px; /* Adjust for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .audio-player {
+        width: 100%; /* Take full width on mobile */
+    }
+}
+        @media(max-width:800px){
+            body {
+                padding-top: 6em; /* Ensure there's enough space below the header */
+            }
+            
+            /* Stacking navigation items and adjusting other elements in the header */
+            nav ul {
+                flex-direction: column; /* Stack nav items on smaller screens */
+                align-items: flex-start;
+            }
+
+            nav ul li {
+                margin-left: 0;
+                margin-bottom: 0.5em;
+            }
+
+            header {
+                display: flex;
+                flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+            }
+
+            .logo img {
+                height: 40px; /* Adjust logo size for smaller screens */
+            }
+
+            .timeline-sidebar{
+                top: 20%;
+            }
+        }
+
+
+        @media (max-width: 1024px) {
+    .timeline-sidebar {
+        width: 25%;
+        max-width: 180px;
+        padding: 8px;
+    }
+
+    .timeline-sidebar ul li {
+        margin: 10px 0;
+        font-size: 0.9rem;
+    }
+
+    .timeline-sidebar ul li a {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .timeline-sidebar {
+        width: 30%;
+        max-width: 150px;
+        padding: 6px;
+        max-height: 80vh; /* Reduce height for smaller screens */
+    }
+
+    .timeline-sidebar ul li {
+        margin: 8px 0;
+        font-size: 0.85rem;
+    }
+
+    .timeline-sidebar ul li a {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .timeline-sidebar {
+        width: 100%; /* Take full width on mobile */
+        right: 0;
+        max-height: 50vh; /* Reduce height further */
+        border-radius: 0; /* Remove rounded edges */
+    }
+
+    .timeline-sidebar h3 {
+        font-size: 1.2rem;
+    }
+
+    .timeline-sidebar ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+    </style>
+    <script>
+        document.getElementById('search').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                this.form.submit();  // Automatically submit the form when Enter is pressed
+            }
+        });
+    </script>
+</head>
+<body>
+
+
+   
+    <h1>THE PAST PRESENT & FUTURE OF GAMING</h1>
+    <h2 id="musicMessage"> Experience The Timeline With Your Choice Of 9 Retro Game Tracks</h2>
+
+
+    <div class="audio-section">
+        <!-- First Row: Pair of Audio Tracks -->
+        <div class="audio-row">
+            <div class="audio-player">
+                <h3 class="audio-title">Track 1: The Legend Of Zelda</h3>
+                <audio id="track1" controls loop>
+                    <source src="https://www.dropbox.com/scl/fi/pe0cl4utruvndj376q6dy/03.-Overworld-BGM.mp3?rlkey=1sxcpc6yhfhyu06u859parx2t&st=fntpxxz3&dl=1" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+            
+            <div class="audio-player">
+                <h3 class="audio-title">Track 2: Metroid</h3>
+                <audio id="track2" controls autoplay loop>
+                    <source src="https://www.dropbox.com/scl/fi/hiw9jo5mtqojgj4rj48mg/31.-Meta-Ridley.mp3?rlkey=wi3xz9klz1n0vo37i2nzhedck&st=eo7xh6l9&dl=1" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+    
+        <!-- Second Row: Pair of Audio Tracks -->
+        <div class="audio-row">
+            <div class="audio-player">
+                <h3 class="audio-title">Track 3: Pokemon</h3>
+                <audio id="track3" controls loop>
+                    <source src="https://www.dropbox.com/scl/fi/4rzbx1gcsoxdrlt6czw1h/03-Title-Screen.mp3?rlkey=2swzv0w0tdxkg7ho4ryrzz8oj&st=auteiwtg&dl=1" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+            <div class="audio-player">
+                <h3 class="audio-title">Track 4: Sonic</h3>
+                <audio id="track4" controls loop>
+                    <source src="https://www.dropbox.com/scl/fi/iv7bs4uwfa9yxmwrvj80s/01-Green-Hill-Zone-Act-1.mp3?rlkey=r1yl5ucdwm9d8c3fz4887g8zl&st=snvoe2jx&dl=1" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+
+        <div class="audio-row">
+            <div class="audio-player">
+                <h3 class="audio-title">Track 5: Classic Doom</h3>
+                <audio id="track5" controls loop>
+                    <source src="https://www.dropbox.com/scl/fi/r267n9453ab1g1mtj1g3l/02.-At-Doom-s-Gate.mp3?rlkey=q14cc66o9jg5ylgiqqflo5j2a&st=1qduac1k&dl=1" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+            
+            <div class="audio-player">
+                <h3 class="audio-title">Track 6: Resident Evil II</h3>
+                <audio id="track6" controls loop>
+                    <source src="https://www.dropbox.com/scl/fi/66tjvtfrxqoxqkry9bwaw/03-Racoon-City.mp3?rlkey=ghexi8vmemk7c6917zeo5ynvj&st=nhfj7ro7&dl=1" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+        <div class="audio-row">
+            <div class="audio-player">
+                <h3 class="audio-title">Track 7: Street Fighter</h3>
+                <audio id="track7" controls loop>
+                    <source src="https://www.dropbox.com/scl/fi/jvrfyj4p7arniwm9d3w98/02-Stage-Select.mp3?rlkey=rrkkic0m3tc0k4nhndxmcge6r&st=44lg6mxj&dl=1" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+            <div class="audio-player">
+                <h3 class="audio-title">Track 8: Kirby</h3>
+                <audio id="track8" controls loop>
+                    <source src="https://www.dropbox.com/scl/fi/v60d9ytehdx2f6sm3b403/02.-Green-Greens.mp3?rlkey=02knhpzbx1ydh890n6n9uoqd7&st=98qqgtuz&dl=1" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+        <div class="audio-row1">
+            <div class="audio-player">
+                <h3 class="audio-title">Track 9: Chrono Trigger</h3>
+                <audio id="track9" controls loop>
+                    <source src="https://www.dropbox.com/scl/fi/9wp3pz4ygpspp54lej235/02.-Chrono-Trigger.mp3?rlkey=eiew9ctv9ggu35cuwvqg1zyqa&st=2p6rxiy9&dl=1" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+    
+        <!-- Add more rows as needed... -->
+    </div>
+    
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Sign In</a></li>
+
+            </ul>
+        </nav>
+        <form action="{{ url_for('search') }}" method="get">
+            <input type="text" name="query" id="search" placeholder="Search for anything..." value="{{ query or '' }}" />
+        </form>
+        {% if session.get('username') %}
+        <span class="username">Welcome: {{ session['username'] }}!</span>
+    {% else %}
+        <span>Welcome: Guest!</span>
+    {% endif %}
+
+    </header>
+
+    <div class="timeline">
+        <h2 id="clickMessage"> Click On An Event And See Where It Brings You </h2>
+        <div class="timeline-item">
+            <div class="timeline-item-content" id="event-1958">
+                <button>
+                    <a href="https://www.youtube.com/watch?v=6PG2mdU_i8k" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h2>1958</h2>
+                        <h3>Tennis For Two Is Created:</h3>
+                        <img src="https://i.ytimg.com/vi/lVzZLrzvG8k/maxres2.jpg?sqp=-oaymwEoCIAKENAF8quKqQMcGADwAQH4AbYIgAKAD4oCDAgAEAEYZSBeKE8wDw==&rs=AOn4CLCb3IbAIbh9CIzEaEAuWMaMgEAMKQ" alt="Tennis For Two" class="timeline-image">
+                        <ul>
+                            <li> The First Video Game Ever Made</li>
+                        </ul>
+                    </a>
+                </button>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-item-content">
+                <button>
+                    <a href="https://www.youtube.com/watch?v=6PG2mdU_i8k" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h2>1961</h2>
+                        <h3>Space War Is Created:</h3>
+                        <img src="https://www.thoughtco.com/thmb/5uGKwK8kCAcLL4JJyWBowdzJzaU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Spacewar_screenshot-5954c1c35f9b5815d91a10ec.jpg" alt="Space War" class="timeline-image">
+                        <ul>
+                            <li> The First Computer Game Ever Made</li>
+                        </ul>
+                    </a>
+                </button>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-item-content">
+                <button>
+                    <a href="https://www.youtube.com/watch?v=eePWlLKm_Bg" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h2>1961</h2>
+                        <h3>Computer Space (Based On Space War) Releases:</h3>
+                        <img src="https://m.media-amazon.com/images/M/MV5BMTEzMTQzNDUtNjk1NC00MjE1LWIzMjktOWYxNjZlZjE5YWQxXkEyXkFqcGc@._V1_.jpg" alt="Computer Space" class="timeline-image">
+                        <ul>
+                            <li> The First Arcade Game Ever Made</li>
+                        </ul>
+                    </a>
+                </button>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-item-content">
+                <button>
+                    <a href="https://www.youtube.com/watch?v=ut6Rh-rmGAo" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h2>1971</h2>
+                        <h3>Pong Releases:</h3>
+                        <img src="https://www.raspberrypi.org/app/uploads/2020/02/pong-code-the-classics.png" alt="Pong" class="timeline-image">
+                        <ul>
+                            <li> The First Popular Arcade Game</li>
+                        </ul>
+                    </a>
+                </button>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-item-content">
+                <button>
+                    <a href="https://www.youtube.com/watch?v=jLGBtkKPj2U" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h2>1972</h2>
+                        <h3>Magnavox Odessey Releases:</h3>
+                        <img src="https://ychef.files.bbci.co.uk/1280x720/p0gzwdq9.jpg  " alt="Magnavox Oddessey" class="timeline-image">
+
+                        <ul>
+                            <li> The FIrst Console Ever Made</li>
+                        </ul>
+                    </a>
+                </button>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-item-content">
+                <button>
+                    <a href="https://www.youtube.com/watch?v=bfmL6l128JU" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h2>1973</h2>
+                        <h3>Table Tennis (inspired by pong) Releases On The Magnavox Odessey: </h3>
+                        <img src="https://i.ytimg.com/vi/5DXgPpijBC0/hqdefault.jpg" alt="Table Tennis" class="timeline-image">
+                        <ul>
+                            <li>
+                                The First Home Video Game
+                            </li>
+                        </ul>
+                    </a>
+                </button>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-item-content">
+                <button>
+                    <a href="https://www.youtube.com/watch?v=FvT8jG1OVdI" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h2>1974</h2>
+                        <h3>Gun Fight Releases:</h3>
+                        <img src="https://arcadeologia.es/img/catalogo/gunfight/gunfight-3.png" alt="Gun Fight" class="timeline-image">
+                        <ul>
+                            <li> The FIrst Multiplayer Game</li>
+                            <li> First Game To Use A Joystick & Buttons</li>
+                        </ul>
+                    </a>
+                </button>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-item-content">
+                <button>
+                    <a href="https://www.youtube.com/watch?v=FvT8jG1OVdI" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h2>1975</h2>
+                        <h3>Atari Home Pong Releases:</h3>
+                        <img src="https://history.wf.com/wp-content/uploads/GBH_PONG_Story_1440x581.jpg" alt="Atari Home Pong" class="timeline-image">
+                        <ul>
+                            <li> The First Popular Home Video Game</li>
+                        </ul>
+                    </a>
+                </button>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-item-content">
+                <button>
+                    <a href="https://www.youtube.com/watch?v=-g1toJ4VBO0" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h2>1975</h2>
+                        <h3>Farchild F Releases:</h3>
+                        <img src="https://www.videogameconsolelibrary.com/images/1970s/76_Fairchild_Channel_F/Channel_F_Adv2_2cr.jpg" alt="Farchild F" class="timeline-image">
+                        <ul>
+                            <li> The First Console To Use Cartridges</li>
+                            <li> A founding Company Of Silicon Valley</li>
+                            <li> Allowed For The Birth Of The Computer Industry</li>
+                        </ul>
+                    </a>
+                </button>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-item-content">
+                <button>
+                    <a href="https://www.youtube.com/watch?v=AMUv8KvVt08" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h2>1976</h2>
+                        <h3>Breakout Release As An Arcade Game:</h3>
+                        <img src="https://upload.wikimedia.org/wikipedia/en/7/7a/BreakOut_arcadeflyer.png" alt="Break Out" class="timeline-image">
+                        <ul>
+                            <li> Introduced Levels/Difficulty</li>
+                            <li> A Pioneer In Colored Graphics</li>
+                            <li> Created The Brick Breaking Genre Of Games</li>
+                            <li>Established The Paddle Controller As A Staple For Games</li>
+                        </ul>
+                    </a>
+                </button>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-item-content" id="event-1977">
+                <button>
+                    <a href="https://www.youtube.com/watch?v=tQ9eaNRI124" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h2>1977</h2>
+                        <h3>The Atari 2600 Releases:</h3>
+                        <img src="https://atari.com/cdn/shop/files/ProductImage-F.jpg?v=1692711673&width=1445" alt="Atari 2600" class="timeline-image">
+
+                        <ul>
+                            <li>The First Modern Gaming Console</li>
+                            <li>Turned Gaming Into A Mainstream Hobby</li>
+                            <li> The First Console To Bring Arcade Games To The Home</li>
+                        </ul>
+                    </a>
+                </button>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-item-content">
+                <button>
+                    <a href="https://www.youtube.com/watch?v=2LxPEdUZOkE" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h2>1977</h2>
+                        <h3>Combat Releases As The First Original Game On The Atari:</h3>
+                        <img src="https://upload.wikimedia.org/wikipedia/en/d/d0/Combatatarigamepack.jpg" alt="Combat" class="timeline-image">
+
+                        <ul>
+                            <li>Popularized Gaming Consoles</li>
+                            <li>Established Multiplayer As A Staple For Gaming</li>
+                        </ul>
+                    </a>
+                </button>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-item-content">
+                <button>
+                    <a href="https://www.youtube.com/watch?v=LQZDRELOqoI" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h2>1977</h2>
+                        <h3>Adventure Releases On The Atari As The Frst Ever Adventure Game</h3>
+                        <img src="https://upload.wikimedia.org/wikipedia/en/6/60/Adventure_Box_Front.jpg" alt="Adventure" class="timeline-image">
+
+                        <ul>
+                            <li>First Game To Have An Open World</li>
+                            <li>First Game To Have An Inventory</li>
+                            <li>First Ever Adventure Game</li>
+                            <li> First Non Linear Game</li>
+
+                        </ul>
+                    </a>
+                </button>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-item-content">
+                <button>
+                    <a href="https://www.youtube.com/watch?v=EeweWzDTBZQ" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h2>1978</h2>
+                        <h3>Space Invaders Releases As An Arcade Game:</h3>
+                        <img src="https://i0.wp.com/gamingrespawn.com/wp-content/uploads/2021/05/Space-Invaders-III.jpg?ssl=1" alt="Space Invaders" class="timeline-image">
+
+                        <ul>
+                            <li>Made Video Games Competative</li>
+                            <li>Paved The Way For The Arcade Boom Starting In 1978</li>
+                        </ul>
+                    </a>
+                </button>
+            </div>
+        </div>
+
+        
+        <div class="timeline-item">
+            <div class="timeline-item-content">
+                <button>
+                    <a href="https://www.youtube.com/watch?v=yrmUaagrh68" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h2>1978</h2>
+                        <h3>Magnavox Odessey 2 Releases:</h3>
+                        <img src="https://i.ytimg.com/vi/1wmEOeCG1YE/sddefault.jpg" alt="Odessey 2" class="timeline-image">
+                         <ul>
+                            <li>First Gaming Machine That Used A Keyboard</li>
+                            <li>Introduced An Educational Aspect To Games</li>
+                        </ul>
+                    </a>
+                </button>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-item-content" id="event-1978">
+                <button>
+                    <a href="https://www.youtube.com/watch?v=aVeUr7cfmvI" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h2>1978</h2>
+                        <h3>The Arcade Boom Has Now Started:</h3>
+                        <img src="https://schifferbooks.com/cdn/shop/files/9780764319259_grande.jpg?v=1691518906" alt="Arcade Boom" class="timeline-image">
+                         <ul>
+                            <li> Created A Culutre Around Gaming</li>
+                            <li>Introduced The Most Popular Games Of All Time</li>
+                            <li>Revolutionized Technology Especially In The Game Industry</li>
+                        </ul>
+                    </a>
+                </button>
+            </div>
+        </div>
+
+        
+        <div class="timeline-item">
+            <div class="timeline-item-content">
+                <button>
+                    <a href="https://www.youtube.com/watch?v=w60sfReTsRA" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h2>1979</h2>
+                        <h3>Asteroids Releases As An Arcade Machine:</h3>
+                        <img src="https://i.pinimg.com/736x/a0/00/ac/a000ac013b6e8c4e0f2ad406505a9f33.jpg" alt="Asteroids" class="timeline-image">
+                         <ul>
+                            <li>Introduced The concept Of Adding Initials To Scores</li>
+                            <li>First Game That Uses Sound To Directly Enhance Gameplay</li>
+                            <li>One Of The Most Popular Arcade Games Ever Made</li>
+                            <li>First Game To Use The Vector Graphics Modern Gaming Graphics Evolved From</li>
+                        </ul>
+                    </a>
+                </button>
+            </div>
+        </div>
+
+                
+        <div class="timeline-item">
+            <div class="timeline-item-content">
+                <button>
+                    <a href="https://www.youtube.com/watch?v=q_M5qfuBndY" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h2>1980</h2>
+                        <h3>Pacman Releases As An Arcade Machine:</h3>
+                        <img src="https://www.giantbomb.com/a/uploads/scale_medium/0/26/1755741-pacmanarcadeflyer.jpg" alt="Asteroids" class="timeline-image">
+                         <ul>
+                            <li>Introduced Powerups</li>
+                            <li>Popularized Maze Games (A Genre That Influenced Every Future Game)</li>
+                            <li>First Game That Appealed To Non-Gamers</li>
+                            <li> The First Game With Computerized Enemies That Were Complex</li>
+                            <li> Brought Gaming Into The Mainstream Pop Culture</li>
+                            <li>First Game To Have An Iconic/Popular Character That Whent Beyond Its Game</li>
+                        </ul>
+                    </a>
+                </button>
+            </div>
+        </div>
+
+            <div class="timeline-item">
+                <div class="timeline-item-content">
+                    <button>
+                        <a href="https://www.youtube.com/watch?v=wAKxa5C9jHY" target="_blank" style="text-decoration: none; color: inherit;">
+                            <h2>1980</h2>
+                            <h3>Defender Releases As An Arcade Game:</h3>
+                            <img src="https://i.pinimg.com/564x/77/a8/fd/77a8fd94c106a92d6378d2b4959230c7.jpg" alt="Defender" class="timeline-image">
+                             <ul>
+                                <li>The First Game To Have Bombs</li>
+                                <li>Introduced Muti-Objective Gameplay </li>
+                                <li> Introduced A Screen That Scrolled/Expanded</li>
+                                <li>Created The Concept Of A Radar System For Games</li>
+                                <li> Introduced The Concept of Different Behaviours In Different Enemies</li>
+
+                            </ul>
+                        </a>
+                    </button>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-item-content">
+                    <button>
+                        <a href="https://www.youtube.com/watch?v=vxF1osPkplA" target="_blank" style="text-decoration: none; color: inherit;">
+                            <h2>1980</h2>
+                            <h3>Rogue Releases For PC:</h3>
+                            <img src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000080778/9dab53693fcc3647190eca4b9e52d56a52f0b1b98c2436fce22b70154a15cbc2" alt="Defender" class="timeline-image">
+                             <ul>
+                                <li>Created The Rogueike Genre</li>
+                                <li>Created The Idea Of Restarting The Entire Game After death</li>
+                                <li>Pioneered Random Generation Ensuring Players Never Had The Same Experience Twice</li>
+                                <li>Introducd RPG Mechanics Like Stats</li>
+                            </ul>
+                        </a>
+                    </button>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-item-content">
+                    <button>
+                        <a href="https://www.youtube.com/watch?v=tJagEKVJ8x4" target="_blank" style="text-decoration: none; color: inherit;">
+                            <h2>1981</h2>
+                            <h3>Donkey Kong Releases As An Arcade Game:</h3>
+                            <img src="https://i.ibb.co/FBgVzQz/dk1-5.png" alt="Defender" class="timeline-image">
+                             <ul>
+                                <li>First Game To Have A Narrative</li>
+                                <li>First Game To Have Muli-Stage Progression </li>
+                                <li> Introduced Jumping As A Core Gameplay Mechanic</li>
+                                <li>Introduced Mario As Jumpman</li>
+                                <li> Introduced The First Female Video Game Character (Pauline)</li>
+                                <li>Introduced Donkey Kong</li>
+
+                            </ul>
+                        </a>
+                    </button>
+                </div>
+            </div>
+
+            
+            <div class="timeline-item">
+                <div class="timeline-item-content">
+                    <button>
+                        <a href="https://www.youtube.com/watch?v=zn1C66Hh6js" target="_blank" style="text-decoration: none; color: inherit;">
+                            <h2>1981</h2>
+                            <h3>Galaga Releases As An Arcade Game:</h3>
+                            <img src="https://m.media-amazon.com/images/M/MV5BNjhiNmJiMGYtMGFhNS00YWIzLThhY2YtODExNDI4NDY1NmZkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Galaga" class="timeline-image">
+                             <ul>
+                                <li>Introduced Innovative Gameplay Mechanics Like Even More Intricate Enemy Behaviours & The Dual Ship Powerup</li>
+                                <li>Introduced Smooth & Fast Paced Action</li>
+                                <li> Introduced Levels That Would Vary In Gameplay</li>
+                                <li>Introduced Bonus Stages</li>
+                                <li> Introduced An Extra Layer Of Strategy With The Enemy Capture Mechanic</li>
+                                <li>Defined The Shooter Genre</li>
+                                <li> One Of The Most Popular Games Of All Time</li>
+                            </ul>
+                        </a>
+                    </button>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-item-content">
+                    <button>
+                        <a href="https://www.youtube.com/watch?v=ZPnmewxetNA" target="_blank" style="text-decoration: none; color: inherit;">
+                            <h2>1981</h2>
+                            <h3>ET Releases On The Atari 2600:</h3>
+                            <img src="https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/1972/production/_88241560_976_etposter.jpg" alt="Et: Extra Terrestial" class="timeline-image">
+                             <ul>
+                                <li>The Worst Game Ever Made</li>
+                                <li> Contributed To The Start Of The Gaming Crash</li>
+                            </ul>
+                        </a>
+                    </button>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-item-content">
+                    <button>
+                        <a href="https://www.youtube.com/watch?v=ycVyGb5ID90&t=2s" target="_blank" style="text-decoration: none; color: inherit;">
+                            <h2>1982</h2>
+                            <h3>Home Computers Are On The Rise:</h3>
+                            <img src="https://images.computerhistory.org/timeline/timeline_popularculture_1982.time.jpg" alt="Rise Of Home Computers" class="timeline-image">
+                             <ul>
+                                <li>Allowed For Entirely New Complexities For Every Aspect Of Gaming</li>
+                                <li> Allowed For New Genres Such As Strategy And SImulation Games</li>
+                            </ul>
+                        </a>
+                    </button>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-item-content">
+                    <button>
+                        <a href="https://www.youtube.com/watch?v=AGM5xP30bfM" target="_blank" style="text-decoration: none; color: inherit;">
+                            <h2>1983</h2>
+                            <h3>The Arcade Boom Ends And The Game Industry Goes On The Decline</h3>
+                            <img src="https://i.ytimg.com/vi/AGM5xP30bfM/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBfMP3mDQ1WIyCeBHuCmW5XP5ZOEg" alt="Fall Of Arcade Booom" class="timeline-image">
+                             <ul>
+                                <li>Led To An Oversaturation Of The Market That Resulted In The Gaming Crash</li>
+                                <li>Too Many Poor Quality Games Led To Distrust In Consumers </li>
+                            </ul>
+                        </a>
+                    </button>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-item-content" id="event-1983">
+                    <button>
+                        <a href="https://www.youtube.com/watch?v=ikIeaCE3Ljc" target="_blank" style="text-decoration: none; color: inherit;">
+                            <h2>1983</h2>
+                            <h3>The Gaming Crash Begins</h3>
+                            <img src="https://i.ytimg.com/vi/x4F_sZiAl7s/mqdefault.jpg" alt="Fall Of Arcade Booom" class="timeline-image">
+                             <ul>
+                                <li>Low Quality Games Take Over The Gaming Market</li>
+                                <li>A Change In Consumer Interest Occurs</li>
+                                <li>Major Companies Like Atari, Mattel(Creators Of Intellivision), & Coleco (Creator Of ColecoVision) Become Bankrupt</li>
+                            </ul>
+                        </a>
+                    </button>
+                </div>
+            </div>
+
+            
+            <div class="timeline-item">
+                <div class="timeline-item-content">
+                    <button>
+                        <a href="https://www.youtube.com/watch?v=r9PuSrn_H1c" target="_blank" style="text-decoration: none; color: inherit;">
+                            <h2>1983</h2>
+                            <h3>Nintendo's First Console The Family Computer (Famicom)/Nintendo Entertainment System (NES) Releases </h3>
+                            <img src="https://i.ytimg.com/vi/t2nIE-jd9vk/maxresdefault.jpg" alt="Famicom" class="timeline-image">
+                             <ul>
+                                <li>Recovered The Game Industry From The Crash</li>
+                                <li>Introduced Quality Control That Had The Most Popular Games & Franchises Of All Time</li>
+                                <li>Revolutionized Graphics & Sound</li>
+                                <li> Defined The Definitive Controller System For Home Games</li>
+                                <li> More Affordable So It Was Able To Bring Games To The Whole Family</li>
+                                <li> Had A System That Allowed Third Party Developers To Create Games</li>
+                                <li> Established Gaming As A Global Phenomonom</li>
+                                <li> The Most revolutionary Gaming Console Of All Time </li>
+
+                            </ul>
+                        </a>
+                    </button>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-item-content">
+                    <button>
+                        <a href="https://www.youtube.com/watch?v=ZDvr8WrpjoE" target="_blank" style="text-decoration: none; color: inherit;">
+                            <h2>1983</h2>
+                            <h3>Tetris Releases As An Arcade Machine</h3>
+                            <img src="https://retro-video-gaming.com/wp-content/uploads/2015/04/atari-tetris-arcade-1988.jpg" alt="Tetris" class="timeline-image">
+                             <ul>
+                                <li>Created An Easy To Learn But Hard To Master Approach That Became A Hallmark For Great Game Design</li>
+                                <li>Popularized Puzzle Games & Inspired A Whole Generation Of Popular Puzzle Games Like Bejewled And Dr. Mario</li>
+                                <li>First Game To Be Able To Induce Its Players In A Flow Like State</li>
+                                <li> Had Unparalleled Replayability Since There Was No End</li>
+                                <li> Still One Of The Best Selling Games Of All Time</li>
+
+                            </ul>
+                        </a>
+                    </button>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-item-content">
+                    <button>
+                        <a href="https://www.youtube.com/watch?v=O0gAgQQHFcQ" target="_blank" style="text-decoration: none; color: inherit;">
+                            <h2>1984</h2>
+                            <h3>Game/Electronic Conventions & Shows Start Too Emerge Like The Consumer Electrincs Show</h3>
+                            <img src="https://bunewsservice.com/wp-content/uploads/2016/12/SCES-1990-1.jpg" alt="Consumer Electronics Show" class="timeline-image">
+                             <ul>
+                                <li>Allows Local Gaming Communities To Emerge</li>
+                            </ul>
+                        </a>
+                    </button>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-item-content">
+                    <button>
+                        <a href="https://www.youtube.com/watch?v=hdumVFgwgP8" target="_blank" style="text-decoration: none; color: inherit;">
+                            <h2>1984</h2>
+                            <h3>Dragon Lair Releases As An Arcade Game:</h3>
+                            <img src="https://static1.thegamerimages.com/wordpress/wp-content/uploads/2023/07/57-dragon-s-lair-x-replicade-review.jpg" alt="Consumer Electronics Show" class="timeline-image">
+                            <ul>
+                                <li>First Game To Use Laser Disc Technology</li>
+                                <li>First Game To Have Quick Time Events</li>
+                            </ul>
+                        </a>
+                    </button>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-item-content">
+                    <button>
+                        <a href="https://www.youtube.com/watch?v=9B6LHvR6Sxc" target="_blank" style="text-decoration: none; color: inherit;">
+                            <h2>1984</h2>
+                            <h3>Excitebike Releases On The SNES:</h3>
+                            <img src="https://i0.wp.com/www.arcadeattack.co.uk/wp-content/uploads/2017/01/Excitebike-Banner.png?fit=600%2C375&ssl=1" alt="Excitebike" class="timeline-image">
+                            <ul>
+                                <li>First Game To Have Realistic Vehicle Control</li>
+                                <li>First Game that Allowed & Integrated Player Created Content </li>
+                            </ul>
+                        </a>
+                    </button>
+                </div>
+            </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=rLl9XBg7wSs" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1985</h2>
+                    <h3>Super Mario Bros. Releases As An Arcade Game:</h3>
+                    <img src="https://i.ebayimg.com/images/g/InUAAOSwoipkhTcP/s-l1200.jpg" alt="Super Mario Bros." class="timeline-image">
+                     <ul>
+                        <li>Established The Platforming Genre With Its Innovative Mechanics</li>
+                        <li>First Game To Introduce A Larger World With A Quest</li>
+                        <li> First Game To Have Checkpoints</li>
+                        <li> Set An Entirely New Standard For Games With Its World Building, Level Variety, Depth, Design etc. </li>
+                        <li> Revived The Game Industry</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=RuHbRPoOEEA" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1985</h2>
+                    <h3>The Gaming Crash Ends:</h3>
+                    <img src="https://i.ytimg.com/vi/RuHbRPoOEEA/sddefault.jpg" alt="Gaming Crash Aftermath" class="timeline-image">
+                     <ul>
+                        <li>Ninetndo Takes Over The Industry</li>
+                        <li>Quality Control Enters The Industry</li>
+                        <li> Game Ratings Are Introduced</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content" id="event-1985">
+            <button>
+                <a href="https://www.youtube.com/watch?v=AGZv30buf-U" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1985</h2>
+                    <h3>The Legend Of Zelda Releases On The Famicom</h3>
+                    <img src="https://www.nintendojo.com/wp-content/uploads/2021/02/Famicom-The-Legend-of-Zelda-Box-Art.jpg" alt="Legend Of Zelda" class="timeline-image">
+                     <ul>
+                        <li>Introduces Open World Exploration</li>
+                        <li>Introduces Saving Your Game</li>
+                        <li> Sets Completely New Standards For Story And Depth</li>
+                        <li> Inspired Franchises Such As Final Fantasy, Dark Souls, & Elder Scrolls</li>
+                        <li> Established Many Conventions Of Future Games Like Inventory Management</li>
+                        <li> Popularized Non Linear Games</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=xMsHeEOAIGk" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1986</h2>
+                    <h3>Kid Icarus Releases On The Famicom:</h3>
+                    <img src="https://i.ebayimg.com/images/g/FsAAAOSw5QZhbqj9/s-l400.jpg" alt="Kid Icarus" class="timeline-image">
+                     <ul>
+                        <li>Introduced A Password Save System That Allowed You To Continue Progress</li>
+                        <li>Innovated The Platform Genre With Its Verticle Styled Gameplay</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=EhnWKcO1byU" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1986</h2>
+                    <h3>Metroid Releases On The NES</h3>
+                    <img src="https://www.dkoldies.com/product_images/uploaded_images/blacknyellowmetroid.jpg" alt="Metroid" class="timeline-image">
+                     <ul>
+                        <li>Created The Metroidvania Genre A Long With Castlevania</li>
+                        <li>The First Game That Required Upgrades To Progress</li>
+                        <li>First Game With A Female Protagonist</li>
+                        <li> First Truly Immersive & Atmospheric Game</li>
+                        <li>First Game To Combine Platforming, Shooting, & Exploration</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=A6sdvTUh9II" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1986</h2>
+                    <h3>Final Fantasy Releases On The NES</h3>
+                    <img src="https://i.ytimg.com/vi/LOBIxrSf2L4/maxresdefault.jpg" alt="Final Fantasy" class="timeline-image">
+                     <ul>
+                        <li>The First Game With Turn Based Combat</li>
+                        <li>The First Game With A Real Story That Had Depth</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=c0rdmLjxL7U" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1987</h2>
+                    <h3>Street Fighter Releases As An Arcade Machine:</h3>
+                    <img src="https://i.pinimg.com/236x/dd/71/4a/dd714a43340499c03b5150e44a659d20.jpg" alt="Street Fighter" class="timeline-image">
+                     <ul>
+                        <li>Introduces Character Selection</li>
+                        <li>First Game To Introduce Unique Moves And Combos For Each Character</li>
+                        <li> Created The Two Button Fighting System All Fighting Games In The Future Would Use </li>
+                        <li> Laid Out The Groundwork For All Future Fighting Games</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=hkD3lEANa_4" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1987</h2>
+                    <h3>Megaman Releases On The NES:</h3>
+                    <img src="https://image.konsolenkost.de/item/images/1117576/full/nes-mega-man-1-gebraucht.jpg" alt="Street Fighter" class="timeline-image">
+                     <ul>
+                        <li>Introduced The Concept Of Getting Stronger After A Boss</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content" id="event-1988">
+            <button>
+                <a href="https://www.youtube.com/watch?v=hkD3lEANa_4" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1988</h2>
+                    <h3>Sega Enters The Cosole Market With The Sega Genesis (AKA The Sega Megadrive):</h3>
+                    <img src="https://m.media-amazon.com/images/I/61xCz5kHGUL._AC_UF894,1000_QL80_.jpg" alt="Street Fighter" class="timeline-image">
+                     <ul>
+                        <li>Brought About The Console Wars (It's Slogan Was "Does What Nintendon't")</li>
+                        <li> The First Home Console To Have 16 Bit Technology</li>
+                        <li>Had A New Innovative Controller Design That Would Be Used In Modern Gaming Systems</li>
+                        <li> Included Some Of The Most Iconic Games In History Like Sonic </li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=QPJw4CfkhMU" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1989</h2>
+                    <h3>The Console Wars Begin:</h3>
+                    <img src="https://i.kinja-img.com/image/upload/c_fill,h_675,pg_1,q_80,w_1200/romm8ts8u72vhr9ifjm5.jpg" alt="Console Wars" class="timeline-image">
+                     <ul>
+                        <li>Sega & Nintendo Compete For Control Of The Game Idustry Until The Downfall Of Sega In 1995</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=3KneY1Wc7V0" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1989</h2>
+                    <h3>The Game Boy Releases:</h3>
+                    <img src="https://i.ebayimg.com/images/g/0zoAAOSwngViUIwc/s-l1200.webp" alt="Game Boy" class="timeline-image">
+                     <ul>
+                        <li>Popularized Handheld & Portable Gaming On A Global Level</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=l0XtXB0fEaA" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1989</h2>
+                    <h3>Super Mario World Releases On The Super Nintendo Entertainment System (SNES):</h3>
+                    <img src="https://i.ebayimg.com/images/g/CicAAOSwZ8RhPh-T/s-l1200.jpg" alt="Super Mario World" class="timeline-image">
+                     <ul>
+                        <li>Introduced One Of The Most Iconic Characters In Gaming-Yoshi</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=GPP_RcMdqW4" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1990</h2>
+                    <h3>Street Fighter II Releases For The SNES</h3>
+                    <img src="https://www.lukiegames.com/assets/images/SNES/snes_street_fighter_ii_2_p_zov0x5.jpg" alt="Street Fighter II" class="timeline-image">
+                     <ul>
+                        <li>Popularized The Fighting Game Genre</li>
+                        <li>Popularized Compatetive Play In The Modern Gaming Scene</li>
+
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=jR98zOj0yiw" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1991</h2>
+                    <h3>Sonic Releases On The Sega Genesis:</h3>
+                    <img src="https://theexchange.com/cdn/shop/products/SonictheHedgehog_USA_Europe.png?v=1619295860" alt="Sonic" class="timeline-image">
+                     <ul>
+                        <li>Makes Sega A Major Competitor In The Console Market</li>
+                        <li>Showcased The Revolutionary Speed, Graphics, & Capabillities Of The Genesis</li>
+
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=hGt_c2w7C_E" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1992</h2>
+                    <h3>Kirby Dream Land Releases For The Gameboy:</h3>
+                    <img src="https://i.etsystatic.com/16695346/r/il/028056/4403491475/il_fullxfull.4403491475_pph9.jpg" alt="Kirby Dreamland" class="timeline-image">
+                     <ul>
+                        <li>Introduces One Of Gamings Most Popular Characters-Kirby</li>
+                        <li>It's Easy Learning Curve Made It The Ideal Starting Point For Gamers</li>
+                        <li>Showcased The Revolutionary Capabillities Of The Gameboy Making Handheld Console More Serious In the Gaming Market</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=BkaC1-QoraY" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1993</h2>
+                    <h3>Doom Releases On PC:</h3>
+                    <img src="https://upload.wikimedia.org/wikipedia/en/5/57/Doom_cover_art.jpg" alt="Doom" class="timeline-image">
+                     <ul>
+                        <li>Introduced The First Person Shooter Genre</li>
+                        <li>Created The Multiplayer Death Match Mode Used In All Future Shooter Games</li>
+                        <li>First Ever 3d Game</li>
+                        <li>Laid The Groundwork For Online Gaming</li>
+                        <li> Brought PC's Into The Mainstream Gaming Space</li>
+                        <li> Popularized PC Games </li>
+                        <li> One Of The Most Influential Games Of All Time</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+        <div class="timeline-item">
+            <div class="timeline-item-content">
+                <button>
+                    <a href="https://www.youtube.com/watch?v=a0edFbcH1VM" target="_blank" style="text-decoration: none; color: inherit;">
+                        <h2>1993</h2>
+                        <h3>Star Fox Releases On The SNES:</h3>
+                        <img src="https://www.gamingrelics.com/image/thumbs/1280x800/catalog/snes-cases/StarFox.jpg" alt="Star Fox" class="timeline-image">
+                         <ul>
+                            <li>The First Console Game To Have 3D Graphics</li>
+                            <li>Introduced Squad Based Gameplay</li>
+                            <li>The First Game To Have Multiple Paths In Different Levels</li>
+                            <li>Set A New Standard For Shooters & Exploration Games</li>
+
+                        </ul>
+                    </a>
+                </button>
+            </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=wbSghQRlb-k&list=PLdxmChRD2epeU0iA56B0VHBGrlZY2hMh-" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1994</h2>
+                    <h3>Elder Scrolls Arena Releases On PC:</h3>
+                    <img src="https://i.ebayimg.com/00/s/MTYwMFgxMzcw/z/tewAAOSwropmIMdw/$_57.JPG?set_id=880000500F" alt="Doom" class="timeline-image">
+                     <ul>
+                        <li>Introduced Character Customization</li>
+                        <li>Had Such A Massive World Unseen In Any Other Game</li>
+                        <li>Introduced RPG Mechanics Like Magic & Crafting That Would Become Core Aspects Of Future RPG's</li>
+                        <li>Introduced First Person For Dungeon Crawling Games</li>
+                        <li> Introduced Complex Lore</li>
+                        <li>Included Revolutionary Storytelling Since Players Could Go Off Encountering Random Events And Sidequests</li>
+                        <li> Laid Out The Foundation For Modding</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content" id="event-1995">
+            <button>
+                <a href="https://www.youtube.com/watch?v=HbwvnaNJVZ4" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1995</h2>
+                    <h3>The Playstation Releases:</h3>
+                    <img src="https://gamebreakermalta.com/wp-content/uploads/2023/10/s-l1600-18.jpg" alt="Playstation" class="timeline-image">
+                     <ul>
+                        <li>Brings Sony Into The Game Indusrty As A Major Competitor</li>
+                        <li>First Console To Use CD's</li>
+                        <li>Had Unparalleled Technology That Allowed 3D Gameplay And 32 Bit Graphics</li>
+                        <li>Had A Revolutionary Library of Games</li>
+                        <li> Brought Down Sega Since The Company Couldn't Compete With Sony</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=649Nf8mWUHY" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1995</h2>
+                    <h3>Chrono Trigger Releases On The SNES:</h3>
+                    <img src="https://i.ebayimg.com/images/g/ZbgAAOSwDk1mghiR/s-l1200.jpg" alt="Chrono Trigger" class="timeline-image">
+                     <ul>
+                        <li>Revolutionized Open World Games</li>
+                        <li>One Of The Most Influential Games Of All Time</li>
+                        <li>Had The Best Team Of Creators Of Any Game (AKA "The Drean Team" In The Game Industry) </li>
+                        <li>First Game To Have Multiple Endings</li>
+                        <li>First Game Where Your Actions Effected The Story & Gameplay</li>
+                        <li>First Game To Use real Time Combat</li>
+                        <li>Considered One Of The Best Soundtracks In Gaming History</li>
+                        <li>The Most Visually Appealing Game Of Its Time</li>
+                        <li>Influenced Many Games Like Final Fantasy</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=ZGEqkYWFSfg" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1995</h2>
+                    <h3>Quake Releases For PC:</h3>
+                    <img src="https://upload.wikimedia.org/wikipedia/en/4/4c/Quake1cover.jpg" alt="Quake" class="timeline-image">
+                     <ul>
+                        <li>Popularized Online Multiplayer</li>
+                        <li>Established 3D Environments For The Shooter Genre</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=Ncv6doXgKLw&t=241s" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1995</h2>
+                    <h3>Newgrounds Releases As A Website:</h3>
+                    <img src="https://i.ytimg.com/vi/kFS7APAApBA/maxresdefault.jpg" alt="Newgrounds" class="timeline-image">
+                     <ul>
+                        <li>The First Place That Allowed People To Create & Share There Own Pieces Of Media</li>
+                        <li>The Birth Place Of Indie Games</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=TaLiMiyi2g4" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1995</h2>
+                    <h3>Unreal Engine Releases:</h3>
+                    <img src="https://bairesdev.mo.cloudinary.net/blog/2022/08/ue-logo-1400x788-1400x788-8f185e1e3635-1.jpg?tx=w_1920,q_auto" alt="Unreal Engine" class="timeline-image">
+                     <ul>
+                        <li>An Extremely Revolutionary Game Engine</li>
+                        <li>Gave The Public The Abillity To Make Better Games More Easily Allowing Indie Games To Eventually Take Over The Market</li>
+                        <li>Created Games Like Gears Of War, Fortnite, Rocket League, etc.</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=Z5oTkVsTZdI" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1997</h2>
+                    <h3>Golden Eye 007 Releases On The Nintendo 64:</h3>
+                    <img src="https://www.gamecash.be/thumbnail-600/goldeneye-64-e8447.jpg" alt="Golden Eye" class="timeline-image">
+                     <ul>
+                        <li>Set An Entirely New Standard For Multiplayer Games</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=JoV9o6b91Sc" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1998</h2>
+                    <h3>Half-Life Releases For PC:</h3>
+                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/70/capsule_616x353.jpg?t=1732327059" alt="Half Life" class="timeline-image">
+                     <ul>
+                        <li>Revolutionizes Storytelling & Gameplay For First Person Shooters</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=hYcotDHI0dg" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1998</h2>
+                    <h3>Pokemon Red & Blue Releases On The Gameboy:</h3>
+                    <img src="https://static1.thegamerimages.com/wordpress/wp-content/uploads/2022/06/Featured-Image-Things-Pokemon-Red-And-Blue-Does-Better-Than-The-Newer-Games.jpg" alt="Pokemon" class="timeline-image">
+                     <ul>
+                        <li>Every Aspect Of The Game Was Groundbreaking</li>
+                        <li> Became One Of The Most Popular Franchises In History</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=bDpHmhh2iO4" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1998</h2>
+                    <h3>Steam Releases For PC:</h3>
+                    <img src="https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg" alt="Steam" class="timeline-image">
+                     <ul>
+                        <li>Became The Place People Buy Games For PC</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content">
+            <button>
+                <a href="https://www.youtube.com/watch?v=aD2tgui1ZJc" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1998</h2>
+                    <h3>Resident EVil 2 Releases:</h3>
+                    <img src="https://upload.wikimedia.org/wikipedia/en/4/40/NTSC_Resident_Evil_2_Cover.png" alt="Steam" class="timeline-image">
+                     <ul>
+                        <li>Created The Horror Survival Genre</li>
+                        <li>Popularized Horror Games</li>
+                    </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-item-content" id="present">
+            <button>
+                <a href="https://www.youtube.com/@GamingHistorian" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h2>1998-Present:</h2>
+                    <h3>The Modern Game Indusrty Is Developed:</h2>
+                    <img src="https://miro.medium.com/v2/resize:fit:624/1*cg4zWKRhnDi1cIu1aVvSLA.jpeg" alt="Steam" class="timeline-image">
+                     <ul>
+                        <li>Paved The Way For Modern Franchises-Halo, Assassin's Creed, GTA, Minecraft, Fortnite, etc.</li>
+                        <li>Microtransactions & Dlc's Become A Core Aspect To Gaming</li>
+                        <li> The Genres Of The Modern Market Become-Indie, Survival, Horror, Metroidvania, Soulsbourn/Soulslike, RPG, Adventure, & Shooters</li>
+                        <li> The Console Wars Transer To Nintendo, Sony, & Microsoft However It Starts To End WIth Halo Releasing On Playstation And Nintendo Focusing On Themselves</li>
+                     </ul>
+                </a>
+            </button>
+        </div>
+    </div>
+
+    <div class="timeline-sidebar">
+        <h3> Click On A Year To Bring You To Its Event</h3>
+        <ul>
+            <li><a href="#event-1958">1958-1976<br><span>The Game Industry Starts To Develop</span></a></li>
+            <li><a href="#event-1977">1977-1978<br><span>Gaming Becomes Popular</span></a></li>
+            <li><a href="#event-1978">1977-1983<br><span>The Era of The Arcade Boom</span></a></li>
+            <li><a href="#event-1983">1983-1985<br><span>The Gaming Crash Occurs As A Result Of The Arcade Boom</span></a></li>
+            <li><a href="#event-1985">1985-1987<br><span>Nintendo Revives The Industry From The Crash</span></a></li>
+            <li><a href="#event-1988">1988-1995<br><span>Sega & Nintendo Kick Off The Console Wars/PC Games Are On The Rise</span></a></li>
+            <li><a href="#event-1995">1995-1998<br><span>Games Become Modernized/The Independant Gaming Scene Is Born/Online & Multiplayer Games Rise Up</span></a></li>
+            <li><a href="#present">1998-Present<br><span>The Modern Game Industry Is Developed Paving The Way For Generations Of Success</span></a></li>
+            <!-- Add more years here -->
+        </ul>
+    </div>
+
+ 
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+                <h3>About Me</h3>
+                <p class="about">I am An Aspiring Game Designer Hoping <br> To Inrodce The World To My Imagination <br> And Bring People Together With Entertainment</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <div class="column1">
+                    <a href="{{ url_for('homepage') }}">Home Page</a>
+                    <a href="{{ url_for('originalgames') }}">Original Games</a>
+                    <a href="{{ url_for('timeline') }}">The Timeline</a>
+                    <a href="{{ url_for('settings') }}">Account Settings</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <div class="column1">
+                    <a href="{{ url_for('donate') }}">Donate</a>
+                    <a href="{{ url_for('contact') }}">Contact</a>
+                    <a href="{{ url_for('share') }}">Share</a>
+                    <a href="{{ url_for('socialMedia') }}">My Socials</a>
+                    <a href="{{ url_for('settings') }}">Account Settings</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <div class="column2">
+                    <p>Email: redratgames1@gmail.com</p>
+                    <p>Support Number: +1 (973) 934-0804</p>
+                 </div>
+            </div>
+            <div class="footer-column">
+                <h3>Pages</h3>
+                <a href="{{ url_for('games') }}">Games</a>
+                <a href="{{ url_for('media') }}">Streaming</a>
+                <a href="{{ url_for('shopping') }}">Shopping</a>
+                <a href="{{ url_for('social') }}">Social Platforms</a>
+                <a href="{{ url_for('work') }}">Productivity</a>
+                <a href="{{ url_for('design') }}">Design</a>
+                <a href="{{ url_for('information') }}">Information</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 Red Rat Games. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

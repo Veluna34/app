@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Rat's Sewer</title>
+    <style>
+        /* Add your CSS here (from the provided code) */
+    </style>
+</head>
+<body>
+    <header class="sewer-header">
+        <h1>Submit A Website That Should Be Added</h1>
+        <p>All Your Favorite Websites & Services <br> Brought To You In One Place</p>
+    
+        <!-- Button to open the form -->
+        <button id="open-form-btn" class="toggle-menu">Submit a Website</button>
+    
+        <!-- Form hidden by default -->
+        <div id="url-form" style="display: none; margin-top: 20px;">
+            <form action="#" method="POST" class="sewer-chamber">
+                <h2>Submit Your Favorite Website</h2>
+                <label for="website-url" style="color: #d9c9a0; font-size: 1.1rem;">Enter Website URL:</label>
+                <input type="url" id="website-url" name="website-url" required 
+                    placeholder="https://www.example.com" 
+                    style="width: 100%; padding: 10px; font-size: 1rem; border: 2px solid #742a2a; border-radius: 5px; margin: 10px 0; background-color: #432626; color: #d9c9a0; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); transition: border-color 0.3s;">
+                <button type="submit" style="background-color: #742a2a; color: #fff; padding: 10px 20px; font-size: 1rem; border: none; cursor: pointer; box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);">Submit</button>
+            </form>
+        </div>
+    </header>
+
+    <script>
+        // JavaScript to toggle form visibility
+        const formButton = document.getElementById("open-form-btn");
+        const urlForm = document.getElementById("url-form");
+
+        formButton.addEventListener("click", () => {
+            urlForm.style.display = urlForm.style.display === "none" ? "block" : "none";
+        });
+    </script>
+</body>
+</html>

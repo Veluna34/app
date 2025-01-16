@@ -6,104 +6,823 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>homePage</title>
 
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
 
     <script src="jquery-3.7.1.min.js"></script>
 
 
-    <script src="../static/background1.js" defer></script>
     <script src="https://code.createjs.com/1.0.0/easeljs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
-
     <link rel="stylesheet" href="../static/background1.css">
-    <link rel="stylesheet" href="../static/signInPage.css">
+
+
+    <style>
+        html, body{
+            overflow-y:visible;
+            flex-wrap: nowrap;
+            min-height: 100%;
+            min-width: 100%;
+        }
+
+    
+        .redRat {
+    font-size: 4rem; /* Increase font size for better visibility */
+    color: #d40000; /* Use a more modern and consistent red shade */
+    font-style: italic; /* Standardize italic styling */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* More modern font family */
+    transform: translateX(0) translateY(10vh); /* Smooth vertical movement with translateY */
+    position: relative; /* Allow movement relative to its current position */
+    top: 1vh; /* Slightly adjusted to balance the positioning */
+    font-weight: bold; /* Make text bold for better emphasis */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Subtle shadow for depth and modern look */
+    letter-spacing: 1px; /* Slight spacing between letters for improved readability */
+    transition: transform 0.3s ease, color 0.3s ease; /* Smooth transitions for interactivity */
+}
+
+.redRat:hover {
+    color: #ff6347; /* Add hover effect to change the color to a more vibrant tone */
+    transform: translateY(8vh); /* Slightly animate the movement on hover */
+}
+    
+        .hello {
+            display: flex;
+            justify-content: center;
+            transform: translate(0vw, 10vh);
+            text-align: center;
+            text-shadow: 0px 0px 15px rgb(255, 0, 0);
+            font-weight: bolder;
+        }
+    
+        .welcome {
+    font-size: 3.5rem; /* Slightly larger font size for better readability */
+    color: #ffffff; /* Keep the white text for clean contrast */
+    font-style: italic; /* Use standard italic instead of oblique for consistency */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* More modern and web-safe font stack */
+    text-align: center; /* Center the text for better positioning */
+    line-height: 1.5; /* Better line height for improved readability */
+    letter-spacing: 0.5px; /* Add slight letter spacing for a more polished look */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* Subtle shadow for a more modern effect */
+    margin-top: 2vh; /* Slight margin for spacing */
+    transition: color 0.3s ease; /* Smooth transition for color changes on hover */
+}
+
+.welcome:hover {
+    color: #ff7f50; /* Add a hover effect for interactivity */
+}
+    
+        header {
+            position: fixed; /* Keep it at the top of the screen */
+            top: 0;
+            left: 0;
+            width: 100%; /* Ensures it spans the full width of the screen */
+            background-color: #191d1e; /* Dark background for visibility */
+            color: #ffffff; /* White text */
+            display: flex; /* Flexbox for layout */
+            align-items: center; /* Aligns items vertically in the header */
+            padding: 1.4em 1em; /* Add padding */
+            z-index: 10; /* Ensures it appears above other content */
+            justify-content: space-between; /* Spreads the content across the header */
+        }
+    
+        nav {
+            display: flex; /* Ensure the navigation links are in a row */
+            justify-content: flex-start; /* Align the links to the left */
+            flex-grow: 1; /* Allow the nav to take the remaining space */
+            margin-left: 10vw;
+        }
+    
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            font-size: 1.17em;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-right: 1vw;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+    
+        nav ul li a {
+            color: #ffffff; /* White text color */
+            text-decoration: none; /* Remove underline */
+            transition: color 0.3s; /* Smooth color transition */
+        }
+    
+        nav ul li a:hover {
+            color: #a3a3a3; /* Change color on hover */
+        }
+    
+        .logo {
+            position: absolute; /* Position logo absolutely within header */
+            right: 1em; /* Push logo to the right */
+        }
+    
+        .logoImg {
+            margin-right: 200px; /* Set logo height */
+        }
+    
+        canvas {
+            margin-top: 6em; /* Push content below fixed header */
+            width: 100%; /* Ensure it takes the full width */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .createAccountMessage {
+    color: #ff4e4e; /* Softer, modern red for a more appealing tone */
+    font-size: 1.5rem; /* Increase font size for better visibility */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font stack for cleaner look */
+    font-weight: bold; /* Make the text stand out */
+    text-align: center; /* Ensure text is centered */
+    margin-top: 12vh; /* Add more space above */
+    letter-spacing: 1px; /* Slight letter spacing for improved readability */
+    line-height: 1.4; /* Ensure comfortable line spacing */
+    text-transform: uppercase; /* Uppercase for emphasis */
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition for interactive feel */
+}
+
+.createAccountMessage:hover {
+    color: #ff0000; /* Darker red color on hover */
+    transform: scale(1.05); /* Slight zoom effect for interaction */
+}
+.buttons {
+    display: flex;
+    justify-content: center; /* Center buttons horizontally */
+    align-items: center; /* Center buttons vertically */
+    transform: translateX(-2vw); /* Minor adjustment for more fluid positioning */
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    padding: 0.5rem; /* Add some padding to prevent crowding */
+    margin-top: -2.5vh;
+}
+
+.buttons button {
+    padding: 0.75rem 1.5rem; /* Larger buttons with padding for better clickability */
+    font-size: 1rem; /* Moderate font size */
+    font-weight: bold; /* Bold text for emphasis */
+    border-radius: 30px; /* Rounded buttons */
+    border: none; /* Remove border */
+    background-color: #ff4e4e; /* Soft red background */
+    color: white; /* White text */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover */
+}
+
+.buttons button:hover {
+    background-color: #d43f3f; /* Darker red on hover */
+    transform: translateY(-3px); /* Slight lift effect */
+}
+
+.buttons button:focus {
+    outline: none; /* Remove the default outline */
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); /* Add a focus shadow for accessibility */
+}
+
+        .createAccountButton{
+            margin-right: 1vw;
+        }
+
+        .createAccountButton{
+            margin-right: 1vw;
+        }
+
+        .pfp {
+    display: flex;
+    justify-content: center; /* Center the profile image */
+    align-items: center; /* Vertically center the profile image */
+    margin-top: 3vh; /* Adjust the top margin for balance */
+    padding: 0.5rem; /* Add some padding for spacing */
+}
+
+.pfp img {
+    border-radius: 5%; /* Fully rounded image */
+    width: 50rem; /* Fixed width to ensure consistent sizing */
+    height: 25rem; /* Ensure the height is the same as width for a circular shape */
+    object-fit: cover; /* Ensure the image covers the container without stretching */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions on hover */
+}
+
+.pfp img:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
+}
+
+        #carouselExampleCaptions #carousel-item img {
+            object-fit: cover; /* Or "contain", as desired */
+            max-width: 100%;
+            max-height: 100%;
+            width: 50vw; /* Maintain full width of the carousel */
+            height: 100%;
+
+        }
+
+        .carousel-border-wrapper {
+            width: 100%; /* Full width of the body */
+            height: auto;
+            border: solid #c97777; /* Coral colored border */
+            border-radius: 10px; /* Rounded corners for the border */
+            padding: 15px; /* Keep padding for spacing */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Optional shadow */
+            margin: 0 auto; /* Center the content vertically */
+            box-sizing: border-box; /* Include padding in width calculation */
+            transform: translate(0vw, -163.1vh);
+            flex: 2;
+            background-color: #bd99b6;
+        }
+
+            #carouselExampleCaptions {
+                max-width: 50%; /* Maintain the carousel's width */
+                transform: translate(50%, 0vh);
+                
+            }
+
+        .carousel-caption {
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+            color: #ffffff; /* White text color for captions */
+            padding:1em; /* Padding around caption text */
+            border-radius: 5px; /* Rounded corners for captions */
+            max-width: 80%; /* Ensure captions don't exceed the carousel width */
+            margin: 0 auto; /* Center captions */
+            transform: translate(0vw, 4vh);
+        }
+
+        .carousel-indicators {
+
+            border-radius: 10px; /* Rounded corners */
+            transform: translate(0vw, 2.3vh);
+        }
+
+        .carousel-inner img {
+            object-fit: cover; /* Cover container without stretching */
+            width: 100%; /* Make images responsive */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+
+.description {
+    display: flex;
+    justify-content: center;
+    font-size: 1.4em; /* Slightly smaller for a more modern feel */
+    text-align: center;
+    font-family: 'Poppins', sans-serif; /* Modern and clean sans-serif font */
+    font-weight: 500; /* Medium weight for clarity */
+    color: #6A0572; /* A muted purple for balance against creamy pink */
+    text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2); /* Light shadow for a subtle depth */
+    padding: 1rem 2rem; /* Spacious padding for better legibility */
+    border: 1px solid rgba(106, 5, 114, 0.2); /* Soft border to frame the text */
+    background-color: rgb(255 41 134 / 52%); /* Semi-transparent white for a layered effect */
+    border-radius: 10px; /* Rounded corners for a modern look */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Gentle shadow for depth */
+    max-width: 70%; /* Restrict width for readability */
+    margin: 1.5rem auto; /* Centered within the parent container */
+}
+.carousel-control-prev, .carousel-control-next {
+    width: 12%; /* Larger clickable area for better accessibility */
+    height: 100%; /* Full height for ease of navigation */
+    display: flex;
+    justify-content: center; /* Center arrows horizontally */
+    align-items: center; /* Center arrows vertically */
+    background-color: rgba(0, 0, 0, 0.15); /* Subtle semi-transparent black background */
+    transition: background-color 0.3s ease; /* Smooth hover transition */
+    border-radius: 0; /* Maintain a clean, rectangular look */
+}
+
+.carousel-control-prev:hover, .carousel-control-next:hover {
+    background-color: rgba(0, 0, 0, 0.35); /* Darker background on hover for better visibility */
+    transition: background-color 0.3s ease; /* Match hover transition with main style */
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.5)); /* Add depth to the arrows */
+    font-size: 1.5rem; /* Slightly larger icons for better visibility */
+    color: white; /* Ensure the arrows are highly visible */
+}
+
+        footer {
+             background-color: #1e374f;
+            color: #ffffff;
+            padding: 5em 5em;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            transform: translate(0vw, -163vh);
+            left: 0;
+            min-width: 100%;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            transform: translate(5vw, -7vh);
+        }
+
+        .column1{
+            transform: translate(.25vw, -.25vh);
+        }
+
+        .column2{
+            transform: translate(0vw, -.4vh);
+        }
+                
+        .footer-column h3 {
+            color: #c192ff;
+            font-size: 1.5em;
+            margin-bottom: 1.5vh;
+        }
+
+        .footer-column p, 
+        .footer-column a {
+            color: #ced4da;
+            font-size: 1em;
+            text-decoration: none;
+            margin-bottom: 0.2vw;
+            display: block;
+        }
+
+        .footer-column a:hover {
+                color: #ffffff;
+                text-decoration: underline;
+            }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5em;
+            font-size: 1em;
+            color: #ced4da;
+            border-top: .5vh solid #ced4da;
+        }
+
+        .about{
+            text-align: center;
+            transform: translate(-7vw, 0vw);
+        }
+
+        .musicContainer {
+            position: fixed; /* Position it absolutely */
+            bottom: 0vh; /* Distance from the bottom */
+            right: 1.2vw; /* Distance from the right */
+            z-index: 10; /* Ensure it is above other elements */
+            background-color: rgb(99, 65, 65); /* Optional: semi-transparent background */
+            border-radius: 5em; /* Optional: rounded corners */
+            padding: .7em; /* Optional: some padding */
+
+        }
+
+        .soundMessage {
+    text-align: center; /* Ensure text is centered */
+    margin: 1em 0; /* Add balanced spacing above and below the message */
+    font-size: 1.2em; /* Slightly increase font size for readability */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Use a modern, clean font */
+    color: #000000; /* Complementary deep purple for better contrast on creamy pink */
+    background-color: rgb(53 50 52 / 39%); /* Add a subtle translucent white background */
+    border: 1px solid #d88bd8; /* Soft border to define the message area */
+    border-radius: 8px; /* Rounded corners for a polished look */
+    padding: 0.8em 1.2em; /* Comfortable padding for text readability */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+        .loungeMusic {
+            width: 100%; /* Make audio player take full width of the container */
+        }
+
+        
+
+        /* Alternatively, use relative positioning on the input itself */
+        #search {
+    padding: 5px 10px; /* Adds some padding inside the search bar */
+    border: 1px solid #ccc; /* Adds border to search bar */
+    border-radius: 4px; /* Rounds the corners */
+    width: 200px; /* Adjust width as needed */
+    transition: width 0.3s ease-in-out; /* Optional: makes the width grow/shrink smoothly */
+}
+
+#search:focus {
+    width: 250px; /* Optional: expands search bar when focused */
+}
+
+form {
+    margin-right: 200px; /* Adjust this value to control the distance between the search and nav */
+}
+
+.flash-message {
+    display: flex;
+    align-items: center; /* Center content vertically */
+    justify-content: space-between; /* Space between message and close button */
+    background-color: #f8d7da; /* Light red for error messages */
+    color: #721c24; /* Dark red for text contrast */
+    border: 1px solid #f5c6cb; /* Subtle border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 1rem 1.5rem; /* Comfortable padding */
+    font-family: 'Arial', sans-serif;
+    font-size: 1rem; /* Modern text size */
+    margin: 1rem auto; /* Space around the message */
+    max-width: 90%; /* Responsive width */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    animation: slideIn 0.5s ease, fadeOut 0.5s ease 4.5s; /* Slide in and fade out */
+    position: relative; /* Ensure proper positioning */
+}
+    .fade-out {
+        opacity: 0;
+    }
+    .username {
+    margin-right: 250px;  /* Space between logo and username */
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.sewerMessage {
+    color: #ff4e4e; /* Use a modern and softer red shade */
+    font-size: 2rem; /* Increase font size for better visibility */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* More modern font family stack */
+    font-weight: bold; /* Add weight to make it stand out */
+    text-shadow: 0 4px 6px rgba(255, 0, 0, 0.6); /* Subtle, softer shadow for a more modern look */
+    display: flex;
+    justify-content: center; /* Center align text */
+    align-items: center; /* Vertically align the text */
+    margin-top: 9.5vh; /* Add a bit more space at the top */
+    margin-bottom: -4vh; /* Adjust negative margin for a more refined layout */
+    letter-spacing: 0.5px; /* Slight letter spacing for better readability */
+    text-transform: uppercase; /* Make the text uppercase for emphasis */
+    line-height: 1.5; /* Ensure proper line height for readability */
+    transition: transform 0.3s ease, color 0.3s ease; /* Smooth transitions for interaction */
+}
+
+.sewerMessage:hover {
+    color: #ff0000; /* More intense red on hover for interaction */
+    transform: scale(1.05); /* Slight zoom effect on hover for emphasis */
+}
+
+
+        @media (max-width: 800px) {
+            .hello {
+                transform: translate(0vw, 14vh); /* Push the .hello content further down */
+            }
+            
+            /* Add margin to the body or .hello element to prevent overlap with the header */
+            body {
+                padding-top: 6em; /* Ensure there's enough space below the header */
+            }
+            
+            /* Stacking navigation items and adjusting other elements in the header */
+            nav ul {
+                flex-direction: column; /* Stack nav items on smaller screens */
+                align-items: flex-start;
+            }
+
+            nav ul li {
+                margin-left: 0;
+                margin-bottom: 0.5em;
+            }
+
+            header {
+                display: flex;
+                flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+            }
+
+            .logo img {
+                height: 40px; /* Adjust logo size for smaller screens */
+            }
+
+
+            .carousel-caption {
+                font-size: 0.9em; /* Smaller font size on mobile */
+                padding: 0.5em; /* Less padding */
+            }
+
+            .createAccountMessage{
+                flex-wrap: nowrap;
+                transform: translate(0vw, 5vh);
+                justify-content: center; /* Push the .hello content further down */
+
+            }
+
+            .buttons{
+                transform: translate(0vw, 5vh);
+            }
+
+            .createAccountButton{
+                margin-right: 5vw;
+            }
+
+            .carousel-indicators {
+                bottom: 10px; /* Move indicators closer to the bottom */
+            }
+
+            .pfp img{
+                transform: translate(0vw, 4.5vh);
+            }
+
+
+
+            #carouselExampleCaptions {
+                max-width: 100%; /* Use full width for smaller screens */
+                transform: translate(0vw, 0vh);
+            }
+
+            .carousel-caption {
+                font-size: 0.9em; /* Smaller font for captions on mobile */
+            }
+
+            .carousel-border-wrapper {
+                padding: 10px; /* Reduce padding on smaller screens */
+                transform: translate(0vw, -139.1vh);
+            }
+
+                /* Adjust image size on smaller screens */
+            .carousel-inner img {
+                width: 100%; /* Ensure it occupies full width */
+                height: 40vh; /* Maintain a reasonable height */
+            }
+
+            .carousel-indicators {
+            padding: 10px; /* Rounded corners */
+            background-color: #191d1e;
+
+            }
+
+            .content-container {
+            flex-direction: column; /* Stack items on smaller screens */
+            }
+
+            .description{
+                display: flex;
+                justify-content: center;
+            }
+
+            .description-container {
+                height: 40vh; /* Reduce height for smaller screens */
+                margin-top: 5vh; /* Adjust top margin for responsiveness */
+            }
+
+            .description {
+                font-size: 1.2em; /* Slightly smaller font size */
+                text-align: center; /* Ensure text alignment on smaller screens */
+            }
+
+            footer{
+                transform: translate(0vw, -139vh);
+            }
+        }
+
+        @media (min-width: 1778px) {
+            .carousel-border-wrapper {
+                transform: translate(0vw, -160.7vh);
+            }
+
+        }
+
+            
+    </style>
 
     <script>
-    function openCreateAccountForm() {
-        // Dimensions for the popup window
-        const width = 500;
-        const height = 500;
+        function openCreateAccountForm() {
+            // Dimensions for the popup window
+            const width = 500;
+            const height = 500;
 
-        // Calculate the position to center the popup
-         const left = (window.innerWidth / 2) - (width / 2);
-        const top = (window.innerHeight / 2) - (height / 2);
+            // Calculate the position to center the popup
+            const left = (window.innerWidth / 2) - (width / 2);
+            const top = (window.innerHeight / 2) - (height / 2);
 
-        // Open the popup window with the calculated position
-        window.open('/createAccount', 'popup', `width=${width},height=${height},top=${top},left=${left}`);
+            // Open the popup window with the calculated position
+            window.open('/createaccount', 'popup', `width=${width},height=${height},top=${top},left=${left}`);
 
 
-    }
-
+        }
     </script>
 
-<script>
-    function openSignInForm() {
-        // Dimensions for the popup window
-        const width = 500;
-        const height = 500;
+    <script>
+        function openSignInForm() {
+            // Dimensions for the popup window
+            const width = 500;
+            const height = 500;
 
-        // Calculate the position to center the popup
-         const left = (window.innerWidth / 2) - (width / 2);
-        const top = (window.innerHeight / 2) - (height / 2);
+            // Calculate the position to center the popup
+            const left = (window.innerWidth / 2) - (width / 2);
+            const top = (window.innerHeight / 2) - (height / 2);
 
-        // Open the popup window with the calculated position
-        window.open('/signIn', 'popup', `width=${width},height=${height},top=${top},left=${left}`);
-    }
+            // Open the popup window with the calculated position
+            window.open('/signin', 'popup', `width=${width},height=${height},top=${top},left=${left}`);
+        }
+    </script>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById('loungeMusic');
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            audio.pause();
+        }
+    });
+});
 </script>
 
+<script>
+    document.getElementById('search').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            this.form.submit();  // Automatically submit the form when Enter is pressed
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var flashMessages = document.getElementById("flash-messages");
+        if (flashMessages) {
+            // Set the time (in milliseconds) after which the flash messages will disappear
+            setTimeout(function() {
+                flashMessages.classList.add("fade-out");
+            }, 3000); // 5000ms = 5 seconds
+        }
+    });
+</script>
 
 </head>
 <body>
 
+
     <div class="musicContainer">
-        <audio id="loungeMusic" controls autoplay loop>
-            <source src="https://www.dropbox.com/scl/fi/l69tv279l3cn1ulzm4j0l/Enter-Friend.mp3?rlkey=76rteultp73bzlqn5si4m4mnx&st=gjl4htn9&dl=1" type="audio/mpeg">
+         <audio id="loungeMusic" controls autoplay loop>
+            <source src="https://www.dropbox.com/scl/fi/l69tv279l3cn1ulzm4j0l/Enter-Friend.mp3?rlkey=76rteultp73bzlqn5si4m4mnx&st=crzbkhla&dl=1" type="audio/mpeg">
         </audio>
-        <p class="loungeMessage">Press Play Too Lounge With Me</p>
     </div>
 
-    <script>
-        const audio = document.getElementById('loungeMusic');
+    <div class="hello">
+        <h1>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages" id="flash-messages">
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% endwith %}
+            <span class="welcome">Hello &amp; Welcome To The: </span>
+            <span class="redRat"> RED RAT'S WEB: <br></span>
 
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                audio.pause(); // Pause the audio if the tab is hidden
-            } 
-        });
-    </script>
-<!-- Heading's Color ans size -->
-<h1>
-
-    <span class="welcome">Hello &amp; Welcome To:</span>
-    <span class="redRat"> THE RED RAT'S ACRCHIVES </span>
-
-</h1>
-
+        </h1>
 
 
+    </div>
 
- <!-- Paragraph text -->
-<p class="welcomeMessage"> This is a collection containing the most popular browser games from all over the internet with games that are old and new. <br>  I hope you will enjoy and share with your friends.<br> </p>
-<br>
-<p class="createAccountMessage"> Please sign in or create an account to access the website</p>
-
-<!-- Log In Buttons-->
-<div class="createAccountButton">
-    <button onclick="openCreateAccountForm()" id="createAccount" type="button" class="btn btn-outline-light">Create Account</button>
-</div>
-
-<div class="signInButton">
-    <button onclick="openSignInForm()" id="signIn" type="button" class="btn btn-outline-light">Sign In</button>
-</div>
-
- <!-- Paragraph text -->
-<p class="contactInfo"> email me at aidenf752@gmail.com with any feedback, recommendations, or errors you encounter </p>
-
-<img class="pfp" src="https://wallpapers.com/images/hd/pickle-rick-coming-out-of-portal-33vnk00t94f7eezj.jpg" alt="style" width="640">
+    <p class="sewerMessage"> Your Gateway To The Internet</p>
 
 
-<canvas id="projector" width="800" height="600"></canvas>
+    <p class="createAccountMessage"> Please sign in or create an account </p>
 
+
+    <div class="buttons">
+        <div class="createAccountButton">
+            <button onclick="openCreateAccountForm()" id="createAccount" type="button" class="btn btn-outline-light">Create Account</button>
+        </div>
+
+        <div class="signInButton">
+             <button onclick="openSignInForm()" id="signIn" type="button" class="btn btn-outline-light">Sign In</button>
+        </div>
+    </div>
+    <div class="pfp">
+        <img class="intro" src="https://wallpapers.com/images/hd/pickle-rick-coming-out-of-portal-33vnk00t94f7eezj.jpg" alt="style" width="640">
+    </div>
+<!--
+
+
+-->
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Sign In</a></li>
+
+            </ul>
+        </nav>
+        <form action="{{ url_for('search') }}" method="get">
+            <input type="text" name="query" id="search" placeholder="Search for anything..." value="{{ query or '' }}" />
+        </form>
+        {% if session.get('username') %}
+        <span class="username">Welcome: {{ session['username'] }}!</span>
+    {% else %}
+        <span>Welcome: Guest!</span>
+    {% endif %}
+
+    </header>
+
+    <canvas id="projector" width="800" height="600"></canvas>
+
+    <div class="carousel-border-wrapper">
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+
+            <p class="description">
+                For The First Time Ever All Of The Websites You Use <br>Are Now All In One Place Including: <br>
+                Social Media, Your Favorite Stores <br>
+                        The Best Games Of All Time, & More
+            </p>
+
+
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://play-lh.googleusercontent.com/7FKC6hmeYg8TvL316T8lG_jrjdnOJwzJ4HHZD4kgjb5Lild7H_z3o24Zyc0AEbnUsME=w526-h296-rw" class="d-block w-100 img-fluid" alt="First slide">
+
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Includes:</h5>
+                        <p>All Of Your News In One Place</p>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img src="https://cdn.prod.website-files.com/650b672b6d49343e2368aa57/6553a5294cc1e75a952105f6_615e517bb8243ae0dc65acb8_Procreate-to-Photoshop-article-thumbnail.webp" class="d-block w-100 img-fluid" alt="Second slide">
+
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Includes:</h5>
+                        <p>Design & Development Tools</p>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img src="https://cdn.prod.website-files.com/6516123533d9510e36f3259c/665a324481eb4b31f53a0e44_a601066e-5adf-4f36-aa2f-96e039979195.webp" class="d-block w-100 img-fluid" alt="Third slide">
+
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Includes:</h5>
+                        <p>The Best Of A.I.</p>
+                    </div>
+                
+                </div>
+            </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <p class="soundMessage"> (to let the site's sounds and music autoplay click the i on the left of the search bar go to <br> site settings, scroll down to sound, click the drop down menu, select allow, and reload the page) </p>
+
+            </div>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                    <h3>About Me</h3>
+                    <p class="about">I am An Aspiring Game Designer Hoping <br> To Inrodce The World To My Imagination <br> And Bring People Together With Entertainment</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <div class="column1">
+                        <a href="{{ url_for('donate') }}">Donate</a>
+                        <a href="{{ url_for('contact') }}">Contact</a>
+                        <a href="{{ url_for('share') }}">Share</a>
+                        <a href="{{ url_for('socialMedia') }}">My Socials</a>
+                        <a href="{{ url_for('settings') }}">Account Settings</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <div class="column2">
+                        <p>Email: redratgames1@gmail.com</p>
+                        <p>Support Number: +1 (973) 934-0804</p>
+                     </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Pages</h3>
+                    <a href="{{ url_for('games') }}">Games</a>
+                    <a href="{{ url_for('media') }}">Streaming</a>
+                    <a href="{{ url_for('shopping') }}">Shopping</a>
+                    <a href="{{ url_for('social') }}">Social Platforms</a>
+                    <a href="{{ url_for('work') }}">Productivity</a>
+                    <a href="{{ url_for('design') }}">Design</a>
+                    <a href="{{ url_for('information') }}">Information</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2025 Red Rat Games. All rights reserved.
+            </div>
+        </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

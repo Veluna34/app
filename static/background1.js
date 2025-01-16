@@ -6,6 +6,7 @@ var ParticleEngine = (function() {
 
 	function ParticleEngine(canvas_id) {
 		// enforces new
+		console.log("loaded Paricle System")
 		if (!(this instanceof ParticleEngine)) {
 			return new ParticleEngine(args);
 		}
@@ -27,7 +28,7 @@ var ParticleEngine = (function() {
 						{ellipseWidth:100, ellipseHeight:80, alpha:0.2, offsetX:80, offsetY:-50, color:"#F8F8F8"}];
 
 		this.stage.compositeOperation = _ParticleEngine.compositeStyle;
-
+			
 
 		function drawBgLight()
 		{

@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Rat Gaming</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Custom Scripts -->
+    <script src="../static/background2.js" defer></script>
+    <script src="https://code.createjs.com/1.0.0/easeljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../static/background2.css">
+
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Flexbox Layout for Body */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Content Wrapper */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding-top: 80px; /* To prevent content from being hidden behind fixed header */
+        }
+
+        /* Header Styling */
+        header {
+            position: fixed; /* Keep it at the top of the screen */
+            top: 0;
+            left: 0;
+            width: 100%; /* Full width */
+            background-color: #191d1e; /* Dark background */
+            color: #ffffff; /* White text */
+            display: flex; /* Flex layout */
+            align-items: center; /* Vertical alignment */
+            padding: 1.4em 1em; /* Padding */
+            z-index: 10; /* Above other content */
+            justify-content: space-between; /* Space between items */
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-start;
+            flex-grow: 1;
+            margin-left: 10vw;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            font-size: 1.17em;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-right: 1.3vw;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #a3a3a3;
+        }
+
+        .logo {
+            position: absolute;
+            right: 1em;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .support {
+            display: flex;
+            justify-content: center;
+            border-radius: 8em;
+            background-color: rgb(202, 137, 57);
+            border: .5em solid rgb(202, 137, 57);
+            width: 30%; /* Adjust the width as needed */
+            max-width: 20%; /* Optional: Limit the maximum width */
+            margin: 0 auto; /* Center the element horizontally */
+            margin-top: 0vh;
+        }
+
+
+        .support:hover {
+            background-color: rgb(160, 103, 45); /* Lighter shade on hover */
+            transform: scale(1.05); /* Slight zoom effect */
+            text-decoration: none;
+        }
+
+        button {
+            background: none;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+
+        .support:hover button {
+            color: rgb(255, 255, 255); /* Optional: Change button text color on hover */
+        }
+
+        h1{
+            display: flex;
+            font-size: 5em;
+            color: aquamarine;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        h1 a {
+            color: aquamarine !important;
+            text-decoration: none;
+            font-size: inherit;
+            transition: color 0.3s;
+        }
+
+        h1 a:hover{
+            color: aqua !important;
+        }
+
+        .row1, .row2, .row3, .row4, .row5, .row6, .row7, .row8{
+            display: flex;
+            justify-content: center;
+            gap: 3%;
+            margin-top: 13%; /* Add spacing between rows */
+        }
+
+        .gameImgs {
+            border-left: 1em solid #647282;
+            border-right: 1em solid #6e7e8f;
+            border-top: 100%;
+            padding-left: 1em;
+            padding-right: 1em;
+        }
+
+        .row1 {
+            margin-top: 3%; /* Adjust as needed */
+        }
+
+        .row1 img, .row2 img, .row3 img, .row4 img, .row5 img, .row6 img, .row7 img, .row8 img{
+            border: .5em solid #437c94;
+            border-radius: 1em;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .gameImgs img:hover {
+            border-color: #38464c;
+            transform: scale(1.1);
+        }
+
+        .lofiMessage {
+            position: fixed;
+            color: aliceblue;
+            margin-left: 83.5%;
+            transform: translate(0vw, 14.5vh);
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #1e374f;
+            color: #ffffff;
+            padding: 5em 5em;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            transform: translate(0vw, 1vh);
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            transform: translate(5vw, -7vh);
+        }
+
+        .column1{
+            transform: translate(.25vw, -.25vh);
+        }
+
+        .column2{
+            transform: translate(0vw, -.4vh);
+        }
+
+        .footer-column h3 {
+            color: #c192ff;
+            font-size: 1.5em;
+            margin-bottom: 1.5vh;
+        }
+
+        .footer-column p, 
+        .footer-column a {
+            color: #ced4da;
+            font-size: 1em;
+            text-decoration: none;
+            margin-bottom: 0.2vw;
+            display: block;
+        }
+
+        .footer-column a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5em;
+            font-size: 1em;
+            color: #ced4da;
+            border-top: .5vh solid #ced4da;
+        }
+
+        .about{
+            text-align: center;
+            transform: translate(-7vw, 0vw);
+        }
+
+        iframe{
+            position: fixed;
+        }
+
+        .row1 img, .row2 img, .row3 img{
+            display: flex;
+            justify-content: center; /* Center align the items */
+            gap: 1%; /* Adjust gap between images */
+            margin-top: 3%; /* Provide space above the row */
+            flex-wrap: wrap; /* Allow wrapping of images if the screen width is narrow */
+            width: 100%; /* Fixed width for consistent size */
+            max-width: 270px; /* Optional: Set a maximum width for large screens */
+            height: auto; /* Maintain aspect ratio */
+            padding: 0 2%; /* Add padding to ensure spacing from the edges */
+            object-fit: contain; /* Fit image within bounds without cropping */
+            border: .5em solid #437c94;
+            border-radius: 1em;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .row1 {
+            display: flex;
+            justify-content: center;
+            gap: 6%; /* Increase the gap between images */
+            margin-top: 2%; /* Adjust spacing above the row */
+            flex-wrap: wrap;
+        }
+
+        .row2, .row3{
+            display: flex;
+            justify-content: center;
+            gap: 6%; /* Increase the gap between images */
+            margin-top: 10%; /* Adjust spacing above the row */
+            flex-wrap: wrap;
+        }
+
+        .click {
+            display: flex;
+            flex-direction: column; /* Stack the text for better readability on smaller screens */
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            text-align: center;
+            padding: .1em; /* Add some padding */
+            border-radius: 50px; /* Round the edges more for a modern look */
+            background-color: rgb(202, 137, 57);
+            border: 0.5em solid rgb(202, 137, 57);
+            width: 20%; /* Use a percentage for adaptability */
+            max-width: 30em; /* Limit the width for large screens */
+            margin: 2em auto; /* Center on the page with spacing */
+            font-size: 1.2em; /* Set a default font size */
+            line-height: 1.5; /* Improve text readability */
+            margin-top: .5%;
+        }
+        #search {
+    padding: 5px 10px; /* Adds some padding inside the search bar */
+    border: 1px solid #ccc; /* Adds border to search bar */
+    border-radius: 4px; /* Rounds the corners */
+    width: 200px; /* Adjust width as needed */
+    transition: width 0.3s ease-in-out; /* Optional: makes the width grow/shrink smoothly */
+}
+
+#search:focus {
+    width: 250px; /* Optional: expands search bar when focused */
+}
+
+form {
+    margin-right: 180px; /* Adjust this value to control the distance between the search and nav */
+}
+.username {
+    margin-right: 250px;  /* Space between logo and username */
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.emoji {
+    font-size: .9em; /* Adjust emoji font size */
+    display: flex;
+    gap: 10px; /* Space between emoji items */
+    justify-content: center;
+}
+
+.emoji:hover{
+    font-size: 1.1em;
+}
+        .counter {
+            font-size: 1.1em;
+            margin-left: 5px;
+            color: #ced4da;
+        }
+        /* Responsive Styling */
+        @media (max-width: 800px) {
+            h1{
+                transform: translate(0vw, 14vh);
+            }
+
+            body {
+                padding-top: 6em; /* Space below fixed header */
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav ul li {
+                margin-left: 0;
+                margin-bottom: 0.5em;
+            }
+
+            header {
+                flex-wrap: wrap;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+
+            h1{
+                transform: translate(0vw, 1vh);
+            }
+
+            .lofiMessage{
+                transform: translate(0vw, 3vh);
+                z-index: 5;
+            }
+
+            .click {
+            width: 80%; /* Make it occupy more space on smaller screens */
+            font-size: 0.9em; /* Adjust font size for readability */
+            padding: 1.5em; /* Add more padding for touch devices */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .click {
+            width: 90%; /* Almost full width on very small screens */
+            font-size: 0.8em; /* Slightly smaller font for compact screens */
+            padding: 1.2em; /* Reduce padding to fit */
+        }
+    }
+    </style>
+    <script>
+        document.getElementById('search').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                this.form.submit();  // Automatically submit the form when Enter is pressed
+            }
+        });
+    </script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Sign In</a></li>
+
+            </ul>
+        </nav>
+        <form action="{{ url_for('search') }}" method="get">
+            <input type="text" name="query" id="search" placeholder="Search for anything..." value="{{ query or '' }}" />
+        </form>
+        {% if session.get('username') %}
+        <span class="username">Welcome: {{ session['username'] }}!</span>
+    {% else %}
+        <span>Welcome: Guest!</span>
+    {% endif %}
+
+    </header>
+    <!-- Main Content -->
+    <div class="content">
+        <canvas></canvas>
+
+        <h1>The Best Art & Animation Tools</h1>
+        <p class="click">Make Your Ideas A Live</p>
+
+
+        <div class="gameImgs">
+            <!-- Row 1 -->
+            <div class="row1">
+                <div class="gameItem">
+                <a href="R6v6Nzx1iaRjEQGJhVvcFrdlk45LJ" target="_blank" data-name="Adbobe Photoshop">
+                    <img class="photo" title="Edit Your Graphics In Every Way Possible" src="https://cc-prod.scene7.com/is/image/CCProdAuthor/ps_kaizen_header_2x?$pjpeg$&jpegSize=100&wid=430"  alt="Adobe Photoshop">
+                </a>
+                <div class="emoji" data-link="photoshop">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://procreate.com/" target="_blank" data-name="Procreate">
+                    <img class="pro" title="Professional Apps Made For Aspiring Artists" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd4hgOQHb8eQuDIeafCK2pfoUWS8pyxW0fFQ&s"  alt="Procreate">
+                </a>
+                <div class="emoji" data-link="procreate">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://inkscape.org/" target="_blank" data-name="Inkscape">
+                    <img class="ink" title="Create & Edit Vector Graphics" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGnwElq6pQoHmAxv8pqMmjbqXr1obIok7eyA&s"  alt="Inkscape">                </a>
+                    <div class="emoji" data-link="ink">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+                <div class="gameItem">
+                    <a href="https://www.paintshoppro.com/en/products/paintshop-pro/standard/?sourceid=psp2023-xx-ppc_nbkws&x-vehicle=ppc_nbkws&trial=big&utm_medium=cpc&utm_source=google&utm_campaign=&utm_term=paintshop%20pro&utm_content=&utm_id=1696212657&extensionid=&matchtype=e&device=c&devicemodel=&creative=673396080638&network=g&placement=&x-source=ppc&x-target=ppc&promo=ppc&gad_source=1&gclid=CjwKCAiAg8S7BhATEiwAO2-R6meCxacxKazDpKRF2p-jx1la62Tdt3rDHqbUOkNACAI7PmGX4F3WFxoC8l8QAvD_BwE" target="_blank" data-name="Paint Shop Pro">
+                        <img class="paint" title="A Professional Vector Graphics Editor" src="https://logowik.com/content/uploads/images/paintshop-pro8303.logowik.com.webp"  alt="Paint Shop Pro">                </a>
+                        <div class="emoji" data-link="paint shop">
+                            <span class="emoji-icon">👍</span> 
+                            <span class="counter">0</span> <!-- Thumbs up counter -->
+                            <span class="emoji-icon">❤️</span> 
+                            <span class="counter">0</span> <!-- Heart counter -->
+                        </div>
+                    </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="row2">
+                <div class="gameItem">
+                <a href="https://www.blender.org/" target="_blank" data-name="Blender">
+                    <img class="blender" title="3D Animation In Real Time" src="https://www.kindpng.com/picc/m/286-2864921_blender-logo-blender-3d-logo-hd-png-download.png"  alt="Blender">
+                </a>
+                <div class="emoji" data-link="blender">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://opentoonz.github.io/e/" target="_blank" data-name="OpenToonz">
+                    <img class="toonz" title="A Professional 2D Animation Software" src="https://ia802202.us.archive.org/21/items/opentoonzwinbuilds/optnz.jpg"  alt="OpenToonz">
+                </a>
+                <div class="emoji" data-link="toonz">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.pencil2d.org/" target="_blank" data-name="Pencil 2D">
+                    <img class="pencil" title="the Best Place For Handrawn 2D Animations" src="https://i.ytimg.com/vi/ma52j9B1kEM/maxresdefault.jpg"  alt="Pencil 2D">                </a>
+                    <div class="emoji" data-link="pencil">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+                <div class="gameItem">
+                    <a href="https://www.synfig.org/" target="_blank" data-name="Synfig Studio">
+                        <img class="synfig" title="Vector Based 2D Animation Software" src="https://i0.wp.com/www.synfig.org/wp-content/uploads/2018/05/screenshot_001-4.png?fit=785%2C442&ssl=1"  alt="Synfig">
+                    </a>
+                    <div class="emoji" data-link="synfig">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="row3">
+                <div class="gameItem">
+                <a href="https://www.adobe.com/creativecloud/business/teams.html?gclid=CjwKCAiAg8S7BhATEiwAO2-R6sNofDw3gR6LDQmXEp--vcLjhOk71__GmFpZOvd9TsJJCz7ScRXzmxoC7uoQAvD_BwE&sdid=HVQ7WWTG&mv=search&mv2=paidsearch&ef_id=CjwKCAiAg8S7BhATEiwAO2-R6sNofDw3gR6LDQmXEp--vcLjhOk71__GmFpZOvd9TsJJCz7ScRXzmxoC7uoQAvD_BwE:G:s&s_kwcid=AL!3085!3!692372719362!e!!g!!adobe%20after%20effects!21067199189!160254733195&gad_source=1" target="_blank" data-name="Adbobe After Effects">
+                    <img class="after" title="Add Effects To Your Animations Before Production" src="https://5.imimg.com/data5/SELLER/Default/2023/9/347786755/QW/OA/FV/197867024/adobe-after-effect-cc-for-1-year-subscription-license.png"  alt="Adobe After Effects">                </a>
+                    <div class="emoji" data-link="effects">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+                <div class="gameItem">
+                <a href="https://www.adobe.com/products/animate.html" target="_blank" data-name="Adbobe Animate">
+                    <img class="animate" title="A Mutimedia Animation Software" src="https://cc-prod.scene7.com/is/image/CCProdAuthor/an_kaizen_header_2x?$pjpeg$&jpegSize=100&wid=430"  alt="Adobe Animate">
+                </a>
+                <div class="emoji" data-link="animate">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.toonboom.com/" target="_blank" data-name="Toon Boom">
+                    <img class="toon" title="An All In One Industry Standard Software" src="https://cdn3.toonboom.com/wp-content/uploads/2023/07/13093807/Toon-Boom-Logo-Banner.jpg"  alt="Toon Boom">                </a>
+                    <div class="emoji" data-link="boom">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+                <div class="gameItem">
+                <a href="https://www.autodesk.com/products/maya/overview?term=1-YEAR&tab=subscription" target="_blank" data-name="Autodesk Maya">
+                        <img class="maya" title="A 3D Computer Graphics Application" src="https://i.ytimg.com/vi/wo7EFaPw314/sddefault.jpg"  alt="Autodesk maya">                </a>
+                        <div class="emoji" data-link="maya">
+                            <span class="emoji-icon">👍</span> 
+                            <span class="counter">0</span> <!-- Thumbs up counter -->
+                            <span class="emoji-icon">❤️</span> 
+                            <span class="counter">0</span> <!-- Heart counter -->
+                        </div>
+                    </div>
+            </div>
+            <div class="row3">
+                <div class="gameItem">
+                <a href="https://www.reallusion.com/cartoon-animator/default.html?gad_source=1&gclid=CjwKCAiAg8S7BhATEiwAO2-R6ta21FwLQDJynIDkvxD_CdodYoX2MH_kHpsKBAqr1wj6rKOwL4eNURoC0xsQAvD_BwE" target="_blank" data-name="Cartoon Animator">
+                    <img class="cartoon" title="A Highly Versatile Animation Tool" src="https://i.ytimg.com/vi/dKvNZQCZvo0/maxresdefault.jpg"  alt="Cartoon Animator">                </a>
+                    <div class="emoji" data-link="cartoon">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+                <div class="gameItem">
+                <a href="https://www.piskelapp.com/" target="_blank" data-name="Piskel">
+                        <img class="piskel" title="A Tool For Pixel Art & Character Sprites" src="https://wrdsbedtech.wordpress.com/wp-content/uploads/2016/09/piskel-logo.png?w=474"  alt="Piskel">                </a>
+                        <div class="emoji" data-link="piskel">
+                            <span class="emoji-icon">👍</span> 
+                            <span class="counter">0</span> <!-- Thumbs up counter -->
+                            <span class="emoji-icon">❤️</span> 
+                            <span class="counter">0</span> <!-- Heart counter -->
+                        </div>
+                    </div>
+                <div class="gameItem">
+                <a href="https://esotericsoftware.com/" target="_blank" data-name="Spine">
+                    <img class="spine" title="A 2D Animation Software For Games" src="https://i.ytimg.com/vi/62hN3uyRQc4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCnoc2YGpWdQDdNXaa5lM90wvKOOQ"  alt="Spine">                </a>
+                    <div class="emoji" data-link="spine">
+                        <span class="emoji-icon">👍</span>
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCounters(); // Initialize counters from localStorage
+            setupEmojiClickListeners(); // Add listeners to emoji groups
+        });
+    
+        // Function to initialize counters from localStorage
+        function initializeCounters() {
+    document.querySelectorAll('.emoji').forEach(emojiGroup => {
+        const websiteKey = emojiGroup.dataset.link;
+        emojiGroup.querySelectorAll('.emoji-icon').forEach((emoji, index) => {
+            const counter = emoji.nextElementSibling;
+            const emojiKey = `${websiteKey}-${emoji.textContent.trim()}`; // Use the emoji text content as part of the key
+            const savedCount = localStorage.getItem(emojiKey);
+
+            if (savedCount !== null) {
+                counter.textContent = savedCount; // Set the counter to the saved value
+            } else {
+                counter.textContent = '0'; // Default to 0 if no saved count
+            }
+        });
+    });
+}
+
+// Function to set up emoji click listeners
+async function setupEmojiClickListeners() {
+    document.querySelectorAll('.emoji-icon').forEach(emoji => {
+        emoji.addEventListener('click', async event => {
+            event.stopPropagation(); // Prevent click from propagating to parent elements
+            const emoji = event.target;
+            const counter = emoji.nextElementSibling;
+            const emojiGroup = emoji.closest('.emoji');
+            const websiteLink = emoji.closest('.gameItem').querySelector('a');
+            const websiteName = websiteLink.dataset.name;
+            const websiteType = emoji.textContent.trim() === '❤️' ? 'favorite' : emoji.textContent.trim() === '👍' ? 'liked' : ''; // Determine the type of the emoji (❤️ = favorite, 👍 = liked)
+
+            if (!websiteType) return; // Exit if it's an invalid emoji type
+
+            let currentCount = parseInt(counter.textContent, 10) || 0;
+            if (currentCount > 0) {
+                // Decrement if the counter is greater than 0
+                currentCount--;
+            } else {
+                // Increment if the counter is 0
+                currentCount++;
+            }
+            counter.textContent = currentCount; // Update the counter on the page
+
+            // Use emoji text (❤️ or 👍) as part of the unique key
+            const emojiKey = `${emojiGroup.dataset.link}-${emoji.textContent.trim()}`;
+            localStorage.setItem(emojiKey, currentCount.toString()); // Store the count in localStorage
+
+            const payload = {
+                url: websiteLink.href,
+                name: websiteName,
+                type: websiteType
+            };
+
+            try {
+                const response = await fetch('/toggle_website', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    const updatedHTML = await response.text(); // Get the HTML response
+                    document.getElementById('favorite-websites-list').innerHTML = updatedHTML.match(/<ul id="favorite-websites-list">([\s\S]*?)<\/ul>/)[1];
+                    document.getElementById('liked-websites-list').innerHTML = updatedHTML.match(/<ul id="liked-websites-list">([\s\S]*?)<\/ul>/)[1];
+
+                    // Reinitialize the counters after HTML is updated
+                    initializeCounters(); 
+                } else {
+                    console.error('Failed to toggle website');
+                }
+            } catch (error) {
+                console.error('Error toggling website:', error);
+            }
+        });
+    });
+}
+    
+        // Clear LocalStorage for debugging purposes
+        function clearLocalStorage() {
+            localStorage.clear();
+            alert('Local Storage cleared!');
+        }
+    </script>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                    <h3>About Me</h3>
+                    <p class="about">I am An Aspiring Game Designer Hoping <br> To Inrodce The World To My Imagination <br> And Bring People Together With Entertainment</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <div class="column1">
+                        <a href="{{ url_for('donate') }}">Donate</a>
+                        <a href="{{ url_for('contact') }}">Contact</a>
+                        <a href="{{ url_for('share') }}">Share</a>
+                        <a href="{{ url_for('socialMedia') }}">My Socials</a>
+                        <a href="{{ url_for('settings') }}">Account Settings</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <div class="column2">
+                        <p>Email: redratgames1@gmail.com</p>
+                        <p>Support Number: +1 (973) 934-0804</p>
+                     </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Pages</h3>
+                    <a href="{{ url_for('games') }}">Games</a>
+                    <a href="{{ url_for('media') }}">Streaming</a>
+                    <a href="{{ url_for('shopping') }}">Shopping</a>
+                    <a href="{{ url_for('social') }}">Social Platforms</a>
+                    <a href="{{ url_for('work') }}">Productivity</a>
+                    <a href="{{ url_for('design') }}">Design</a>
+                    <a href="{{ url_for('information') }}">Information</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2025 Red Rat Games. All rights reserved.
+            </div>
+        </footer>
+</body>
+</html>

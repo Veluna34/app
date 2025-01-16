@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Sewer Homepage</title>
+<style>
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: url('https://www.transparenttextures.com/patterns/asfalt.png'), linear-gradient(135deg, #330000, #6b1e1b);
+    color: #fff;
+    overflow: hidden;
+    background-size: cover;
+    display: flex;
+    flex-direction: column; /* Allow the content to stretch */
+    justify-content: flex-start; /* Align items at the top */
+    height: 100vh;
+    margin: 0;
+}
+
+
+
+.sewer-container {
+    text-align: center;
+    position: relative;
+    padding: 50px;
+    background: rgba(0, 0, 0, 0.779);
+    border-radius: 30px;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    max-height: 110vh;
+    overflow-y: auto;
+    margin-top: 150px; /* Adjust to make space below the header */
+    width: 100%;
+    bottom: 6.2em; /* Match this value to the height of the fixed header */
+    background: linear-gradient(357deg, #bab6b6 30%, #e5dede 100%);    
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.7); /* Softer shadow */
+}
+
+.sewer-header {
+    background-color:rgb(98 62 62); /* Brighter tone */
+    padding: 50px; /* This will still add padding inside the header */
+    border-radius: 15px;
+    box-shadow: 0 0 40px rgba(0, 255, 13, 0.225); /* More glow */
+    border: 4px solid #9a1414; /* Brighter border */
+    position: relative; /* Make the header position absolute */
+    width: 99vw; /* Full width of the viewport */
+    box-sizing: border-box; /* Ensure padding and border are inside the width */
+    overflow: hidden; /* Hide any content that overflows */
+    margin-top: 1.1em; /* Add top margin if needed */
+    right: 3.4vw;
+}
+
+h1 {
+    color: #d6ffd1; /* Softer and brighter text color */
+    font-size: 4rem;
+    margin-bottom: 15px;
+    font-family: 'Courier New', Courier, monospace;
+    text-shadow: 6px 6px 12px rgba(0, 0, 0, 0.8); /* More glow */
+}
+
+p {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: #e77f7f; /* Brighter color for paragraphs */
+}
+
+.sewer-links {
+    margin-top: 30px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.sewer-link {
+    display: inline-block;
+    font-size: 1.8rem;
+    padding: 15px 30px;
+    background-color: #987eff; /* Fresh blue for a modern look */
+    border: 2px solid #483c8f; /* Darker blue for the border */
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Arial', sans-serif; /* Clean, sans-serif font */
+    text-align: center;
+    border-radius: 25px; /* Rounded corners for a modern button */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    transition: all 0.3s ease-in-out; /* Smooth transitions for hover effects */
+    position: relative; /* Ensure positioning for animation */
+    animation: drip 2s ease-in-out infinite; /* Apply drip animation */
+}
+
+.sewer-link:hover {
+    background-color: #5c04c1; /* Darker blue when hovered */
+    border-color: #444444; /* Even darker blue border on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Slightly more prominent shadow */
+    transform: translateY(-3px); /* Slight lift effect */
+}
+
+@keyframes drip {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(5px);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+.sewer-link::after { 
+    content: attr(data-title);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+    background-color: #4d4343; /* Deep, muted purple-grey background */
+    color: #ffadad; /* Light off-white for text */
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 3px solid #000000; /* Darker purple-grey border */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4); /* Subtle shadow for depth */
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 10; /* Ensure tooltip is above other elements */
+}
+
+.sewer-link:hover::after {
+    opacity: 1;
+    transform: translate(-50%, -70px);
+}
+
+.toggle-menu {
+    background: #742a2a;
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    transition: background 0.3s;
+}
+
+.toggle-menu:hover {
+    background: #9b3a3a;
+}
+
+.menu-links {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.menu-links.hidden {
+    display: none;
+}
+
+.menu-links a {
+    margin: 5px 0;
+}
+
+.toggle-menu.open + .menu-links {
+    display: flex;
+}
+
+
+.sewer-footer {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    color: #c84b4b;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.sewer-footer p {
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(100, 40, 40, 0.3); /* Brighter overlay */
+    filter: blur(12px); /* Softer blur */
+    z-index: -1;
+}
+
+.sewer-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/dark-matter.png'); /* Updated texture */
+    opacity: 0.25;
+    z-index: -1;
+}
+
+#search {
+    position: relative;
+    width: 80%;
+    padding: 5px;
+    font-size: 1.2rem;
+    border: 2px solid #742a2a;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    right: 10vw;
+    /* Default settings for larger screens */
+}
+
+/* For medium screens (tablets) */
+@media (max-width: 1280px) {
+    #search {
+        width: 80%;
+    padding: 5px;
+    font-size: 1.2rem;
+        left: 27vw;
+    }
+}
+
+/* For smaller screens (smartphones) */
+@media (max-width: 480px) {
+    #search {
+        width: 80%;
+    padding: 5px;
+    font-size: 1.2rem;
+        left: 30vw;
+    }
+}
+
+#search-sewer{
+    width: 80%;
+    padding: 10px;
+    font-size: 1.2rem;
+    border: 2px solid #742a2a;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-top: 0px;
+}
+
+.sewer-chamber {
+    margin: 20px 0;
+    padding: 20px;
+    background: linear-gradient(180deg, #24242496 30%, #606060 100%); /* Muted blue gradient for a clean modern look */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.sewer-chamber:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow on hover */
+}
+
+.sewer-chamber a {
+    color: #323f17; /* Muted, medium purple for a subtle yet noticeable link color */
+    text-decoration: none; /* Keep links clean with no underline */
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth color transition and slight transform on hover */
+}
+
+.sewer-chamber a:hover {
+    color: #9a66f3; /* Lighter purple for hover effect */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+    text-decoration: underline; /* Underline on hover for better interactivity */
+}
+
+.sewer-chamber h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #d4bcf9; /* Dark grayish-blue for the header */
+    text-shadow: 1px 1px 3px rgb(0 0 0 / 85%); /* Light shadow for depth */
+    font-weight: bold;
+}
+
+.sewer-search{
+    margin-top: 0em;
+}
+
+.default {
+    position: fixed; /* Keep it at the top of the screen */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #191d1e;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    padding: 1em 1em;
+    z-index: 10;
+    justify-content: space-between;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+.default nav {
+    display: flex;
+    justify-content: flex-start;
+    flex-grow: 1;
+    margin-left: 0vw;
+}
+
+.default nav ul {
+    list-style-type: none;
+    display: flex;
+    font-size: 1.1em;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    margin-left: 10vw;
+}
+
+.default nav ul li {
+    margin-left: 1vw;
+}
+
+.default nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.default nav ul li a:hover {
+    color: #a3a3a3;
+}
+
+.logo {
+    position: absolute;
+    right: 1em;
+}
+
+.logo img {
+    height: 50px;
+}
+
+
+
+/* Ensure content below fixed header doesn't overlap */
+canvas {
+    margin-top: 6em;
+    width: 100%;
+    height: auto;
+}
+
+.musicContainer{
+    display: none;
+}
+
+footer {
+             background-color: #1e374f;
+            color: #ffffff;
+            padding: 5em 5em;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            transform: translate(0vw, 0vh);
+            left: 0;
+            min-width: 100%;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            transform: translate(5vw, -7vh);
+        }
+
+        .column1{
+            transform: translate(.25vw, -.25vh);
+        }
+
+        .column2{
+            transform: translate(0vw, -.4vh);
+        }
+                
+        .footer-column h3 {
+            color: #c192ff;
+            font-size: 1.5em;
+            margin-bottom: 1.5vh;
+        }
+
+        .footer-column p, 
+        .footer-column a {
+            color: #ced4da;
+            font-size: 1em;
+            text-decoration: none;
+            margin-bottom: 0.2vw;
+            display: block;
+        }
+
+        .footer-column a:hover {
+                color: #ffffff;
+                text-decoration: underline;
+            }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5em;
+            font-size: 1em;
+            color: #ced4da;
+            border-top: .5vh solid #ced4da;
+        }
+
+        .about{
+            text-align: center;
+        }
+
+        /* Audio Controls Container */
+.audio-controls {
+    position: fixed;
+    bottom: .1em; /* Positioned at the bottom of the viewport */
+    left: 87%;
+    transform: translateX(-50%);
+    background-color: rgba(60, 40, 40, 0.9); /* Slightly transparent background */
+    padding: 10px 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8); /* Soft shadow */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    z-index: 20;
+}
+
+/* Play/Pause Button */
+.audio-btn {
+    background-color: #742a2a;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    transition: background 0.3s;
+}
+
+.audio-btn:hover {
+    background-color: #9b3a3a;
+}
+
+.audio-btn:focus {
+    outline: none;
+}
+
+/* Volume Control Slider */
+.audio-slider {
+    width: 150px;
+    background-color: #4e4e4e;
+    border-radius: 5px;
+    height: 5px;
+    appearance: none;
+    cursor: pointer;
+}
+
+.audio-slider::-webkit-slider-thumb {
+    background-color: #ff4d4d;
+    border: none;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.7);
+}
+
+.audio-slider::-moz-range-thumb {
+    background-color: #ff4d4d;
+    border: none;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.7);
+}
+
+.audio-slider:focus {
+    outline: none;
+}
+
+/* Volume Label */
+.audio-label {
+    color: #e77f7f; /* Bright color for volume text */
+    font-size: 1.2rem;
+    font-style: italic;
+}
+
+#flash-message {
+        transition: opacity 1s ease-out; /* Smooth fade-out transition over 1 second */
+        font-size: 2em;
+        color: #ff7070;
+    }
+    .username {
+    margin-right: 250px;  /* Space between logo and username */
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.sewer-icon {
+    width: 100px; /* Adjust size of the image */
+    height: 100px;
+    margin-right: 10px; /* Space between image and text */
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+
+</style>
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInputForm = document.getElementById('search-sewer'); // The search bar in the form
+        const searchInputSewer = document.querySelector('.sewer-search input'); // The search bar in the sewer section
+    const chambers = document.querySelectorAll('.sewer-chamber'); // All chambers to search through
+
+    // Function to filter content based on the search term
+    function filterSewerChambers() {
+        const searchTerm = searchInputForm.value.toLowerCase() || searchInputSewer.value.toLowerCase(); // Get input value, use either search bar's value
+        chambers.forEach(chamber => {
+            const links = chamber.querySelectorAll('.sewer-link'); // Get all the links in the chamber
+            let found = false;
+
+            // Check if any link's text content matches the search term
+            links.forEach(link => {
+                if (link.textContent.toLowerCase().includes(searchTerm)) {
+                    found = true;
+                }
+            });
+
+            // Show or hide the chamber based on whether it matches
+            if (found) {
+                chamber.style.display = 'block'; // Show chamber if a link matches
+            } else {
+                chamber.style.display = 'none'; // Hide chamber if no links match
+            }
+        });
+    }
+
+    // Attach event listeners to both search bars
+    searchInputForm.addEventListener('input', filterSewerChambers);
+    searchInputSewer.addEventListener('input', filterSewerChambers);
+});
+
+</script>
+
+
+</head>
+<body>
+
+    <header class="default">
+
+
+
+
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Sign In</a></li>
+
+            </ul>
+        </nav>
+        <form action="{{ url_for('search') }}" method="get">
+            <input type="text" name="query" id="search" placeholder="Search for anything..." value="{{ query or '' }}" />
+        </form>
+        {% if session.get('username') %}
+        <span class="username">Welcome: {{ session['username'] }}!</span>
+    {% else %}
+        <span>Welcome: Guest!</span>
+    {% endif %}
+    </header>
+
+
+
+    <main>
+        <div class="sewer-container">
+            <div class="sewer-search">
+                <input type="text" id="search-sewer" placeholder="Search For A Category...">
+                <section class="sewer-chamber">
+                    <h2>The Timeline & Original Games</h2>
+                    <nav>
+                        <img src="https://coralogix.com/wp-content/uploads/2023/04/draft_banner_gaming_logs-scaled.jpg" alt="Browser Games" class="sewer-icon">
+                        <a href="{{ url_for('timeline') }}" class="sewer-link" data-title="Experience The Past, Present, & Future Of Gaming" target="_blank">The Timeleline</a>
+                        <a href="{{ url_for('originalgames') }}" class="sewer-link" target="_blank" data-title="My Own Original Games: I Hope You Enjoy">Red Rat Games</a>
+                        <img src="https://media.licdn.com/dms/image/v2/C4D0BAQH_HxUcXNvC_A/company-logo_200_200/company-logo_200_200/0/1676592496335/originalgames_logo?e=2147483647&v=beta&t=F50Og6QIrs0i-7YEuznc-KZOeUP42XnoVvHNTi9oYkI" alt="Browser Games" class="sewer-icon">
+                    </nav>
+                </section>
+                <section class="sewer-chamber">
+                    <h2>Retro & Doublespeak Games</h2>
+                    <nav>
+                        <img src="https://platform.polygon.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/22809003/jude_buffum_210825_ecl1124_package_art.png?quality=90&strip=all&crop=0%2C0%2C100%2C100&w=2400" alt="Browser Games" class="sewer-icon">
+                        <a href="{{ url_for('retro') }}" class="sewer-link" target="_blank" data-title="Check Out The Best Games Of All Time">Retro Games</a>                  
+                        <a href="{{ url_for('doublespeak') }}" class="sewer-link" target="_blank" data-title="Games From Doublespeak Including: A Dark Room, Gridland, & Others">Doublespeak Games</a>
+                        <img src="https://media.licdn.com/dms/image/v2/C510BAQEhSQVzKWy9Lw/company-logo_200_200/company-logo_200_200/0/1631351816894?e=2147483647&v=beta&t=agH_CU0JMoRjSGjV9g4g_n6s8hIiNjgO5vcnnPzriUw" alt="Browser Games" class="sewer-icon">
+                    </nav>
+                </section>
+                <section class="sewer-chamber">
+                    <h2>Elephant Collection & Neil.fun</h2>
+                    <nav>
+                        <img src="https://assetsio.gnwcdn.com/co6hmk.jpg?width=1200&height=1200&fit=bounds&quality=70&format=jpg&auto=webp" alt="Browser Games" class="sewer-icon">
+                        <a href="{{ url_for('elephantcollection') }}" target="_blank" class="sewer-link" data-title="Games From The Elephant Collection Inclduing: Achievment Unlocked & Others">The Elephant Collection</a>
+                        <a href="{{ url_for('neilsgames') }}" class="sewer-link" data-title="Includes:Infinite Craft, The Password Game, & More" target="_blank">Neil.Fun</a>
+                        <img src="https://i.ytimg.com/vi/HHeBwZCJqhM/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAiqHPEVWKTlR_U3xX2Ark8Q_Vimg" alt="Browser Games" class="sewer-icon">
+                    </nav>
+                </section>
+                <section class="sewer-chamber">
+                    <h2>Google  Games & The Henry Stickmin Collection</h2>
+                    <nav>
+                        <img src="https://i.ytimg.com/vi/IsnagOxAm7w/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLD2ekGvMluThex4jHEPTznDpcCpHA" alt="Browser Games" class="sewer-icon">
+                        <a href="{{ url_for('google') }}" class="sewer-link" target="_blank" data-title="Features: Games From Google Like Snake">Google</a>
+                        <a href="{{ url_for('henrystickmancollection') }}" target="_blank" class="sewer-link" data-title="Games From: The Henry Stickmin Collection">The Henry Stickmin Collection</a>
+                        <img src="https://i.scdn.co/image/ab67616d0000b27331d3dcffcd7bbc3f26944ae6" alt="Browser Games" class="sewer-icon">
+                    </nav>
+                </section>
+                <section class="sewer-chamber">
+                    <h2>.Io Games & Juicy Beast</h2>
+                    <nav>
+                        <img src="https://www.gamedesigning.org/wp-content/uploads/2020/03/io-Games.jpg" alt="Browser Games" class="sewer-icon">
+                        <a href="{{ url_for('iogames') }}" class="sewer-link" target="_blank" data-title="Includes: Agar.io, Slither.io, & More">.Io Games</a>
+                        <a href="{{ url_for('juicygames') }}" class="sewer-link" target="_blank" data-title="Features Games From Juicy Beast Including: Burrito Bison">Juicy Beast</a>
+                        <img src="https://i.ytimg.com/vi/iI12es9EoKg/hqdefault.jpg" alt="Browser Games" class="sewer-icon">
+                    </nav>
+                </section>
+                <section class="sewer-chamber">
+                    <h2>Multiplayer & Online Games</h2>
+                    <nav>
+                        <img src="https://avatars.cloudflare.steamstatic.com/65286e78266fbc2a10bf4756a974d2b717fe52fd_full.jpg" alt="Browser Games" class="sewer-icon">
+                        <a href="{{ url_for('multiplayer') }}" class="sewer-link" target="_blank" data-title="Popular Multiplayer Games Like Fortz & Animator Vs. Animation">Coop Games</a>
+                        <a href="{{ url_for('online') }}" class="sewer-link" target="_blank" data-title="Popular Online Games Like Pokemon Showdown & Chess.com">Online Games</a>
+                        <img src="https://i.ytimg.com/vi/e2DcFdOil48/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAgF-i78BeCwBm5qNOLIYRDEPOZhA" alt="Browser Games" class="sewer-icon">
+                    </nav>
+                </section>
+                <section class="sewer-chamber">
+                    <h2>New Grounds & The New York Times</h2>
+                    <nav>
+                        <img src="https://i.ytimg.com/vi/qvkKeTrq7JA/maxresdefault.jpg" alt="Browser Games" class="sewer-icon">
+                        <a href="{{ url_for('newgrounds') }}" class="sewer-link" target="_blank" data-title="The Best Of Newgrounds Including: Alien Hominid, FNF, & More">From NewGrounds</a>
+                        <a href="{{ url_for('newyorktimes') }}" class="sewer-link" target="_blank" data-title="Games From The New York Times Including: Wordle & The Crossword">The New York Times </a>
+                        <img src="https://mwcm.nyt.com/dam/mkt_assets/img/games/hub.png" alt="Browser Games" class="sewer-icon">
+                    </nav>
+                </section>
+                <section class="sewer-chamber">
+                    <h2>Orteil & InnoGames</h2>
+                    <nav>
+                        <img src="https://play-lh.googleusercontent.com/Z1MOuuiD05ZN5LkVmMEvKF0mqAc-FknaQ2j8s4dZiO-LSPQX4EEA3RVJdlQEtxe96ok" alt="Browser Games" class="sewer-icon">
+                        <a href="{{ url_for('orteil') }}" class="sewer-link" target="_blank" data-title="Games From The Creator Of Cookie Clicker">Orteil</a>
+                        <a href="{{ url_for('innogames') }}" class="sewer-link" target="_blank" data-title="From The Creators Of: Forge Of Empires">InnoGames</a>
+                        <img src="https://e7.pngegg.com/pngimages/447/395/png-clipart-innogames-forge-of-empires-tribal-wars-elvenar-modern-times-group-innogames-game-text-thumbnail.png" alt="Browser Games" class="sewer-icon">
+                    </nav>
+                </section>
+                <section class="sewer-chamber">
+                    <h2>Wix & Popular Games</h2>
+                    <nav>
+                        <img src="https://yt3.googleusercontent.com/e7nckyqLK6Kq1wHNrup31TNWizDbN93yaF7b70Of1GFl5UtRajSyZYQ991tt8Y_b-WVu4KlSVA=s900-c-k-c0x00ffffff-no-rj" alt="Browser Games" class="sewer-icon">
+                        <a href="{{ url_for('wix') }}" class="sewer-link" target="_blank" data-title="From: The Creators Of Duck Life">Wixgames</a>
+                        <a href="{{ url_for('popular') }}" class="sewer-link" target="_blank" data-title="The Most Popular Stand Alone Browser Games Like: Minesweeper & Classic Minecraft">Popular Games</a>
+                        <img src="https://s3b.cashify.in/gpro/uploads/2022/05/25010007/Best-Browser-Games.jpg" alt="Browser Games" class="sewer-icon">
+                    </nav>
+                </section>
+                <section class="sewer-chamber">
+                    <h2>Phoboslab & Popular Collection</h2>
+                    <nav>
+                        <img src="https://korben.info/phoboslab-studio-jeux-web-retro-html5-javascript-gratuits/manu23_logo_for_video_game_studio_word_Phoboslab_76fb7aa2-9e83-46be-aa16-c9b4b4287f74.webp" alt="Browser Games" class="sewer-icon">
+                        <a href="{{ url_for('phoboslab') }}" class="sewer-link" target="_blank" data-title="Features: Games From PhobosLab">Phoboslab </a>
+                        <a href="{{ url_for('collections') }}" class="sewer-link" target="_blank" data-title="Features Stand A Lone Collections Like:Learn To Fly & Earn To Die">Stand Alone Collections</a>
+                        <img src="https://static0.hardcoregamerimages.com/wordpress/wp-content/uploads/2024/10/best-browser-games-thumbnail.png" alt="Browser Games" class="sewer-icon">
+                    </nav>
+                </section>
+                <section class="sewer-chamber">
+                    <h2>Ojola Games & Other Fun Websites</h2>
+                    <nav>
+                        <img src="https://img.itch.zone/aW1nLzEzNjMzODAyLnBuZw==/315x250%23cm/M6GWjL.png" alt="Browser Games" class="sewer-icon">
+                        <a href="{{ url_for('otto') }}" class="sewer-link" target="_blank" data-title="Game By: Otto Ojola">From Otto Ojala</a>
+                        <a href="{{ url_for('otherwebsites') }}" class="sewer-link" target="_blank" data-title="Other Fun Websites On The Internet">Other Websites</a>
+                        <img src="https://profiletree.com/wp-content/uploads/2022/12/Complete-list-of-Fun-Websites-to-Amuse-Yourself-1024x683.webp" alt="Browser Games" class="sewer-icon">
+                    </nav>
+                </section>
+                <section class="sewer-chamber">
+                    <h2>Recommendations</h2>
+                    <nav>
+                        <img src="https://gameinfluencer.com/wp-content/uploads/2024/09/steam-breaks-player-record-here-are-the-numbers-1.webp" alt="Browser Games" class="sewer-icon">
+                        <a href="{{ url_for('recommendations') }}" class="sewer-link" target="_blank" data-title="If You Like The Games Here Check These Out">Professional Indie Games</a>
+                        <img src="https://gameinfluencer.com/wp-content/uploads/2024/09/steam-breaks-player-record-here-are-the-numbers-1.webp" alt="Browser Games" class="sewer-icon">
+                    </nav>
+                </section>
+                <section class="sewer-chamber">
+                    <nav>
+                    </nav>
+                </section>
+                <footer>
+                    <div class="footer-container">
+                        <div class="footer-column">
+                                <h3>About Me</h3>
+                                <p class="about">I am An Aspiring Game Designer Hoping <br> To Inrodce The World To My Imagination <br> And Bring People Together With Entertainment</p>
+                            </div>
+                            <div class="footer-column">
+                                <h3>Quick Links</h3>
+                                <div class="column1">
+                                    <a href="{{ url_for('donate') }}">Donate</a>
+                                    <a href="{{ url_for('contact') }}">Contact</a>
+                                    <a href="{{ url_for('share') }}">Share</a>
+                                    <a href="{{ url_for('socialMedia') }}">My Socials</a>
+                                    <a href="{{ url_for('settings') }}">Account Settings</a>
+                                </div>
+                            </div>
+                            <div class="footer-column">
+                                <h3>Contact</h3>
+                                <div class="column2">
+                                    <p>Email: redratgames1@gmail.com</p>
+                                    <p>Support Number: +1 (973) 934-0804</p>
+                                 </div>
+                            </div>
+                            <div class="footer-column">
+                                <h3>Pages</h3>
+                                <a href="{{ url_for('games') }}">Games</a>
+                                <a href="{{ url_for('media') }}">Streaming</a>
+                                <a href="{{ url_for('shopping') }}">Shopping</a>
+                                <a href="{{ url_for('social') }}">Social Platforms</a>
+                                <a href="{{ url_for('work') }}">Productivity</a>
+                                <a href="{{ url_for('design') }}">Design</a>
+                                <a href="{{ url_for('information') }}">Information</a>
+                            </div>
+                        </div>
+                        <div class="footer-bottom">
+                            &copy; 2025 Red Rat Games. All rights reserved.
+                        </div>
+                    </footer>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Rat Gaming</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Custom Scripts -->
+    <script src="../static/background2.js" defer></script>
+    <script src="https://code.createjs.com/1.0.0/easeljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../static/background2.css">
+
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Flexbox Layout for Body */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Content Wrapper */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding-top: 80px; /* To prevent content from being hidden behind fixed header */
+        }
+
+        /* Header Styling */
+        header {
+            position: fixed; /* Keep it at the top of the screen */
+            top: 0;
+            left: 0;
+            width: 100%; /* Full width */
+            background-color: #191d1e; /* Dark background */
+            color: #ffffff; /* White text */
+            display: flex; /* Flex layout */
+            align-items: center; /* Vertical alignment */
+            padding: 1.4em 1em; /* Padding */
+            z-index: 10; /* Above other content */
+            justify-content: space-between; /* Space between items */
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-start;
+            flex-grow: 1;
+            margin-left: 10vw;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            font-size: 1.17em;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-right: 1.3vw;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #a3a3a3;
+        }
+
+        .logo {
+            position: absolute;
+            right: 1em;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .support {
+            display: flex;
+            justify-content: center;
+            border-radius: 8em;
+            background-color: rgb(202, 137, 57);
+            border: .5em solid rgb(202, 137, 57);
+            width: 30%; /* Adjust the width as needed */
+            max-width: 20%; /* Optional: Limit the maximum width */
+            margin: 0 auto; /* Center the element horizontally */
+            margin-top: 0vh;
+        }
+
+
+        .support:hover {
+            background-color: rgb(160, 103, 45); /* Lighter shade on hover */
+            transform: scale(1.05); /* Slight zoom effect */
+            text-decoration: none;
+        }
+
+        button {
+            background: none;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+
+        .support:hover button {
+            color: rgb(255, 255, 255); /* Optional: Change button text color on hover */
+        }
+
+        h1{
+            display: flex;
+            font-size: 5em;
+            color: aquamarine;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        h1 a {
+            color: aquamarine !important;
+            text-decoration: none;
+            font-size: inherit;
+            transition: color 0.3s;
+        }
+
+        h1 a:hover{
+            color: aqua !important;
+        }
+
+        .row1, .row2, .row3, .row4, .row5, .row6, .row7, .row8{
+            display: flex;
+            justify-content: center;
+            gap: 3%;
+            margin-top: 13%; /* Add spacing between rows */
+        }
+
+        .gameImgs {
+            border-left: 1em solid #647282;
+            border-right: 1em solid #6e7e8f;
+            border-top: 100%;
+            padding-left: 1em;
+            padding-right: 1em;
+        }
+
+        .row1 {
+            margin-top: 3%; /* Adjust as needed */
+        }
+
+        .row1 img, .row2 img, .row3 img, .row4 img, .row5 img, .row6 img, .row7 img, .row8 img{
+            border: .5em solid #437c94;
+            border-radius: 1em;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .gameImgs img:hover {
+            border-color: #38464c;
+            transform: scale(1.1);
+        }
+
+        .lofiMessage {
+            position: fixed;
+            color: aliceblue;
+            margin-left: 83.5%;
+            transform: translate(0vw, 14.5vh);
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #1e374f;
+            color: #ffffff;
+            padding: 5em 5em;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            transform: translate(0vw, 1vh);
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            transform: translate(5vw, -7vh);
+        }
+
+        .column1{
+            transform: translate(.25vw, -.25vh);
+        }
+
+        .column2{
+            transform: translate(0vw, -.4vh);
+        }
+
+        .footer-column h3 {
+            color: #c192ff;
+            font-size: 1.5em;
+            margin-bottom: 1.5vh;
+        }
+
+        .footer-column p, 
+        .footer-column a {
+            color: #ced4da;
+            font-size: 1em;
+            text-decoration: none;
+            margin-bottom: 0.2vw;
+            display: block;
+        }
+
+        .footer-column a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5em;
+            font-size: 1em;
+            color: #ced4da;
+            border-top: .5vh solid #ced4da;
+        }
+
+        .about{
+            text-align: center;
+            transform: translate(-7vw, 0vw);
+        }
+
+        iframe{
+            position: fixed;
+        }
+
+        .row1 img, .row2 img, .row3 img, .row4 img, .row5 img, .row6 img{
+            display: flex;
+            justify-content: center; /* Center align the items */
+            gap: 1%; /* Adjust gap between images */
+            margin-top: 3%; /* Provide space above the row */
+            flex-wrap: wrap; /* Allow wrapping of images if the screen width is narrow */
+            width: 150%; /* Fixed width for consistent size */
+            max-width: 298px; /* Optional: Set a maximum width for large screens */
+            height: auto; /* Maintain aspect ratio */
+            padding: 0 2%; /* Add padding to ensure spacing from the edges */
+            object-fit: contain; /* Fit image within bounds without cropping */
+            border: .5em solid #437c94;
+            border-radius: 1em;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .row1 {
+            display: flex;
+            justify-content: center;
+            gap: 6%; /* Increase the gap between images */
+            margin-top: 2%; /* Adjust spacing above the row */
+            flex-wrap: wrap;
+        }
+
+        .row2, .row3, .row4, .row5, .row6{
+            display: flex;
+            justify-content: center;
+            gap: 6%; /* Increase the gap between images */
+            margin-top: 10%; /* Adjust spacing above the row */
+            flex-wrap: wrap;
+        }
+
+        .click {
+            display: flex;
+            flex-direction: column; /* Stack the text for better readability on smaller screens */
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            text-align: center;
+            padding: .5em; /* Add some padding */
+            border-radius: 50px; /* Round the edges more for a modern look */
+            background-color: rgb(202, 137, 57);
+            border: 0.1em solid rgb(202, 137, 57);
+            width: 70%; /* Use a percentage for adaptability */
+            max-width: 25em; /* Limit the width for large screens */
+            margin: 2em auto; /* Center on the page with spacing */
+            font-size: 1em; /* Set a default font size */
+            line-height: 1.5; /* Improve text readability */
+            margin-top: .5%;
+            font-size: 1.1em;
+        }
+
+        
+        #search {
+    padding: 5px 10px; /* Adds some padding inside the search bar */
+    border: 1px solid #ccc; /* Adds border to search bar */
+    border-radius: 4px; /* Rounds the corners */
+    width: 200px; /* Adjust width as needed */
+    transition: width 0.3s ease-in-out; /* Optional: makes the width grow/shrink smoothly */
+}
+
+#search:focus {
+    width: 250px; /* Optional: expands search bar when focused */
+}
+
+form {
+    margin-right: 180px; /* Adjust this value to control the distance between the search and nav */
+}
+.username {
+    margin-right: 250px;  /* Space between logo and username */
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.emoji {
+    font-size: .9em; /* Adjust emoji font size */
+    display: flex;
+    gap: 10px; /* Space between emoji items */
+    justify-content: center;
+}
+
+.emoji:hover{
+    font-size: 1.1em;
+}
+        .counter {
+            font-size: 1.1em;
+            margin-left: 5px;
+            color: #ced4da;
+        }
+
+
+        /* Responsive Styling */
+        @media (max-width: 800px) {
+            h1{
+                transform: translate(0vw, 14vh);
+            }
+
+            body {
+                padding-top: 6em; /* Space below fixed header */
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav ul li {
+                margin-left: 0;
+                margin-bottom: 0.5em;
+            }
+
+            header {
+                flex-wrap: wrap;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+
+            h1{
+                transform: translate(0vw, 1vh);
+            }
+
+            .lofiMessage{
+                transform: translate(0vw, 3vh);
+                z-index: 5;
+            }
+
+            .click {
+            width: 80%; /* Make it occupy more space on smaller screens */
+            font-size: 0.9em; /* Adjust font size for readability */
+            padding: 1.5em; /* Add more padding for touch devices */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .click {
+            width: 90%; /* Almost full width on very small screens */
+            font-size: 0.8em; /* Slightly smaller font for compact screens */
+            padding: 1.2em; /* Reduce padding to fit */
+        }
+    }
+    </style>
+    <script>
+        document.getElementById('search').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                this.form.submit();  // Automatically submit the form when Enter is pressed
+            }
+        });
+    </script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Sign In</a></li>
+
+            </ul>
+        </nav>
+        <form action="{{ url_for('search') }}" method="get">
+            <input type="text" name="query" id="search" placeholder="Search for anything..." value="{{ query or '' }}" />
+        </form>
+        {% if session.get('username') %}
+        <span class="username">Welcome: {{ session['username'] }}!</span>
+    {% else %}
+        <span>Welcome: Guest!</span>
+    {% endif %}
+
+    </header>
+
+    <!-- Main Content -->
+    <div class="content">
+        <canvas></canvas>
+
+        <h1>Other Games I'd Recommend</h1>
+        <p class="click">If You Like What You've Been Playing Here <br> Check Out The More Professional indie games Below   </p>
+
+
+        <div class="gameImgs">
+            <!-- Row 1 -->
+            <div class="row1">
+                <div class="gameItem">
+                <a href="https://store.steampowered.com/app/1762930/Goat_Simulator_Remastered/" target="_blank" data-name="Goat Simulator">
+                    <img class="goat" title="Ruin The World As A Goat" src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/265930/capsule_616x353.jpg?t=1728895842"  alt="Goat Simulator"></a>
+                    <div class="emoji" data-link="chat">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+                <div class="gameItem">
+                <a href="https://store.steampowered.com/app/850190/Goat_Simulator_3/" target="_blank" data-name="Goat Simulator 3">
+                    <img class="goat1" title="Cause As Much Chaos As Possible And Ya Know Ruin The World As A Goat" src="https://myhotposters.com/cdn/shop/products/mL6489_1024x1024.jpg?v=1671141757" alt="Goat Simulator Three">
+                </a>
+                <div class="emoji" data-link="chat">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://store.steampowered.com/app/1240210/There_Is_No_Game_Wrong_Dimension/" target="_blank" data-name="There Is No Game Wrong Dimension">
+                    <img class="game" title="If You Click Here There Won't Be A Game" src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1240210/capsule_616x353.jpg?t=1728289933" alt="There Is No Game Wrong Dimension">
+                </a>
+                <div class="emoji" data-link="game">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://store.steampowered.com/app/764790/The_Messenger/" target="_blank" data-name="The Messenger">
+                    <img class="messenger" title="Save The World As A Ninja In Training" src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000012840/df0eb163676a4e1c3059dc3a9cee00e77563250a61f834c726346007b5a3a9fd" alt="The Messenger">                </a>
+                    <div class="emoji" data-link="messenger">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="row2">
+                <div class="gameItem">
+                <a href="https://store.steampowered.com/app/1282730/Loop_Hero/" target="_blank" data-name="Loop Hero">
+                    <img class="loop" title="Rebuild The Word One Loop At A Time" src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000041968/29516f2f693790d431e2e8ae297f85d5d11b75337b8be14f1c052beb0425c065" alt="Loop Hero">                </a>
+                    <div class="emoji" data-link="loop">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+                <div class="gameItem">
+                <a href="https://store.steampowered.com/app/367520/Hollow_Knight/" target="_blank" data-name="Hollow Knight">
+                    <img class="Hollow" title="Save The Kingdom From Infection" src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/367520/capsule_616x353.jpg?t=1695270428" alt="Hallow Knight">                </a>
+                    <div class="emoji" data-link="hollow">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+                <div class="gameItem">
+                <a href="https://store.steampowered.com/app/774361/Blasphemous/" target="_blank" data-name="Blasphemous">
+                    <img class="blasphemous" title="Repent And Become Chosen" src="https://cdn1.epicgames.com/offer/eddb735dde6b47cda8193f2643cff886/EGS_Blasphemous_TheGameKitchen_S3_2560x1440-f1a83630b91b3f128e8f9dd58f3f8eed?resize=1&w=480&h=270&quality=medium" alt="Blasphemous"></a>
+                    <div class="emoji" data-link="blasphemous">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+                <div class="gameItem">
+                <a href="https://store.steampowered.com/app/107100/Bastion/" target="_blank" data-name="Bastion">
+                    <img class="bastion" title="Remember How The World Was Destroyed" src="https://static1.thegamerimages.com/wordpress/wp-content/uploads/2021/07/bastion.jpg" alt="Bastion">
+                </a>
+                <div class="emoji" data-link="bastion">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="row3">
+                <div class="gameItem">
+                <a href="https://store.steampowered.com/app/843200/Alien_Hominid_Invasion/" target="_blank" data-name="Alien Hominid Invasion">
+                    <img class="alien" title="Take Over The Human Race" src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000018705/7dcc5afa691226959c56da75ab513f4ebd0916560cbfcb9973a40f38e4b19967" alt="Alien Hominid Invasion">
+                </a>
+                <div class="emoji" data-link="invasion">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://store.steampowered.com/app/238460/BattleBlock_Theater/" target="_blank" data-name="Battle Block Theatre">
+                    <img class="battle" title="Put On A Show..AND IT BETTER BE GOOD!" src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/238460/capsule_616x353.jpg?t=1731371079" alt="Battle Block Theatre">
+                </a>
+                <div class="emoji" data-link="battle">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://store.steampowered.com/app/1562430/DREDGE/" target="_blank" data-name="Dredge">
+                    <img class="dredge" title="Explore The Traumas Of The Sea" src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000049267/fe7c711c32bb15ecf9c96dac96a7c6818e49d265c28fa59145c0cbf5ebf34055" alt="Dredge">
+                </a>
+                <div class="emoji" data-link="dredge">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://store.steampowered.com/app/788100/Neon_Abyss/" target="_blank" data-name="Neo Abyss">
+                    <img class="neon" title="Defeat The Gods Corrupting Your World" src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/788100/capsule_616x353.jpg?t=1729820722" alt="Neon Abyss">
+                </a>
+                <div class="emoji" data-link="neon">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            </div>
+
+        <div class="row4">
+            <div class="gameItem">
+            <a href="https://store.steampowered.com/app/304430/INSIDE/" target="_blank" data-name="Inside">
+                <img class="inside" title="Discover The Corporation's Conspiracy" src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/304430/31203c10b21261375ba74d5a489f1c7f57d30326/capsule_616x353.jpg?t=1732629579" alt="Inside">
+            </a>
+            <div class="emoji" data-link="inside">
+                <span class="emoji-icon">👍</span> 
+                <span class="counter">0</span> <!-- Thumbs up counter -->
+                <span class="emoji-icon">❤️</span> 
+                <span class="counter">0</span> <!-- Heart counter -->
+            </div>
+        </div>
+        <div class="gameItem">
+            <a href="https://store.steampowered.com/app/48000/LIMBO/" target="_blank" data-name="limbo">
+                <img class="limbo" title="Enter Limbo To Find Your Sister" src="https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_1240/b_white/f_auto/q_auto/ncom/software/switch/70010000005802/19a3297c0c77743d3e2fc30b137d6c652608bc6b2c1cccf1aef48836e96a685e" alt="Limbo">
+            </a>
+            <div class="emoji" data-link="limbo">
+                <span class="emoji-icon">👍</span> 
+                <span class="counter">0</span> <!-- Thumbs up counter -->
+                <span class="emoji-icon">❤️</span> 
+                <span class="counter">0</span> <!-- Heart counter -->
+            </div>
+        </div>
+        <div class="gameItem">
+            <a href="https://store.steampowered.com/app/40800/Super_Meat_Boy/" target="_blank" data-name="Super Meat Boy">
+                <img class="meat" title="Good Luck In This Action Fast Paced Platformer" src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000001990/cd98a2abfb3daabf755ee6230142a01cf1b2f717d8831093545595280539f1eb" alt="Super Meat Boy">
+            </a>
+            <div class="emoji" data-link="meat">
+                <span class="emoji-icon">👍</span> 
+                <span class="counter">0</span> <!-- Thumbs up counter -->
+                <span class="emoji-icon">❤️</span> 
+                <span class="counter">0</span> <!-- Heart counter -->
+            </div>
+        </div>
+        <div class="gameItem">
+            <a href="https://store.steampowered.com/app/250900/The_Binding_of_Isaac_Rebirth/" target="_blank" data-name="The Binding Of Issac Rebirth">
+                <img class="binding" title="Escape Your Mom's Basement" src="https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2015/04/463938-binding-isaac-rebirth-llegara-pronto-xbox-one-wii-3ds.png?tf=3840x" alt="The Binding Of Issac">
+            </a>
+            <div class="emoji" data-link="rebirth">
+                <span class="emoji-icon">👍</span> 
+                <span class="counter">0</span> <!-- Thumbs up counter -->
+                <span class="emoji-icon">❤️</span> 
+                <span class="counter">0</span> <!-- Heart counter -->
+            </div>
+        </div>
+        </div>
+
+        <div class="row5">
+            <div class="gameItem">
+            <a href="https://store.steampowered.com/app/391540/Undertale/" target="_blank" data-name="Undertale">
+                <img class="under" title="Kill Or Spare Everyone In Your Path" src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/391540/header.jpg?t=1579096091" alt="Undertale">
+            </a>
+            <div class="emoji" data-link="under">
+                <span class="emoji-icon">👍</span> 
+                <span class="counter">0</span> <!-- Thumbs up counter -->
+                <span class="emoji-icon">❤️</span> 
+                <span class="counter">0</span> <!-- Heart counter -->
+            </div>
+        </div>
+        <div class="gameItem">
+            <a href="https://store.steampowered.com/app/1145360/Hades/" target="_blank" data-name="Hades">
+                <img class="hades" title="Escape Hell From The Help Of The Gods" src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000033131/dbc8c55a21688b446a5c57711b726956483a14ef8c5ddb861f897c0595ccb6b5" alt="Hades">
+            </a>
+            <div class="emoji" data-link="hades">
+                <span class="emoji-icon">👍</span> 
+                <span class="counter">0</span> <!-- Thumbs up counter -->
+                <span class="emoji-icon">❤️</span> 
+                <span class="counter">0</span> <!-- Heart counter -->
+            </div>
+        </div>
+        <div class="gameItem">
+            <a href="https://store.steampowered.com/app/602960/Barotrauma/" target="_blank" data-name="Barotrauma">
+                <img class="trauma" title="Navigate The Difficulties Of The Terrifying Ocean" src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/602960/capsule_616x353.jpg?t=1730817351" alt="Barotrauma">
+            </a>
+            <div class="emoji" data-link="trauma">
+                <span class="emoji-icon">👍</span> 
+                <span class="counter">0</span> <!-- Thumbs up counter -->
+                <span class="emoji-icon">❤️</span> 
+                <span class="counter">0</span> <!-- Heart counter -->
+            </div>
+        </div>
+        <div class="gameItem">
+            <a href="https://store.steampowered.com/app/1313140/Cult_of_the_Lamb/" target="_blank" data-name="Cult Of The Lamb">
+                <img class="Lamb" title="Develop Your Cult And Defeat The False Prophets" src="https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_1240/b_white/f_auto/q_auto/ncom/software/switch/70010000047973/745538c3639a379f6124349c298e94d6a972a554d1e754ace8b04d4566f508e8" alt="Cut Of The Lamb">
+            </a>
+            <div class="emoji" data-link="cult">
+                <span class="emoji-icon">👍</span> 
+                <span class="counter">0</span> <!-- Thumbs up counter -->
+                <span class="emoji-icon">❤️</span> 
+                <span class="counter">0</span> <!-- Heart counter -->
+            </div>
+        </div>
+        </div>
+
+        <div class="row6">
+            <div class="gameItem">
+            <a href="https://store.steampowered.com/app/504230/Celeste/" target="_blank" data-name="Celeste">
+                <img class="celeste" title="A Brutal Puzzle Platformer Full Of Enemies & Friends" src="https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_1240/b_white/f_auto/q_auto/ncom/software/switch/70010000006442/691ba3e0801180a9864cc8a7694b6f98097f9d9799bc7e3dc6db92f086759252" alt="Celeste">
+            </a>
+            <div class="emoji" data-link="celeste">
+                <span class="emoji-icon">👍</span> 
+                <span class="counter">0</span> <!-- Thumbs up counter -->
+                <span class="emoji-icon">❤️</span> 
+                <span class="counter">0</span> <!-- Heart counter -->
+            </div>
+        </div>
+        <div class="gameItem">
+            <a href="https://store.steampowered.com/app/572430/Party_Hard_2/" target="_blank" data-name="Party Hard 2">
+                <img class="Party" title="Kill The Party" src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/572430/capsule_616x353.jpg?t=1728662508" alt="Party Hard 2">
+            </a>
+            <div class="emoji" data-link="party">
+                <span class="emoji-icon">👍</span> 
+                <span class="counter">0</span> <!-- Thumbs up counter -->
+                <span class="emoji-icon">❤️</span> 
+                <span class="counter">0</span> <!-- Heart counter -->
+            </div>
+        </div>
+        <div class="gameItem">
+            <a href="https://store.steampowered.com/app/312520/Rain_World/" target="_blank" data-name="Rain World">
+                <img class="rain" title="Traverse Through A Deadly Ecosystem" src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000013493/71f75ef1b21a61090bac1dfe1ea744bf205066fcc2652854b122c6173fae4158" alt="Rain World">
+            </a>
+            <div class="emoji" data-link="Rain World">
+                <span class="emoji-icon">👍</span> 
+                <span class="counter">0</span> <!-- Thumbs up counter -->
+                <span class="emoji-icon">❤️</span> 
+                <span class="counter">0</span> <!-- Heart counter -->
+            </div>
+        </div>
+        <div class="gameItem">
+            <a href="https://store.steampowered.com/app/953490/CARRION/" target="_blank" data-name="Carrion">
+                <img class="Carrion" title="The First Ever Reverse Horror Game" src="https://i0.wp.com/waytoomany.games/wp-content/uploads/2020/07/Carrion-Title.jpg?fit=1920%2C1080&ssl=1" alt="Carrion">
+            </a>
+            <div class="emoji" data-link="Carrion">
+                <span class="emoji-icon">👍</span> 
+                <span class="counter">0</span> <!-- Thumbs up counter -->
+                <span class="emoji-icon">❤️</span> 
+                <span class="counter">0</span> <!-- Heart counter -->
+            </div>
+        </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCounters(); // Initialize counters from localStorage
+            setupEmojiClickListeners(); // Add listeners to emoji groups
+        });
+    
+        // Function to initialize counters from localStorage
+        function initializeCounters() {
+    document.querySelectorAll('.emoji').forEach(emojiGroup => {
+        const websiteKey = emojiGroup.dataset.link;
+        emojiGroup.querySelectorAll('.emoji-icon').forEach((emoji, index) => {
+            const counter = emoji.nextElementSibling;
+            const emojiKey = `${websiteKey}-${emoji.textContent.trim()}`; // Use the emoji text content as part of the key
+            const savedCount = localStorage.getItem(emojiKey);
+
+            if (savedCount !== null) {
+                counter.textContent = savedCount; // Set the counter to the saved value
+            } else {
+                counter.textContent = '0'; // Default to 0 if no saved count
+            }
+        });
+    });
+}
+
+// Function to set up emoji click listeners
+async function setupEmojiClickListeners() {
+    document.querySelectorAll('.emoji-icon').forEach(emoji => {
+        emoji.addEventListener('click', async event => {
+            event.stopPropagation(); // Prevent click from propagating to parent elements
+            const emoji = event.target;
+            const counter = emoji.nextElementSibling;
+            const emojiGroup = emoji.closest('.emoji');
+            const websiteLink = emoji.closest('.gameItem').querySelector('a');
+            const websiteName = websiteLink.dataset.name;
+            const websiteType = emoji.textContent.trim() === '❤️' ? 'favorite' : emoji.textContent.trim() === '👍' ? 'liked' : ''; // Determine the type of the emoji (❤️ = favorite, 👍 = liked)
+
+            if (!websiteType) return; // Exit if it's an invalid emoji type
+
+            let currentCount = parseInt(counter.textContent, 10) || 0;
+            if (currentCount > 0) {
+                // Decrement if the counter is greater than 0
+                currentCount--;
+            } else {
+                // Increment if the counter is 0
+                currentCount++;
+            }
+            counter.textContent = currentCount; // Update the counter on the page
+
+            // Use emoji text (❤️ or 👍) as part of the unique key
+            const emojiKey = `${emojiGroup.dataset.link}-${emoji.textContent.trim()}`;
+            localStorage.setItem(emojiKey, currentCount.toString()); // Store the count in localStorage
+
+            const payload = {
+                url: websiteLink.href,
+                name: websiteName,
+                type: websiteType
+            };
+
+            try {
+                const response = await fetch('/toggle_website', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    const updatedHTML = await response.text(); // Get the HTML response
+                    document.getElementById('favorite-websites-list').innerHTML = updatedHTML.match(/<ul id="favorite-websites-list">([\s\S]*?)<\/ul>/)[1];
+                    document.getElementById('liked-websites-list').innerHTML = updatedHTML.match(/<ul id="liked-websites-list">([\s\S]*?)<\/ul>/)[1];
+
+                    // Reinitialize the counters after HTML is updated
+                    initializeCounters(); 
+                } else {
+                    console.error('Failed to toggle website');
+                }
+            } catch (error) {
+                console.error('Error toggling website:', error);
+            }
+        });
+    });
+}
+    
+        // Clear LocalStorage for debugging purposes
+        function clearLocalStorage() {
+            localStorage.clear();
+            alert('Local Storage cleared!');
+        }
+    </script>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                    <h3>About Me</h3>
+                    <p class="about">I am An Aspiring Game Designer Hoping <br> To Inrodce The World To My Imagination <br> And Bring People Together With Entertainment</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <div class="column1">
+                        <a href="{{ url_for('donate') }}">Donate</a>
+                        <a href="{{ url_for('contact') }}">Contact</a>
+                        <a href="{{ url_for('share') }}">Share</a>
+                        <a href="{{ url_for('socialMedia') }}">My Socials</a>
+                        <a href="{{ url_for('settings') }}">Account Settings</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <div class="column2">
+                        <p>Email: redratgames1@gmail.com</p>
+                        <p>Support Number: +1 (973) 934-0804</p>
+                     </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Pages</h3>
+                    <a href="{{ url_for('games') }}">Games</a>
+                    <a href="{{ url_for('media') }}">Streaming</a>
+                    <a href="{{ url_for('shopping') }}">Shopping</a>
+                    <a href="{{ url_for('social') }}">Social Platforms</a>
+                    <a href="{{ url_for('work') }}">Productivity</a>
+                    <a href="{{ url_for('design') }}">Design</a>
+                    <a href="{{ url_for('information') }}">Information</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2025 Red Rat Games. All rights reserved.
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

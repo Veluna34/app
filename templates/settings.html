@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #333037; /* Light grey background */
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin-top: 60px;
+            background-color: #7e6060;
+            padding: 100px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .settings-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ffaeae; /* Red header */
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffcccc;
+        }
+
+        .btn-primary {
+            background-color: #d32f2f; /* Red button */
+            border-color: #d32f2f;
+        }
+
+        .btn-primary:hover {
+            background-color: #c62828; /* Darker red on hover */
+            border-color: #c62828;
+        }
+
+        .btn-upload {
+            background-color: #9b0000; /* Grey upload button */
+            color: white;
+            border-color: #9e9e9e;
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-upload:hover {
+            background-color: #757575; /* Darker grey on hover */
+        }
+
+        .form-control {
+            height: 40px;
+            border-radius: 5px;
+        }
+
+
+
+        .profile-img-container label.upload-icon {
+            position: relative;
+    background-color: #d32f2f;  /* Red background for the icon */
+    border-radius: 50%;          /* Make the icon circular */
+    padding: 5px;               /* Add padding to the icon */
+    color: white;                /* Set text color to white */
+    cursor: pointer;            /* Pointer cursor to indicate interactivity */
+    font-size: 1rem;           /* Icon size */
+    margin-left: 0px;           /* Space between the image and the icon */
+    display: flex;               /* Use flexbox to center the icon content */
+    margin-top: 13vh;
+    right: 2vw;
+}
+
+        /* Hide file input */
+        .d-none {
+            display: none;
+        }
+
+        footer {
+             background-color: #1e374f;
+            color: #ffffff;
+            padding: 5em 5em;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            transform: translate(0vw, .1vh);
+            left: 0;
+            min-width: 100%;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            transform: translate(5vw, -7vh);
+        }
+
+        .column1{
+            transform: translate(.25vw, -.25vh);
+        }
+
+        .column2{
+            transform: translate(0vw, -.4vh);
+        }
+                
+        .footer-column h3 {
+            color: #c192ff;
+            font-size: 1.5em;
+            margin-bottom: 1.5vh;
+        }
+
+        .footer-column p, 
+        .footer-column a {
+            color: #ced4da;
+            font-size: 1em;
+            text-decoration: none;
+            margin-bottom: 0.2vw;
+            display: block;
+        }
+
+        .footer-column a:hover {
+                color: #ffffff;
+                text-decoration: underline;
+            }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5em;
+            font-size: 1em;
+            color: #ced4da;
+            border-top: .5vh solid #ced4da;
+        }
+
+        .about{
+            text-align: center;
+            transform: translate(-7vw, 0vw);
+        }
+
+        header {
+            position: fixed; /* Keep it at the top of the screen */
+            top: 0;
+            left: 0;
+            width: 100%; /* Ensures it spans the full width of the screen */
+            background-color: #191d1e; /* Dark background for visibility */
+            color: #ffffff; /* White text */
+            display: flex; /* Flexbox for layout */
+            align-items: center; /* Aligns items vertically in the header */
+            padding: 1.4em 1em; /* Add padding */
+            z-index: 10; /* Ensures it appears above other content */
+            justify-content: space-between; /* Spreads the content across the header */
+        }
+    
+        nav {
+            display: flex; /* Ensure the navigation links are in a row */
+            justify-content: flex-start; /* Align the links to the left */
+            flex-grow: 1; /* Allow the nav to take the remaining space */
+            margin-left: 10vw;
+        }
+    
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            font-size: 1.17em;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-right: 1.3vw;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+    
+        nav ul li a {
+            color: #ffffff; /* White text color */
+            text-decoration: none; /* Remove underline */
+            transition: color 0.3s; /* Smooth color transition */
+        }
+    
+        nav ul li a:hover {
+            color: #a3a3a3; /* Change color on hover */
+        }
+    
+        .logo {
+            position: absolute; /* Position logo absolutely within header */
+            right: 1em; /* Push logo to the right */
+        }
+    
+        .logo img {
+            height: 50px; /* Set logo height */
+        }
+    
+        canvas {
+            margin-top: 6em; /* Push content below fixed header */
+            width: 100%; /* Ensure it takes the full width */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .about{
+            text-align: center;
+            transform: translate(-7vw, 0vw);
+        }
+
+        #search {
+    padding: 5px 10px; /* Adds some padding inside the search bar */
+    border: 1px solid #ccc; /* Adds border to search bar */
+    border-radius: 4px; /* Rounds the corners */
+    width: 200px; /* Adjust width as needed */
+    transition: width 0.3s ease-in-out; /* Optional: makes the width grow/shrink smoothly */
+}
+
+#search:focus {
+    width: 250px; /* Optional: expands search bar when focused */
+}
+        .username {
+    margin-right: 250px;  /* Space between logo and username */
+    font-size: 16px;
+    font-weight: bold;
+}
+
+form {
+    margin-right: 180px; /* Adjust this value to control the distance between the search and nav */
+}
+
+.labels{
+    text-align: center;
+}
+
+.form-settings {
+    display: flex;              /* Use flexbox for centering */
+    flex-direction: column;     /* Stack items vertically */
+    align-items: center;        /* Center items horizontally */
+    justify-content: center;    /* Center items vertically */
+    text-align: center;         /* Center text inside form elements */
+}
+
+.form-settings .form-group {
+    width: 200%;                /* Ensure the form groups take full width */
+    max-width: 900px;           /* Limit the max width of the form groups */
+}
+
+.form-settings input,
+.form-settings button {
+    width: 100%;                /* Make inputs and buttons full width */
+    max-width: 400px;           /* Limit their width to 400px for better alignment */
+}
+
+
+
+.form-settings .profile-img-container img {
+    margin-left: 17vw;
+
+}
+
+.form-settings .profile-img-container {
+    display: flex;              /* Ensure the container uses flexbox */
+    justify-content: center;    /* Horizontally center the profile image */
+    align-items: center;        /* Vertically center the profile image */
+    margin-bottom: 20px;
+    width: 100%;                /* Ensure the container takes full width */
+}
+
+.form-settings .profile-img-container img {
+    width: 120px;               /* Set the width of the profile image */
+    height: 120px;              /* Set the height of the profile image */
+    border-radius: 50%;         /* Make the profile image circular */
+    object-fit: cover;          /* Ensure the image fills the container */
+    background-color: #ced4da;
+}
+
+
+
+
+    </style>
+    <script>
+        document.getElementById('search').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                this.form.submit();  // Automatically submit the form when Enter is pressed
+            }
+        });
+    </script>
+
+<script>
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function () {
+            const output = document.getElementById('profileImage');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Sign In</a></li>
+
+            </ul>
+        </nav>
+        <form action="{{ url_for('search') }}" method="get">
+            <input type="text" name="query" id="search" placeholder="Search for anything..." value="{{ query or '' }}" />
+        </form>
+        {% if session.get('username') %}
+        <span class="username">Welcome: {{ session['username'] }}!</span>
+    {% else %}
+        <span>Welcome: Guest!</span>
+    {% endif %}
+
+    </header>
+
+<div class="container">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+    <h2 class="settings-header">Change Account Information</h2>
+
+    <form class="form-settings" action="/updateAccount" method="POST" enctype="multipart/form-data">
+        <!-- Profile Image -->
+        <div class="profile-img-container">
+            {% if session.get('file-upload') %}
+                <!-- Display uploaded profile image -->
+                <img src="{{ session['file-upload'] }}" alt="Profile Image" id="profileImage">
+            {% else %}
+                <!-- Default profile image -->
+                <img src="default-avatar.jpg" alt="Profile Image" id="profileImage">
+            {% endif %}
+            <label for="file-upload" class="upload-icon">
+                <i class="bi bi-camera"></i> 📷
+            </label>
+            <input type="file" id="file-upload" name="profileImage" class="d-none" accept="image/*" onchange="previewImage(event)">
+        </div>
+
+        <!-- Name -->
+         <div class="label">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="John Doe" required>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="johndoe@example.com" required>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+            <label for="password">New Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="********" required>
+        </div>
+
+        <div class="form-group">
+            <label for="confirm-password">Confirm New Password</label>
+            <input type="password" id="confirm-password" name="confirm-password" class="form-control" placeholder="********" required>
+        </div>
+
+        <div class="form-group text-center">
+            <a href="/logout" class="btn btn-danger">Logout</a>
+        </div>
+
+        <!-- Save Button -->
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+         </div>
+    </form>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+                <h3>About Me</h3>
+                <p class="about">I am An Aspiring Game Designer Hoping <br> To Inrodce The World To My Imagination <br> And Bring People Together With Entertainment</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <div class="column1">
+                    <a href="{{ url_for('homepage') }}">Home Page</a>
+                    <a href="{{ url_for('originalgames') }}">Original Games</a>
+                    <a href="{{ url_for('timeline') }}">The Timeline</a>
+                    <a href="{{ url_for('settings') }}">Account Settings</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <div class="column2">
+                    <p>Email: redratgames1@gmail.com</p>
+                    <p>Support Number: +1 (973) 934-0804</p>
+                    <a href="https://www.fiverr.com/red_rat_gaming?up_rollout=true">Fiverr</a>
+                    <a href="https://linkedin.com/in/aiden-figueroa-b5bab32a7/">LinkedIn</a>
+                 </div>
+            </div>
+            <div class="footer-column">
+                <h3>Follow Us</h3>
+                <a href="https://www.patreon.com/c/redratgaming/membership">Patreon</a>
+                <a href="https://x.com/home" target="_blank">Twitter</a>
+                <a href="https://www.instagram.com/redratgaming/" target="_blank">Instagram</a>
+                <a href="https://www.facebook.com/media/set/?set=a.101837654803613&type=3" target="_blank">Facebook</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 Red Rat Gaming. All rights reserved.
+        </div>
+    </footer>
+
+<script>
+    // Preview image before uploading
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            const output = document.getElementById('profileImage');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    // Optional: form validation to match passwords
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+        if (password !== confirmPassword) {
+            alert('Passwords do not match!');
+            e.preventDefault();
+        }
+    });
+</script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

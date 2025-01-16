@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Rat Gaming</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Custom Scripts -->
+    <script src="../static/background2.js" defer></script>
+    <script src="https://code.createjs.com/1.0.0/easeljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../static/background2.css">
+
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Flexbox Layout for Body */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Content Wrapper */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding-top: 80px; /* To prevent content from being hidden behind fixed header */
+        }
+
+        /* Header Styling */
+        header {
+            position: fixed; /* Keep it at the top of the screen */
+            top: 0;
+            left: 0;
+            width: 100%; /* Full width */
+            background-color: #191d1e; /* Dark background */
+            color: #ffffff; /* White text */
+            display: flex; /* Flex layout */
+            align-items: center; /* Vertical alignment */
+            padding: 1.4em 1em; /* Padding */
+            z-index: 10; /* Above other content */
+            justify-content: space-between; /* Space between items */
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-start;
+            flex-grow: 1;
+            margin-left: 10vw;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            font-size: 1.17em;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-right: 1.3vw;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #a3a3a3;
+        }
+
+        .logo {
+            position: absolute;
+            right: 1em;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .support {
+            display: flex;
+            justify-content: center;
+            border-radius: 8em;
+            background-color: rgb(202, 137, 57);
+            border: .5em solid rgb(202, 137, 57);
+            width: 30%; /* Adjust the width as needed */
+            max-width: 20%; /* Optional: Limit the maximum width */
+            margin: 0 auto; /* Center the element horizontally */
+            margin-top: 0vh;
+        }
+
+
+        .support:hover {
+            background-color: rgb(160, 103, 45); /* Lighter shade on hover */
+            transform: scale(1.05); /* Slight zoom effect */
+            text-decoration: none;
+        }
+
+        button {
+            background: none;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+
+        .support:hover button {
+            color: rgb(255, 255, 255); /* Optional: Change button text color on hover */
+        }
+
+        h1{
+            display: flex;
+            font-size: 5em;
+            color: aquamarine;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        h1 a {
+            color: aquamarine !important;
+            text-decoration: none;
+            font-size: inherit;
+            transition: color 0.3s;
+        }
+
+        h1 a:hover{
+            color: aqua !important;
+        }
+
+        .row1, .row2, .row3, .row4, .row5, .row6, .row7, .row8{
+            display: flex;
+            justify-content: center;
+            gap: 3%;
+            margin-top: 13%; /* Add spacing between rows */
+        }
+
+        .gameImgs {
+            border-left: 1em solid #647282;
+            border-right: 1em solid #6e7e8f;
+            border-top: 100%;
+            padding-left: 1em;
+            padding-right: 1em;
+        }
+
+        .row1 {
+            margin-top: 3%; /* Adjust as needed */
+        }
+
+        .row1 img, .row2 img, .row3 img, .row4 img, .row5 img, .row6 img, .row7 img, .row8 img{
+            border: .5em solid #437c94;
+            border-radius: 1em;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .gameImgs img:hover {
+            border-color: #38464c;
+            transform: scale(1.1);
+        }
+
+        .lofiMessage {
+            position: fixed;
+            color: aliceblue;
+            margin-left: 83.5%;
+            transform: translate(0vw, 14.5vh);
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #1e374f;
+            color: #ffffff;
+            padding: 5em 5em;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            transform: translate(0vw, 1vh);
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            transform: translate(5vw, -7vh);
+        }
+
+        .column1{
+            transform: translate(.25vw, -.25vh);
+        }
+
+        .column2{
+            transform: translate(0vw, -.4vh);
+        }
+
+        .footer-column h3 {
+            color: #c192ff;
+            font-size: 1.5em;
+            margin-bottom: 1.5vh;
+        }
+
+        .footer-column p, 
+        .footer-column a {
+            color: #ced4da;
+            font-size: 1em;
+            text-decoration: none;
+            margin-bottom: 0.2vw;
+            display: block;
+        }
+
+        .footer-column a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5em;
+            font-size: 1em;
+            color: #ced4da;
+            border-top: .5vh solid #ced4da;
+        }
+
+        .about{
+            text-align: center;
+            transform: translate(-7vw, 0vw);
+        }
+
+        iframe{
+            position: fixed;
+        }
+
+        .row1 img, .row2 img, .row3 img, .row4 img, .row5 img, .row6 img, .row7 img, .row8 img{
+            display: flex;
+            justify-content: center; /* Center align the items */
+            gap: 1%; /* Adjust gap between images */
+            margin-top: 3%; /* Provide space above the row */
+            flex-wrap: wrap; /* Allow wrapping of images if the screen width is narrow */
+            width: 150%; /* Fixed width for consistent size */
+            max-width: 298px; /* Optional: Set a maximum width for large screens */
+            height: auto; /* Maintain aspect ratio */
+            padding: 0 2%; /* Add padding to ensure spacing from the edges */
+            object-fit: contain; /* Fit image within bounds without cropping */
+            border: .5em solid #437c94;
+            border-radius: 1em;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .row1 {
+            display: flex;
+            justify-content: center;
+            gap: 6%; /* Increase the gap between images */
+            margin-top: 2%; /* Adjust spacing above the row */
+            flex-wrap: wrap;
+        }
+
+        .row2, .row3, .row4, .row5, .row6, .row7, .row8  {
+            display: flex;
+            justify-content: center;
+            gap: 6%; /* Increase the gap between images */
+            margin-top: 10%; /* Adjust spacing above the row */
+            flex-wrap: wrap;
+        }
+
+        .click {
+            display: flex;
+            flex-direction: column; /* Stack the text for better readability on smaller screens */
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            text-align: center;
+            padding: .5em; /* Add some padding */
+            border-radius: 50px; /* Round the edges more for a modern look */
+            background-color: rgb(202, 137, 57);
+            border: 0.1em solid rgb(202, 137, 57);
+            width: 70%; /* Use a percentage for adaptability */
+            max-width: 25em; /* Limit the width for large screens */
+            margin: 2em auto; /* Center on the page with spacing */
+            font-size: 1em; /* Set a default font size */
+            line-height: 1.5; /* Improve text readability */
+            margin-top: .5%;
+            font-size: 1.1em;
+        }
+
+        #search {
+    padding: 5px 10px; /* Adds some padding inside the search bar */
+    border: 1px solid #ccc; /* Adds border to search bar */
+    border-radius: 4px; /* Rounds the corners */
+    width: 200px; /* Adjust width as needed */
+    transition: width 0.3s ease-in-out; /* Optional: makes the width grow/shrink smoothly */
+}
+
+#search:focus {
+    width: 250px; /* Optional: expands search bar when focused */
+}
+
+form {
+    margin-right: 180px; /* Adjust this value to control the distance between the search and nav */
+}
+.username {
+    margin-right: 250px;  /* Space between logo and username */
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.emoji {
+    font-size: .9em; /* Adjust emoji font size */
+    display: flex;
+    gap: 10px; /* Space between emoji items */
+    justify-content: center;
+}
+
+.emoji:hover{
+    font-size: 1.1em;
+}
+        .counter {
+            font-size: 1.1em;
+            margin-left: 5px;
+            color: #ced4da;
+        }
+        /* Responsive Styling */
+        @media (max-width: 800px) {
+            h1{
+                transform: translate(0vw, 14vh);
+            }
+
+            body {
+                padding-top: 6em; /* Space below fixed header */
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav ul li {
+                margin-left: 0;
+                margin-bottom: 0.5em;
+            }
+
+            header {
+                flex-wrap: wrap;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+
+            h1{
+                transform: translate(0vw, 1vh);
+            }
+
+            .lofiMessage{
+                transform: translate(0vw, 3vh);
+                z-index: 5;
+            }
+
+            .click {
+            width: 80%; /* Make it occupy more space on smaller screens */
+            font-size: 0.9em; /* Adjust font size for readability */
+            padding: 1.5em; /* Add more padding for touch devices */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .click {
+            width: 90%; /* Almost full width on very small screens */
+            font-size: 0.8em; /* Slightly smaller font for compact screens */
+            padding: 1.2em; /* Reduce padding to fit */
+        }
+    }
+    </style>
+    <script>
+        document.getElementById('search').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                this.form.submit();  // Automatically submit the form when Enter is pressed
+            }
+        });
+    </script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Sign In</a></li>
+
+            </ul>
+        </nav>
+        <form action="{{ url_for('search') }}" method="get">
+            <input type="text" name="query" id="search" placeholder="Search for anything..." value="{{ query or '' }}" />
+        </form>
+        {% if session.get('username') %}
+        <span class="username">Welcome: {{ session['username'] }}!</span>
+    {% else %}
+        <span>Welcome: Guest!</span>
+    {% endif %}
+
+    </header>
+
+    <!-- Main Content -->
+    <div class="content">
+        <canvas></canvas>
+
+        <h1>Games From: <a class="neil" title="Click Me" href="{{ url_for('timeline') }}" target="_blank">The Timeline</a></h1>
+        <p class="click">The Most Popular & Important Retro Games Of All Time</p>
+
+
+        <div class="gameImgs">
+            <!-- Row 1 -->
+            <div class="row1">
+                <div class="gameItem">
+                <a href="https://eastcoastinteractive.itch.io/tennis-for-two" target="_blank" data-name="Tennis For Two">
+                    <img class="tennistwo" title="The First Video Game Ever Created" src="data:image/jpeg;base64,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"  alt="Tennis For Two"></a>
+                    <div class="emoji" data-link="tennistwo">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+                <div class="gameItem">
+                <a href="https://www.masswerk.at/spacewar/" target="_blank" data-name="Space War">
+                    <img class="space" title="The First Computer Game Ever made" src="https://www.museumofplay.org/app/uploads/2021/08/Space-War-sq.jpg" alt="Space War">
+                </a>
+                <div class="emoji" data-link="space">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.masswerk.at/icss/" target="_blank" data-name="Computer Space">
+                    <img class="computer" title="The First Arcade Game Ever Made" src="https://img-cdn.tnwcdn.com/image?fit=1200%2C900&height=900&url=https%3A%2F%2Fcdn0.tnwcdn.com%2Fwp-content%2Fblogs.dir%2F1%2Ffiles%2F2021%2F10%2FComputer-Space.jpg&signature=50492539512717159e433f53f591f3b7" alt="Computer Space">
+                </a>
+                <div class="emoji" data-link="computer">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.free80sarcade.com/atari2600_DemonAttack.php" target="_blank" data-name="Pong">
+                    <img class="pong" title="The First Popular Aracde Game" src="https://cdn.mobygames.com/covers/17981337-pong-antstream-front-cover.png" alt="Pong">                </a>
+                    <div class="emoji" data-link="pong">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="row2">
+                <div class="gameItem">
+                <a href="https://www.mysteinbach.ca/game-zone/2150/atari-breakout/" target="_blank" data-name="Breakout">
+                    <img class="breakout" title="The First Brickbeaker Game Ever Created" src="https://www.coolmathgames.com/sites/default/files/styles/mobile_game_image/public/Breakout_OG-logo.jpg?itok=5U0h7bVj" alt="Breakout">                </a>
+                    <div class="emoji" data-link="breakout">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+                <div class="gameItem">
+                <a href="https://www.retrogames.cz/play_213-Atari2600.php" target="_blank" data-name="Combat">
+                    <img class="combat" title="Established Multiplayer For Home Consoles" src="https://assets-prd.ignimgs.com/2022/02/07/combat-sq1-1644263038605.jpg" alt="Combat">                </a>
+                    <div class="emoji" data-link="combat">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+                <div class="gameItem">
+                <a href="https://free80sarcade.com/atari2600_Adventure.php" target="_blank" data-name="Adventure">
+                    <img class="adventure" title="The First Adventure Game Ever Made" src="https://assets-prd.ignimgs.com/2022/04/08/adventure2600-1649459771483.jpg" alt="Adventure"></a>
+                    <div class="emoji" data-link="adventure">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+                <div class="gameItem">
+                <a href="https://freeinvaders.org" target="_blank" data-name="Space Invaders">
+                    <img class="invaders" title="Made Video Games Competative" src="https://bojoga.com.br/files/2010/03/space-invaders-78.jpg" alt="Space Invaders">
+                </a>
+                <div class="emoji" data-link="invaders">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="row3">
+                <div class="gameItem">
+                <a href="https://freeasteroids.org/" target="_blank" data-name="Asteroids">
+                    <img class="asteroids" title="One Of The Most Popular Arcade Games Ever Made" src="https://i.pinimg.com/736x/ee/e8/df/eee8df2dc22599c7025a3c92a66515d4.jpg" alt="Asteroids">
+                </a>
+                <div class="emoji" data-link="asteroids">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.pacman1.net//" target="_blank" data-name="Pacman">
+                    <img class="pacman" title="The First Game To Have An Iconic Character" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSwEScT4sy76xE3b7XzxzdCZI8sElRUt10OQ&s" alt="Pacman">
+                </a>
+                <div class="emoji" data-link="pacman">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.free80sarcade.com/defender.php" target="_blank" data-name="Defender">
+                    <img class="defender" title="The First Game To Have Bombs" src="https://i.ytimg.com/vi/qq_Zvg9KlII/maxresdefault.jpg" alt="Defender">
+                </a>
+                <div class="emoji" data-link="defender">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.retrogames.cc/arcade-games/donkey-kong-us-set-1.html#" target="_blank" data-name="Doney Kong">
+                    <img class="Donkey Kong" title="Introduces Mario As Jumpman" src="https://mario.wiki.gallery/images/0/06/DK_board_game.jpg" alt="Donkey Kong">
+                </a>
+                <div class="emoji" data-link="donkey kong">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            </div>
+            <div class="row4">
+                <div class="gameItem">
+                <a href="https://www.retrogames.cz/play_018-NES.php" target="_blank" data-name="Galaga">
+                    <img class="galaga" title="Revolutionized The Shooter Genre" src="https://assets-prd.ignimgs.com/2022/04/08/galaga-1649459357234.jpg" alt="Galaga">
+                </a>
+                <div class="emoji" data-link="galaga">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.retrogames.cz/play_083-Atari2600.php" target="_blank" data-name="ET">
+                    <img class="et" title="The Worst Game Ever Made" src="https://indiegamerchick.com/wp-content/uploads/2023/01/e.t.-the-extra-terrestrial-usa-230124-043323.png" alt="ET">
+                </a>
+                <div class="emoji" data-link="et">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.lumpty.com/amusements/games/tetris/tetris.html" target="_blank" data-name="Tetris">
+                    <img class="tetris" title="Completely Revolutionized Arcade Gaming" src="https://m.media-amazon.com/images/I/61M3rDwh4qL._h1_.png" alt="Tetris">
+                </a>
+                <div class="emoji" data-link="tetris">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.retrogames.cz/play_549-DOS.php" target="_blank" data-name="Dragon's Lair">
+                    <img class="dragon" title="First Game To Use Laserdisc Technology" src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000014472/daf9335959864b27ab023ac3d4262df805e2a2a6d988a62117541344d1d9daf1" alt="Dragon's Lair">
+                </a>
+                <div class="emoji" data-link="dragon">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            </div>
+            <div class="row5">
+                <div class="gameItem">
+                <a href="https://www.retrogames.cc/nes-games/the-legend-of-zelda-play-as-zelda.html#" target="_blank" data-name="The Legend Of Zelda">
+                    <img class="zelda" title="Introduces Open World & Other Game Defining Mechanics" src="https://static1.thegamerimages.com/wordpress/wp-content/uploads/2018/05/zelda-nes.jpg" alt="The Legend Of Zelda.">
+                </a>
+                <div class="emoji" data-link="zelda">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://gam.onl/nes/metroid.html#game" target="_blank" data-name="Metroid">
+                    <img class="metroid" title="The First Metroidvania Game Created" src="https://www.dkoldies.com/product_images/uploaded_images/blacknyellowmetroid.jpg" alt="Metroid">
+                </a>
+                <div class="emoji" data-link="metroid">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://oldgameshelf.com/games/nes/final-fantasy-350" target="_blank" data-name="Final Fantasy">
+                    <img class="final" title="The First Game With Turn Based Combat" src="https://www.ffmaniacs.com/principal-ff1.jpg" alt="Final Fantasy">
+                </a>
+                <div class="emoji" data-link="final">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.retrogames.cc/arcade-games/street-fighter-us-set-1.html#" target="_blank" data-name="Street Fighter">
+                    <img class="fighter" title="Introduces Many Elements Of The Fighting Game Genre" src="https://assets-prd.ignimgs.com/2023/05/17/street-fighter-1684358995958.jpeg" alt="Street Fighter">
+                </a>
+                <div class="emoji" data-link="fighter">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            </div>
+            <div class="row5">
+                <div class="gameItem">
+                <a href="https://www.retrogames.cz/play_116-NES.php" target="_blank" data-name="Mega Man">
+                    <img class="mega" title="Introduces Boss Loot" src="https://assets-prd.ignimgs.com/2022/01/27/megamanus-sq-1643322069971.jpg" alt="Mega Man">
+                </a>
+                <div class="emoji" data-link="mega">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://playclassic.games/games/jump-and-run-snes-games-online/play-super-mario-world-online/play" target="_blank" data-name="Super Mario World">
+                    <img class="world" title="Introduces Yoshi" src="https://i.ytimg.com/vi/hvMN5ErrKfI/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLD4j9zSGRJ86xqMjlVCW329rwkrzw" alt="Super Mario World">
+                </a>
+                <div class="emoji" data-link="world">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.retrogames.cz/play_304-SNES.php" target="_blank" data-name="Street Fighter II">
+                    <img class="fighter1" title="Popularized Fighting Games" src="https://upload.wikimedia.org/wikipedia/en/9/9a/Street_Fighter_II_V_main_visual.png" alt="Street Fighter II">
+                </a>
+                <div class="emoji" data-link="fighter1">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.retrogames.cz/play_117-Genesis.php" target="_blank" data-name="Sonic The Hedgehog">
+                    <img class="sonic" title="Makes Sega A Major Competitor In The Game Industry" src="https://i.ytimg.com/vi/WNIOfIGVezc/sddefault.jpg" alt="Sonic The Hedgehog">
+                </a>
+                <div class="emoji" data-link="sonic">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            </div>
+            <div class="row6">
+                <div class="gameItem">
+                <a href="https://playclassic.games/games/first-person-shooter-dos-games-online/play-doom-online/play/" target="_blank" data-name="Doom">
+                    <img class="doom" title="Created The First Person Shooter Genre" src="https://media.wired.com/photos/59270a18cfe0d93c47432287/master/pass/Doom_1280w.jpg" alt="DOOM">
+                </a>
+                <div class="emoji" data-link="doom">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://playclassic.games/games/action-snes-games-online/play-star-fox-online/play" target="_blank" data-name="Star Fox">
+                    <img class="star" title="The First Console Game To Use 3D Graphics" src="https://i.ytimg.com/vi/a0edFbcH1VM/maxresdefault.jpg" alt="Star Fox">
+                </a>
+                <div class="emoji" data-link="star">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ffaf326b-83f9-4642-8720-2585988e1ae7/dg0qllp-f51a6cf1-2277-4276-86ca-960dad10c8e8.png/v1/fill/w_1032,h_774,q_70,strp/kirbys_dream_land_1992_box_art_by_oscarlors_dg0qllp-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MzAyNCIsInBhdGgiOiJcL2ZcL2ZmYWYzMjZiLTgzZjktNDY0Mi04NzIwLTI1ODU5ODhlMWFlN1wvZGcwcWxscC1mNTFhNmNmMS0yMjc3LTQyNzYtODZjYS05NjBkYWQxMGM4ZTgucG5nIiwid2lkdGgiOiI8PTQwMzIifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.urcJdVIKnK1IaD191vAW5k26AVA39tER3B8fP9XN3JA" target="_blank" data-name="Kirby's Dream Land">
+                    <img class="kirby" title="Introduced One Of Gaming's Most Iconic Characters-Kirby" src="https://upload.wikimedia.org/wikipedia/en/6/6a/Kirbys-dream-land-gameboy-boxart.png" alt="Kirby's Dream Land">
+                </a>
+                <div class="emoji" data-link="kirby">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.youtube.com/watch?v=ZHT2TgMX7Rg" target="_blank" data-name="Quake">
+                    <img class="quake" title="Popularized Online Multiplayer" src="https://gandoriongames.com/cdn/shop/products/hfghfhg-697688.jpg?v=1705443171" alt="Quake">
+                </a>
+                <div class="emoji" data-link="quake">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            </div>
+            <div class="row7">
+                <div class="gameItem">
+                <a href="https://www.retrogames.cc/n64-games/007-goldeneye-usa.html" target="_blank" data-name="Golden Eye 007">
+                    <img class="golden" title="Set A New Standard For Multiplayer Game" src="https://i.ebayimg.com/images/g/FPgAAOSwm4dmqpYS/s-l1200.jpg" alt="Golden Eye 007">
+                </a>
+                <div class="emoji" data-link="golden">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://playclassic.games/games/action-snes-games-online/play-star-fox-online/play" target="_blank" data-name="Star Fox">
+                    <img class="star" title="The First Console Game To Use 3D Graphics" src="https://i.ytimg.com/vi/a0edFbcH1VM/maxresdefault.jpg" alt="Star Fox">
+                </a>
+                <div class="emoji" data-link="chat">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://playclassic.games/games/first-person-shooter-windows-games-online/half-life-uplink/play/" target="_blank" data-name="Half Life">
+                    <img class="half" title="Revolutionized First Person Shooters" src="https://ares.shiftdelete.net/2022/11/half-life-LEVITATION-.jpg" alt="Half Life">
+                </a>
+                <div class="emoji" data-link="half">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://playclassic.games/games/role-playing-game-boy-games-online/pokemon-red-version/play" target="_blank" data-name="Pokemon Red">
+                    <img class="pokemon" title="One Of The Most Successful Franchises In History" src="https://assetsio.gnwcdn.com/Pkmn-Red-Blue-Strength.jpg?width=1600&height=900&fit=crop&quality=100&format=png&enable=upscale&auto=webp" alt="Pokemon Red">
+                </a>
+                <div class="emoji" data-link="pokemon">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            </div>
+            <div class="row8">
+                <div class="gameItem">
+                <a href="https://gam.onl/psx/resident-evil-2.html#game" target="_blank" data-name="Resident Evil 2">
+                    <img class="evil" title="Popularized Horror Games & Established The Horror Survival Genre" src="https://upload.wikimedia.org/wikipedia/en/4/40/NTSC_Resident_Evil_2_Cover.png" alt="Resident Evil 2">
+                </a>
+                <div class="emoji" data-link="evil">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.retrogames.cz/play_882-SNES.php" target="_blank" data-name="Earthbound">
+                    <img class="earth" title="Save The Timeline With Your Friends" src="https://playclassic.games/wp-content/uploads/2019/04/EarthBound.jpg" alt="Earthbound">
+                </a>
+                <div class="emoji" data-link="earth">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.retrogames.cz/play_800-SNES.php" target="_blank" data-name="ChronoTrigger">
+                    <img class="chrono" title="Travel Through Time To Prevent Catastrophe" src="https://upload.wikimedia.org/wikipedia/en/a/a7/Chrono_Trigger.jpg" alt="ChronoTrigger">
+                </a>
+                <div class="emoji" data-link="chrono">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.retrogames.cz/play_041-NES.php" target="_blank" data-name="Ice Climbers">
+                    <img class="Ice" title="Climb A Mountain Of Doom" src="https://images.nintendolife.com/ac1fd5f47ef97/ice-climber-cover.cover_large.jpg" alt="Ice Climbers">
+                </a>
+                <div class="emoji" data-link="ice">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            </div>
+            <div class="row8">
+                <div class="gameItem">
+                <a href="https://www.retrogames.cz/play_1059-SNES" target="_blank" data-name="Super Ghouls N Ghosts">
+                    <img class="ghouls" title="Traverse Through Ghouls N Ghosts" src="https://www.nintendo.com/eu/media/images/10_share_images/games_15/super_nintendo_5/H2x1_SNES_SuperGhoulsnGhosts_image1600w.jpg" alt="Super Ghouls N Ghosts">
+                </a>
+                <div class="emoji" data-link="ghouls">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.retrogames.cz/play_180-NES.php" target="_blank" data-name="Castlevania">
+                    <img class="Castlevania" title="Helped Create The Metroidvania Genre" src="https://assets1.ignimgs.com/2019/06/20/castlevania-1---button-1560992563460.jpg" alt="Castlevania">
+                </a>
+                <div class="emoji" data-link="castlevania">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.retrogames.cz/play_815-SNES.php" target="_blank" data-name="F-Zero">
+                    <img class="f" title="Race Through Hazardous Stages" src="https://upload.wikimedia.org/wikipedia/en/9/9b/SNES_F-Zero_boxart.jpg" alt="F-Zero">
+                </a>
+                <div class="emoji" data-link="f">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.retrogames.cz/play_055-NES.php" target="_blank" data-name="Excitebike">
+                    <img class="Excite" title="Perform Crazy Tricks" src="https://ih1.redbubble.net/image.3233921706.1023/raf,360x360,075,t,fafafa:ca443f4786.jpg" alt="Excitebike">
+                </a>
+                <div class="emoji" data-link="Excite">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            </div>
+            <div class="row8">
+                <div class="gameItem">
+                <a href="https://oregontrail.ws/games/the-oregon-trail/play/" target="_blank" data-name="The Oregon Trail">
+                    <img class="trail" title="Go Through The Deadly Oregon Trail" src="https://www.azcentral.com/gcdn/presto/2022/04/29/NABH/81b8f074-6b1b-4c34-be94-b4fb03f95334-oregon_trail.jpeg?crop=1615,909,x0,y83&width=660&height=371&format=pjpg&auto=webp" alt="The Oregon Trail">
+                </a>
+                <div class="emoji" data-link="trail">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                initializeCounters(); // Initialize counters from localStorage
+                setupEmojiClickListeners(); // Add listeners to emoji groups
+            });
+        
+            // Function to initialize counters from localStorage
+            function initializeCounters() {
+        document.querySelectorAll('.emoji').forEach(emojiGroup => {
+            const websiteKey = emojiGroup.dataset.link;
+            emojiGroup.querySelectorAll('.emoji-icon').forEach((emoji, index) => {
+                const counter = emoji.nextElementSibling;
+                const emojiKey = `${websiteKey}-${emoji.textContent.trim()}`; // Use the emoji text content as part of the key
+                const savedCount = localStorage.getItem(emojiKey);
+    
+                if (savedCount !== null) {
+                    counter.textContent = savedCount; // Set the counter to the saved value
+                } else {
+                    counter.textContent = '0'; // Default to 0 if no saved count
+                }
+            });
+        });
+    }
+    
+    // Function to set up emoji click listeners
+    async function setupEmojiClickListeners() {
+        document.querySelectorAll('.emoji-icon').forEach(emoji => {
+            emoji.addEventListener('click', async event => {
+                event.stopPropagation(); // Prevent click from propagating to parent elements
+                const emoji = event.target;
+                const counter = emoji.nextElementSibling;
+                const emojiGroup = emoji.closest('.emoji');
+                const websiteLink = emoji.closest('.gameItem').querySelector('a');
+                const websiteName = websiteLink.dataset.name;
+                const websiteType = emoji.textContent.trim() === '❤️' ? 'favorite' : emoji.textContent.trim() === '👍' ? 'liked' : ''; // Determine the type of the emoji (❤️ = favorite, 👍 = liked)
+    
+                if (!websiteType) return; // Exit if it's an invalid emoji type
+    
+                let currentCount = parseInt(counter.textContent, 10) || 0;
+                if (currentCount > 0) {
+                    // Decrement if the counter is greater than 0
+                    currentCount--;
+                } else {
+                    // Increment if the counter is 0
+                    currentCount++;
+                }
+                counter.textContent = currentCount; // Update the counter on the page
+    
+                // Use emoji text (❤️ or 👍) as part of the unique key
+                const emojiKey = `${emojiGroup.dataset.link}-${emoji.textContent.trim()}`;
+                localStorage.setItem(emojiKey, currentCount.toString()); // Store the count in localStorage
+    
+                const payload = {
+                    url: websiteLink.href,
+                    name: websiteName,
+                    type: websiteType
+                };
+    
+                try {
+                    const response = await fetch('/toggle_website', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+    
+                    if (response.ok) {
+                        const updatedHTML = await response.text(); // Get the HTML response
+                        document.getElementById('favorite-websites-list').innerHTML = updatedHTML.match(/<ul id="favorite-websites-list">([\s\S]*?)<\/ul>/)[1];
+                        document.getElementById('liked-websites-list').innerHTML = updatedHTML.match(/<ul id="liked-websites-list">([\s\S]*?)<\/ul>/)[1];
+    
+                        // Reinitialize the counters after HTML is updated
+                        initializeCounters(); 
+                    } else {
+                        console.error('Failed to toggle website');
+                    }
+                } catch (error) {
+                    console.error('Error toggling website:', error);
+                }
+            });
+        });
+    }
+        
+            // Clear LocalStorage for debugging purposes
+            function clearLocalStorage() {
+                localStorage.clear();
+                alert('Local Storage cleared!');
+            }
+        </script>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                    <h3>About Me</h3>
+                    <p class="about">I am An Aspiring Game Designer Hoping <br> To Inrodce The World To My Imagination <br> And Bring People Together With Entertainment</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <div class="column1">
+                        <a href="{{ url_for('donate') }}">Donate</a>
+                        <a href="{{ url_for('contact') }}">Contact</a>
+                        <a href="{{ url_for('share') }}">Share</a>
+                        <a href="{{ url_for('socialMedia') }}">My Socials</a>
+                        <a href="{{ url_for('settings') }}">Account Settings</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <div class="column2">
+                        <p>Email: redratgames1@gmail.com</p>
+                        <p>Support Number: +1 (973) 934-0804</p>
+                     </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Pages</h3>
+                    <a href="{{ url_for('games') }}">Games</a>
+                    <a href="{{ url_for('media') }}">Streaming</a>
+                    <a href="{{ url_for('shopping') }}">Shopping</a>
+                    <a href="{{ url_for('social') }}">Social Platforms</a>
+                    <a href="{{ url_for('work') }}">Productivity</a>
+                    <a href="{{ url_for('design') }}">Design</a>
+                    <a href="{{ url_for('information') }}">Information</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2025 Red Rat Games. All rights reserved.
+            </div>
+        </footer>
+</body>
+</html>

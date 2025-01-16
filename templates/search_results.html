@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #4c3838; /* Light grey background */
+            color: #4c3838;
+            line-height: 1.6;
+            padding-top: 100px; /* Space below fixed header */
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 600;
+            color: #fff;
+            text-align: center;
+            padding: 30px;
+            background-color: #b22222; /* Red background for the header */
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #333; /* Dark grey background for the content area */
+            color: #fff; /* White text on dark background */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #ccc; /* Light grey text */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            padding: 12px 0;
+            border-bottom: 1px solid #555; /* Dark grey border for list items */
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        ul li:last-child {
+            border-bottom: none;
+        }
+
+        ul li a {
+            color: #fff; /* White text for links */
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            display: block;
+            width: 100%;
+            transition: color 0.3s ease;
+        }
+
+        ul li a:hover {
+            color: #b22222; /* Red color for links on hover */
+        }
+
+        ul li:hover {
+            background-color: #444; /* Darker grey on hover */
+        }
+
+        .back-home {
+            display: block;
+            text-align: center;
+            padding: 12px 24px;
+            margin-top: 40px;
+            background-color: #b22222; /* Red background for the button */
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 5px;
+            width: 200px;
+            margin: 40px auto;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .back-home:hover {
+            background-color: #8b0000; /* Darker red for hover effect */
+            transform: translateY(-3px);
+        }
+
+        header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #191d1e;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    padding: 1em 2em; /* Negative padding, which may not work as expected */
+    z-index: 10;
+    justify-content: space-between;
+    margin-bottom: -2vh !important;
+}
+
+        nav {
+            display: flex;
+            justify-content: flex-start;
+            flex-grow: 1;
+            margin-left: 10vw;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            font-size: .1em !important;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-left: 1.3vw;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #a3a3a3;
+        }
+
+        .logo {
+            position: absolute;
+            right: 1em;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        #search {
+    padding: 8px 10px; /* Adds some padding inside the search bar */
+    border: 1px solid #ccc; /* Adds border to search bar */
+    border-radius: 4px; /* Rounds the corners */
+    width: 200px; /* Adjust width as needed */
+    transition: width 0.3s ease-in-out; /* Optional: makes the width grow/shrink smoothly */
+    margin-right: 10vw;
+    font-size: 1.1em;
+}
+
+#search:focus {
+    width: 250px; /* Optional: expands search bar when focused */
+}
+
+.username {
+    margin-right: 250px;  /* Space between logo and username */
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+        @media (max-width: 800px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            body {
+                padding-top: 100px; /* Ensures space for fixed header on mobile */
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav ul li {
+                margin-left: 0;
+                margin-bottom: 0.5em;
+            }
+
+            header {
+                flex-wrap: wrap;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            .back-home {
+                width: 150px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            .back-home {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Sign In</a></li>
+
+            </ul>
+        </nav>
+        <form action="{{ url_for('search') }}" method="get">
+            <input type="text" name="query" id="search" placeholder="Search for anything..." value="{{ query or '' }}" />
+        </form>
+        {% if session.get('username') %}
+        <span class="username">Welcome: {{ session['username'] }}!</span>
+    {% else %}
+        <span>Welcome: Guest!</span>
+    {% endif %}
+
+    </header>
+
+    <h1>Search Results for "{{ query }}"</h1>
+
+
+    <div class="container">
+        {% if pages %}
+            <p>Found the following pages:</p>
+            <ul>
+                {% for page, title in pages %}
+                    <li>
+                        <a href="{{ url_for('view_template', template_name=page) }}">{{ title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No pages found for your search.</p>
+        {% endif %}
+    
+        <a href="{{ url_for('homepage') }}" class="back-home">Back To Homepage</a>
+    </div>
+
+</body>
+</html>

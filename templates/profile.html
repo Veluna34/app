@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>profile-page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #5a3434;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+            .header {
+                background-color: #594f62;
+                color: white;
+                text-align: center;
+                padding: 20px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .header h1 {
+                font-family: 'Montserrat', sans-serif;
+                font-size: 2.5rem;
+                margin: 0;
+            }
+
+        .profile-container {
+            width: 95%;
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #d1aaaa;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-container h2 {
+            font-size: 1.8rem;
+            color: #BF3030;
+            margin-bottom: 20px;
+            margin-top: -20px;
+        }
+
+        .profile-image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-image img {
+            border-radius: 50%;
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border: 4px solid #BF3030;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .profile-image img:hover {
+            transform: scale(1.1);
+        }
+
+        .username {
+            font-size: 3rem;
+            color: #444;
+            cursor: pointer;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .username input {
+            font-size: 1.6rem;
+            text-align: center;
+            padding: 10px;
+            border: 2px solid #000000;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 250px;
+            margin-top: 10px;
+            background-color: #baa7c8;
+
+        }
+
+        .upload-section label {
+    background-color: #ff8f1fd2;
+    color: white;
+    padding: 5px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.3rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: static;  /* Temporarily remove absolute positioning */
+    transform: none;   /* Temporarily remove transformation */
+}
+
+        .upload-section input[type="file"] {
+            display: none;
+        }
+
+        .upload-section label {
+            background-color: #ff8f1fd2;
+            color: white;
+            padding: 5px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            position: absolute;
+    top: 325px;  /* Moves the label upwards */
+    transform: translateX(50%); /* Centers it horizontally relative to the profile image */
+}
+
+
+
+
+        .upload-section label:hover {
+            background-color: #a62929;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+        }
+
+        .upload-section button {
+            background-color: #BF3030;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .upload-section button:hover {
+            background-color: #a62929;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+        }
+
+        .liked-websites, .hearted-websites {
+    margin-top: 20px; /* Reduced to prevent pushing out of view */
+    width: 100%;
+}
+
+
+.website-list a {
+            color: #BF3030;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            list-style-type: none; /* Removes bullets */
+            font-size: 1.2em;
+        }
+
+        .website-list a:hover {
+            color: #a62929;
+            text-decoration: underline;
+        }
+
+
+
+
+
+
+        .website-heart {
+            color: #BF3030;
+            font-size: 1.5rem;
+        }
+
+        .flash-message {
+            background-color: #c1c0c0;
+            color: #333;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            list-style: none;
+        }
+
+        .flash-message ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+        }
+
+        .flash-message li {
+            font-size: 1rem;
+            color: #555;
+            list-style: none;
+        }
+
+        .username-form {
+        max-width: 400px; /* Limit the form width for better readability */
+        margin: 0 auto; /* Center the form on the page */
+        padding: 20px;
+        background-color: #c07a7a; /* White background */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        font-family: 'Arial', sans-serif; /* Clean, modern font */
+    }
+
+    /* Label styling */
+    .form-label {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #4f2f1c; /* Dark text for contrast */
+        margin-bottom: 8px;
+        display: block; /* Makes label block-level */
+    }
+
+    /* Input field styling */
+    .form-input {
+        width: 100%; /* Full width */
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ccc; /* Light border */
+        border-radius: 4px; /* Slightly rounded corners */
+        box-sizing: border-box; /* Ensures padding doesn't affect width */
+        margin-bottom: 15px; /* Space between input and button */
+        transition: border-color 0.3s ease; /* Smooth transition for border color */
+    }
+
+    /* Input field focus styling */
+    .form-input:focus {
+        border-color: #007bff; /* Change border color on focus */
+        outline: none; /* Remove default outline */
+    }
+
+    /* Submit button styling */
+    .submit-btn {
+        width: 100%; /* Full width for the button */
+        padding: 12px;
+        font-size: 1.1rem;
+        background-color: #772d1e; /* Blue background */
+        color: white; /* White text */
+        border: none; /* Remove border */
+        border-radius: 4px; /* Rounded corners */
+        cursor: pointer; /* Pointer cursor on hover */
+        transition: background-color 0.3s ease; /* Smooth transition for background */
+    }
+
+    /* Submit button hover effect */
+    .submit-btn:hover {
+        background-color: #0056b3; /* Darker blue when hovered */
+    }
+
+    a{
+        text-decoration: none;
+    }
+
+    #clearAllButton {
+    background-color: #BF3030; /* Bold red for prominence */
+    color: #ffffff; /* White text for high contrast */
+    border: none; /* Remove default borders */
+    border-radius: 8px; /* Rounded corners for a modern feel */
+    padding: 10px 20px; /* Adequate padding for a comfortable clickable area */
+    font-size: 1rem; /* Easy-to-read font size */
+    font-weight: bold; /* Emphasize the button text */
+    cursor: pointer; /* Pointer cursor to indicate actionability */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+}
+
+#clearAllButton:hover {
+    background-color: #d15656; /* Slightly lighter red for hover effect */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Enhanced shadow for hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+#clearAllButton:active {
+    background-color: #a32b2b; /* Darker red for active state */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Reduced shadow for active state */
+    transform: translateY(1px); /* Subtle press effect */
+}
+
+
+
+.no-data-message {
+    color: #444; /* Neutral gray for a subtle look */
+    font-size: 1.2rem; /* Slightly larger font for emphasis */
+    list-style: none;
+    margin-left: -2vw;
+    margin-bottom: 5vh;
+    margin-top: -2vh;
+}
+
+.toggle-btn {
+        background-color: transparent; /* Transparent background */
+        border: none; /* Remove default border */
+        color: #ff4d4d; /* Red color for the icon */
+        cursor: pointer; /* Pointer cursor on hover */
+        font-size: 18px; /* Adjust icon size */
+        padding: 5px; /* Add padding for clickable area */
+        transition: color 0.3s ease; /* Smooth hover effect */
+    }
+
+    .toggle-btn:hover {
+        color: #cc0000; /* Darker red on hover */
+    }
+
+    .toggle-btn:focus {
+        outline: none; /* Remove default focus outline */
+        box-shadow: 0 0 5px rgba(255, 77, 77, 0.8); /* Subtle focus glow */
+    }
+
+    .reload{
+        margin-right: 41em;
+        margin-bottom: 5px;
+        color: brown;
+    }
+
+
+    </style>
+<script>
+window.onload = function() {
+
+    // Username click event to display the form
+    var usernameElement = document.getElementById('current-username');
+    var usernameFormContainer = document.getElementById('username-form-container');
+
+    // Handle the click event to show the form when username is clicked
+    usernameElement.addEventListener('click', function() {
+        // Toggle visibility of the form container
+        usernameFormContainer.style.display = usernameFormContainer.style.display === 'none' || usernameFormContainer.style.display === '' ? 'block' : 'none';
+
+        // Pre-fill the input field with the current username when the form is shown
+        if (usernameFormContainer.style.display === 'block') {
+            var currentUsername = usernameElement.textContent.trim();
+            var inputField = document.getElementById('username-input');
+            inputField.value = currentUsername;
+            inputField.focus(); // Focus the input field immediately
+        }
+    });
+};
+</script>
+
+<script>
+    // Wait for the DOM to fully load
+    document.addEventListener("DOMContentLoaded", function() {
+        // Select the flash message element
+        const flashMessage = document.getElementById("flash-message");
+
+        // If the element exists, set a timer to remove it
+        if (flashMessage) {
+            setTimeout(() => {
+                flashMessage.style.transition = "opacity 0.5s"; // Add fade-out effect
+                flashMessage.style.opacity = "0";
+
+                // Remove the element after the fade-out effect
+                setTimeout(() => flashMessage.remove(), 500);
+            }, 2000); // 3000ms = 3 seconds
+        }
+    });
+</script>
+</head>
+<body>
+
+    <header class="header">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div id="flash-message" class="alert alert-info">
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        {% endwith %}
+        <h1>Your Profile</h1>
+    </header>
+
+    
+    <div class="profile-container">
+        <!-- Profile Image and Username -->
+        <div class="profile-image">
+            {% if session.get('file-upload') %}
+                <img src="{{ session['file-upload'] }}" alt="Profile Image">
+            {% else %}
+                <img src="/static/profile_images/default-avatar.jpg" alt="Profile Image">
+            {% endif %}
+        </div>
+        <div class="username" id="username">
+            <span id="current-username">
+                {% if session.get('username') %}
+                    {{ session['username'] }}
+                {% else %}
+                    Welcome: Guest!
+                {% endif %}
+            </span>
+            <div id="username-form-container" style="display: none;">
+                <form id="username-form" action="{{ url_for('update_username') }}" method="POST" class="username-form">
+                    <div class="form-group">
+                        <label for="username-input" class="form-label">New Username</label>
+                        <input type="text" name="username" id="username-input" placeholder="Enter Username..." class="form-input">
+                    </div>
+                    <button type="submit" class="submit-btn">Update Username</button>
+                </form>
+            </div>
+        </div>    
+        <!-- Upload Section -->
+        <div class="upload-section">
+            <form id="uploadForm" action="/updateProfileImage" method="POST" enctype="multipart/form-data">
+                <label for="profileImageInput" style="cursor: pointer;">📷</label>
+                <input type="file" id="profileImageInput" name="profileImage" accept="image/*" style="display:none;" onchange="this.form.submit()">
+            </form>
+        </div>
+    
+        <!-- Favorite Websites Section -->
+         <p class="reload">Reload After Removing A Website</p>
+        <div class="hearted-websites">
+            <h2>Favorite Websites ❤️</h2>
+            <ul class="website-list" id="favorite-websites-list">
+                {% if favorites %}
+                    {% for website in favorites %}
+                        <li>
+                            <a href="{{ website[0] }}" target="_blank">{{ website[1] }}</a>
+                            <button
+                                class="toggle-btn" 
+                                data-url="{{ website[0] }}" 
+                                data-name="{{ website[1] }}" 
+                                data-type="favorite" 
+                                onclick="removeWebsite(this)" 
+                                title="Remove from Favorite">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </li>
+                    {% endfor %}
+                    {% else %}
+                    <li class="no-data-message">No favorite websites added yet.</li>
+                {% endif %}
+
+            </ul>
+        </div>
+    
+        <!-- Liked Websites Section -->
+        <div class="liked-websites">
+            <h2>Liked Websites 👍</h2>
+            <ul class="website-list" id="liked-websites-list">
+                {% if liked %}
+                    {% for website in liked %}
+                        <li>
+                            <a href="{{ website[0] }}" target="_blank">{{ website[1] }}</a>
+                            <button
+                                class="toggle-btn" 
+                                data-url="{{ website[0] }}" 
+                                data-name="{{ website[1] }}" 
+                                data-type="liked" 
+                                onclick="removeWebsite(this)" 
+                                title="Remove from Favorite">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </li>
+                    {% endfor %}
+                    {% else %}
+                    <li class="no-data-message">No Liked websites added yet.</li>
+                {% endif %}
+
+            </ul>
+        </div>
+    
+        <button id="clearAllButton">Clear All Websites</button>
+    </div>
+    <script>
+    function removeWebsite(button) {
+        const url = button.getAttribute('data-url');
+        const name = button.getAttribute('data-name');
+        const type = button.getAttribute('data-type');
+        const websiteItem = button.closest('li');  // The <li> containing the website
+    
+        // Confirm before removal
+        if (!confirm(`Are you sure you want to remove "${name}" from your ${type} list?`)) {
+            return;
+        }
+    
+        // Remove the website from the DOM immediately
+        websiteItem.remove();
+    
+        // Send a request to remove the website from the database
+        fetch('/toggle_website', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        url: url,
+        name: name,
+        type: type
+    })
+})
+.then(response => response.json())
+.then(data => {
+    // Update the HTML as before
+})
+.catch(error => {
+    console.error('Error:', error);
+    alert('Failed to remove the website. Please try again.');
+    document.getElementById('favorite-websites-list').appendChild(websiteItem);
+});
+
+    }
+</script>
+
+</body>
+</html>

@@ -3,11 +3,10 @@ html, body {
     height: 100%; 
     padding: 0;
     margin: 0;
-    overflow: hidden;
     background: #191d1e; /* Old browsers */
     background: -moz-linear-gradient(0deg, #191d1e 50%, #283139 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right bottom, color-stop(50%, #191d1e), color-stop(100%, #283139)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(0deg, #191d1e 50%, #283139 100%); /* Chrome10+,Safari5.1+ */
+    background: -webkit-linear-gradient(0deg, #b4d7e0 50%, #283139 100%); /* Chrome10+,Safari5.1+ */
     background: -o-linear-gradient(0deg, #191d1e 50%, #283139 100%); /* Opera 11.10+ */
     background: -ms-linear-gradient(0deg, #191d1e 50%, #283139 100%); /* IE10+ */
     background: linear-gradient(0deg, #191d1e 50%, #283139 100%); /* W3C */
@@ -16,11 +15,13 @@ html, body {
 }
 
 #projector {
-    position: absolute; 
-    top: 100px;
+    display: flex;
+    justify-content: center;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 150%;
+    transform: translate(0vw, -118vh);
+    pointer-events: none;
 }
 
 .center-div {
@@ -51,3 +52,15 @@ html, body {
     top: 303px;
     left: 0;
 }
+
+
+
+
+@media (max-width: 768px) {
+    #projector{
+        transform: translate(0vw, -120vh);
+    }
+
+
+}
+
