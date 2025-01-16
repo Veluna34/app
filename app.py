@@ -145,7 +145,12 @@ TEMPLATES = [
     'delivery.html',
     'marketplace.html',
     'banks.html',
-    'internet.html'
+    'internet.html',
+    'fitness.html',
+    'mind.html',
+    'hotels.html',
+    'travelling.html',
+    'groceries.html'
 ]
 
 TEMPLATE_TITLES = {
@@ -202,13 +207,18 @@ TEMPLATE_TITLES = {
     'invest.html': 'Invest Your Money (Finances)',
     'banks.html': 'Online Banking (Finances)',
     'currency.html': 'Online Currencies (Finances)',
-    'gambing.html': 'Gambling & Betting (Finances)',
+    'gambling.html': 'Gambling & Betting (Finances)',
     'credit.html': 'Credit Cards/Services (Finances)',
     'financial.html': 'General Financial Tools (Finances)',
     'delivery.html': 'Delivery/Transportation Services',
     'supply.html': 'Supplies For Home & DIY Projects (Shopping)',
     'marketplace.html': 'Marketplaces (Shopping)',
-    'internet.html': 'Internet Services'
+    'internet.html': 'Internet Services',
+    'fitness.html': 'Physical Health',
+    'mind.html': 'Mental Health',
+    'hotels.html': 'Places To Stay',
+    'travelling.html': 'Buy Your Flight',
+    'groceries.html': 'Grocery Stores (Shopping)'
 }
 
 TEST_MODE = True  # Set to False for real-time data fetching
@@ -390,13 +400,18 @@ def search():
         'invest.html': ['investments', 'investing', 'money', 'finances', 'financial services', 'tools', 'work'],
         'banks.html': ['banks', 'banking', 'money', 'finances', 'financial services', 'tools'],
         'currency.html': ['online currencies', 'online currency', 'money', 'finances', 'financial services','cryptocurrency', 'cryptocurrencies', 'tools'],
-        'gambing.html': ['Gambling', 'Betting', 'money', 'finances', 'financial services','sports', 'casinos'],
+        'gambling.html': ['Gambling', 'Betting', 'money', 'finances', 'financial services','sports', 'casinos'],
         'credit.html': ['credit cards', 'tools', 'money', 'finances', 'financial services'],
         'financial.html': ['credit cards', 'tools', 'money', 'finances', 'financial services', 'general tools', 'currency'],
         'supply.html': ['supplies', 'supply', 'shopping', 'work', 'stores', 'home imporvement', 'tools', 'resources'],
         'delivery.html': ['delivery services', 'transportation', 'food', 'cars'],
         'marketplace.html': ['products', 'services', 'tools', 'design', 'games', 'entertainment', 'resources', 'marketplaces', 'general', 'work', 'media'],
-        'internet.html': ['products', 'services', 'tools', 'design', 'games', 'entertainment', 'resources', 'marketplaces', 'general', 'work', 'media']
+        'internet.html': ['intenret services', 'phones', 'resources', 'work'],
+        'fitness.html': ['fitness', 'gyms', 'tools', 'excercise', 'athletics', 'resources', 'health', 'work', 'yoga', 'pilates', 'classes'],
+        'mind.html': ['mind', 'health', 'mental health', 'work', 'therapy', 'help', 'relaxation', 'services', 'tools'],
+        'hotels.html': ['travelling', 'hotels', 'Places To Stay', 'work', 'vacation', 'relaxation', 'business'],
+        'travelling.html': ['travel', 'travelling', 'flights', 'flying', 'airplanes', 'relaxation', 'business'],
+        'groceries.html': ['Grocery Stores', 'Shopping', 'Groceries', 'food', 'supplies', 'health', 'supply' 'resources']
     }
 
     search_query = request.args.get('query', '').strip()
@@ -844,6 +859,9 @@ def homepage():
 def contact():
     return render_template('contact.html')
 
+@app.route('/hotels')
+def hotels():
+    return render_template('hotels.html')
 
 
 @app.route('/share')
@@ -863,6 +881,10 @@ def invest():
 def banks():
     return render_template('banks.html')
 
+@app.route('/fitness')
+def fitness():
+    return render_template('fitness.html')
+
 
 @app.route('/settings')
 def settings():
@@ -876,6 +898,9 @@ def internet():
 def submit():
     return render_template('submit.html')
 
+@app.route('/health')
+def health():
+    return render_template('health.html')
 
 
 @app.route('/submitted', methods=['GET', 'POST'])
@@ -1050,9 +1075,17 @@ def design():
 def insurance():
     return render_template('insurance.html')
 
+@app.route('/groceries')
+def groceries():
+    return render_template('groceries.html')
+
 @app.route('/marketplace')
 def marketplace():
     return render_template('marketplace.html')
+
+@app.route('/mind')
+def mind():
+    return render_template('mind.html')
 
 @app.route('/supply')
 def supply():

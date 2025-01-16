@@ -84,6 +84,7 @@
             text-decoration: none;
             transition: color 0.3s;
         }
+
         nav ul li a {
             color: #ffffff;
             text-decoration: none;
@@ -259,14 +260,14 @@
             position: fixed;
         }
 
-        .row1 img, .row2 img, .row3 img, .row4 img, .row5 img, .row6 img, .row7 img{
+        .row1 img, .row2 img, .row3 img{
             display: flex;
             justify-content: center; /* Center align the items */
             gap: 1%; /* Adjust gap between images */
             margin-top: 3%; /* Provide space above the row */
             flex-wrap: wrap; /* Allow wrapping of images if the screen width is narrow */
-            width: 150%; /* Fixed width for consistent size */
-            max-width: 298px; /* Optional: Set a maximum width for large screens */
+            width: 100%; /* Fixed width for consistent size */
+            max-width: 270px; /* Optional: Set a maximum width for large screens */
             height: auto; /* Maintain aspect ratio */
             padding: 0 2%; /* Add padding to ensure spacing from the edges */
             object-fit: contain; /* Fit image within bounds without cropping */
@@ -283,7 +284,7 @@
             flex-wrap: wrap;
         }
 
-        .row2, .row3, .row4, .row5, .row6, .row7{
+        .row2, .row3{
             display: flex;
             justify-content: center;
             gap: 6%; /* Increase the gap between images */
@@ -298,19 +299,17 @@
             justify-content: center;
             color: #ffffff;
             text-align: center;
-            padding: .5em; /* Add some padding */
+            padding: .1em; /* Add some padding */
             border-radius: 50px; /* Round the edges more for a modern look */
             background-color: rgb(202, 137, 57);
-            border: 0.05em solid rgb(202, 137, 57);
-            width: 70%; /* Use a percentage for adaptability */
-            max-width: 20em; /* Limit the width for large screens */
+            border: 0.5em solid rgb(202, 137, 57);
+            width: 22%; /* Use a percentage for adaptability */
+            max-width: 30em; /* Limit the width for large screens */
             margin: 2em auto; /* Center on the page with spacing */
-            font-size: 1em; /* Set a default font size */
+            font-size: 1.2em; /* Set a default font size */
             line-height: 1.5; /* Improve text readability */
             margin-top: .5%;
-            font-size: 1.2em;
         }
-
         #search {
     padding: 5px 10px; /* Adds some padding inside the search bar */
     border: 1px solid #ccc; /* Adds border to search bar */
@@ -347,7 +346,6 @@ form {
             margin-left: 5px;
             color: #ced4da;
         }
-
         /* Responsive Styling */
         @media (max-width: 800px) {
             h1{
@@ -430,33 +428,22 @@ form {
     {% endif %}
 
     </header>
-
     <!-- Main Content -->
     <div class="content">
         <canvas></canvas>
 
-        <h1>Sports Betting & Online Casinos</h1>
-        <p class="click">Call: 1-800-522-4700 For Gambling Problems (Available In Every State)</p>
+        <h1>Airline & Flight Services</h1>
+        <p class="click">Fly Across The World</p>
 
 
         <div class="gameImgs">
             <!-- Row 1 -->
             <div class="row1">
                 <div class="gameItem">
-                <a href="https://sportsbook.draftkings.com/sportsbook-sem?wpcid=22042505430&wpsnetn=g&wpkwn=fanduel&wpkmatch=b&wpcrid=727680540186&wpscid=176113600527&wpkwid=kwd-13057536565&an=adwords&gclsrc=aw.ds&gad_source=1&gclid=Cj0KCQiA1p28BhCBARIsADP9HrNsJIUfOYpFvphdxPev7JFrUh_AlJAE3E40F1hCsIFPDo62T1eX3oEaAoyeEALw_wcB" target="_blank" data-name="DRAFTKINGS">
-                    <img class="draft" title="The Number One Place For Sports Betting" src="https://play-lh.googleusercontent.com/plXQ4mtxzKUa3LAeh7F5EuJ9TsPtk8J6pw30OkmYsW1L3k8zOymQauYq04KH-oQHf40=w3840-h2160-rw"  alt="DRAFTKINGS draft kings"></a>
-                    <div class="emoji" data-link="draft">
-                        <span class="emoji-icon">👍</span> 
-                        <span class="counter">0</span> <!-- Thumbs up counter -->
-                        <span class="emoji-icon">❤️</span> 
-                        <span class="counter">0</span> <!-- Heart counter -->
-                    </div>
-                </div>
-                <div class="gameItem">
-                    <a href="https://sports.nj.betmgm.com/en/sports?gad_source=1&gclid=Cj0KCQiA1p28BhCBARIsADP9HrOxdBayKj76qjFPL0L5AkQgtuNU2U22ooFGI3B1PLf3iHUAiou6CrYaAhAwEALw_wcB" target="_blank" data-name="BET MGM">
-                    <img class="bet" title="Sports betting, Online Casinos, & More" src="https://www.profitduel.com/hubfs/BetMGM.jpg" alt="BET MGM betmgm">
+                <a href="https://www.jetblue.com/" target="_blank" data-name="jetBlue">
+                    <img class="jet" title="The Best Of Flights & Vacation Packages" src="https://www.adweek.com/wp-content/uploads/files/blogs/jetblue-retro-logo-hed-2016.jpg?w=1600&h=680&crop=1"  alt="jetblue airways jet blue airways">
                 </a>
-                <div class="emoji" data-link="bet">
+                <div class="emoji" data-link="jet">
                     <span class="emoji-icon">👍</span> 
                     <span class="counter">0</span> <!-- Thumbs up counter -->
                     <span class="emoji-icon">❤️</span> 
@@ -464,10 +451,55 @@ form {
                 </div>
             </div>
             <div class="gameItem">
-                <a href="https://www.fanduel.com/" target="_blank" data-name="FANDUEL">
-                    <img class="fan" title="Manage And Keep Up With The Latest Sporting Events" src="https://press.fanduel.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fpbwem9y5%2Ffanduel_marketing_production%2Ffad1826fe508811c248deb708f5b40d65f148af5-1089x612.png&w=1920&q=100" alt="FANDUEL fan duel">
+                <a href="https://www.aa.com/homePage.do" target="_blank" data-name="Amwrican Airlines">
+                    <img class="airlines" title="The Best Deals On Airline Tiekcets" src="https://www.shutterstock.com/image-illustration/jakarta-june-142023-silhouette-airplane-600nw-2317254975.jpg"  alt="American Airlines">
                 </a>
-                <div class="emoji" data-link="FANDUEL">
+                <div class="emoji" data-link="airlines">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.united.com/en/us/" target="_blank" data-name="United Airlines">
+                    <img class="united" title="All Of The Airline Services You Need" src="https://brazilcham.com/wp-content/uploads/2024/04/united-airlines-new-logo-2024-400x300.png"  alt="united airlines">                </a>
+                    <div class="emoji" data-link="united">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+                <div class="gameItem">
+                <a href="https://www.delta.com/" target="_blank" data-name="Delta Airlines">
+                        <img class="delta" title="A Leading Company For Domestic & International Travel" src="https://i.ytimg.com/vi/nWALlzkPhWc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBzVuE6bgDVhg7LjQMJ5-tIlnj8rQ"  alt="Delta Airlines Delta Air Lines">                </a>
+                        <div class="emoji" data-link="premiere">
+                            <span class="emoji-icon">👍</span> 
+                            <span class="counter">0</span> <!-- Thumbs up counter -->
+                            <span class="emoji-icon">❤️</span> 
+                            <span class="counter">0</span> <!-- Heart counter -->
+                        </div>
+                    </div>
+            </div>
+
+            <div class="row2">
+                <div class="gameItem">
+                <a href="https://www.videoscribe.co/" target="_blank" data-name="Video Scribe">
+                    <img class="video" title="Create Whiteboard Style Videos" src="https://yt3.googleusercontent.com/ytc/AIdro_mVk35kZjonVKsOGZr-gTpa-VGbt6TH6UvXhi2PMBRu4xY=s900-c-k-c0x00ffffff-no-rj"  alt="Video Scribe">
+                </a>
+                <div class="emoji" data-link="video">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.spirit.com/s/contact-us" target="_blank" data-name="Spirit Airlines">
+                    <img class="spirit" title="For The Brave & The Bold" src="https://i.etsystatic.com/11453548/r/il/8ec664/1689755000/il_570xN.1689755000_9e6k.jpg"  alt="Spirit Airlines">
+                </a>
+                <div class="emoji" data-link="spirit">
                     <span class="emoji-icon">👍</span> 
                     <span class="counter">0</span> <!-- Thumbs up counter -->
                     <span class="emoji-icon">❤️</span> 
@@ -475,95 +507,99 @@ form {
                 </div>
             </div>
             </div>
+
         </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                initializeCounters(); // Initialize counters from localStorage
-                setupEmojiClickListeners(); // Add listeners to emoji groups
-            });
-        
-            // Function to initialize counters from localStorage
-            function initializeCounters() {
-        document.querySelectorAll('.emoji').forEach(emojiGroup => {
-            const websiteKey = emojiGroup.dataset.link;
-            emojiGroup.querySelectorAll('.emoji-icon').forEach((emoji, index) => {
-                const counter = emoji.nextElementSibling;
-                const emojiKey = `${websiteKey}-${emoji.textContent.trim()}`; // Use the emoji text content as part of the key
-                const savedCount = localStorage.getItem(emojiKey);
-    
-                if (savedCount !== null) {
-                    counter.textContent = savedCount; // Set the counter to the saved value
-                } else {
-                    counter.textContent = '0'; // Default to 0 if no saved count
-                }
-            });
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCounters(); // Initialize counters from localStorage
+            setupEmojiClickListeners(); // Add listeners to emoji groups
         });
-    }
     
-    // Function to set up emoji click listeners
-    async function setupEmojiClickListeners() {
-        document.querySelectorAll('.emoji-icon').forEach(emoji => {
-            emoji.addEventListener('click', async event => {
-                event.stopPropagation(); // Prevent click from propagating to parent elements
-                const emoji = event.target;
-                const counter = emoji.nextElementSibling;
-                const emojiGroup = emoji.closest('.emoji');
-                const websiteLink = emoji.closest('.gameItem').querySelector('a');
-                const websiteName = websiteLink.dataset.name;
-                const websiteType = emoji.textContent.trim() === '❤️' ? 'favorite' : emoji.textContent.trim() === '👍' ? 'liked' : ''; // Determine the type of the emoji (❤️ = favorite, 👍 = liked)
-    
-                if (!websiteType) return; // Exit if it's an invalid emoji type
-    
-                let currentCount = parseInt(counter.textContent, 10) || 0;
-                if (currentCount > 0) {
-                    // Decrement if the counter is greater than 0
-                    currentCount--;
-                } else {
-                    // Increment if the counter is 0
-                    currentCount++;
-                }
-                counter.textContent = currentCount; // Update the counter on the page
-    
-                // Use emoji text (❤️ or 👍) as part of the unique key
-                const emojiKey = `${emojiGroup.dataset.link}-${emoji.textContent.trim()}`;
-                localStorage.setItem(emojiKey, currentCount.toString()); // Store the count in localStorage
-    
-                const payload = {
-                    url: websiteLink.href,
-                    name: websiteName,
-                    type: websiteType
-                };
-    
-                try {
-                    const response = await fetch('/toggle_website', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-    
-                    if (response.ok) {
-                        const updatedHTML = await response.text(); // Get the HTML response
-                        document.getElementById('favorite-websites-list').innerHTML = updatedHTML.match(/<ul id="favorite-websites-list">([\s\S]*?)<\/ul>/)[1];
-                        document.getElementById('liked-websites-list').innerHTML = updatedHTML.match(/<ul id="liked-websites-list">([\s\S]*?)<\/ul>/)[1];
-    
-                        // Reinitialize the counters after HTML is updated
-                        initializeCounters(); 
-                    } else {
-                        console.error('Failed to toggle website');
-                    }
-                } catch (error) {
-                    console.error('Error toggling website:', error);
-                }
-            });
-        });
-    }
-        
-            // Clear LocalStorage for debugging purposes
-            function clearLocalStorage() {
-                localStorage.clear();
-                alert('Local Storage cleared!');
+        // Function to initialize counters from localStorage
+        function initializeCounters() {
+    document.querySelectorAll('.emoji').forEach(emojiGroup => {
+        const websiteKey = emojiGroup.dataset.link;
+        emojiGroup.querySelectorAll('.emoji-icon').forEach((emoji, index) => {
+            const counter = emoji.nextElementSibling;
+            const emojiKey = `${websiteKey}-${emoji.textContent.trim()}`; // Use the emoji text content as part of the key
+            const savedCount = localStorage.getItem(emojiKey);
+
+            if (savedCount !== null) {
+                counter.textContent = savedCount; // Set the counter to the saved value
+            } else {
+                counter.textContent = '0'; // Default to 0 if no saved count
             }
-        </script>
+        });
+    });
+}
+
+// Function to set up emoji click listeners
+async function setupEmojiClickListeners() {
+    document.querySelectorAll('.emoji-icon').forEach(emoji => {
+        emoji.addEventListener('click', async event => {
+            event.stopPropagation(); // Prevent click from propagating to parent elements
+            const emoji = event.target;
+            const counter = emoji.nextElementSibling;
+            const emojiGroup = emoji.closest('.emoji');
+            const websiteLink = emoji.closest('.gameItem').querySelector('a');
+            const websiteName = websiteLink.dataset.name;
+            const websiteType = emoji.textContent.trim() === '❤️' ? 'favorite' : emoji.textContent.trim() === '👍' ? 'liked' : ''; // Determine the type of the emoji (❤️ = favorite, 👍 = liked)
+
+            if (!websiteType) return; // Exit if it's an invalid emoji type
+
+            let currentCount = parseInt(counter.textContent, 10) || 0;
+            if (currentCount > 0) {
+                // Decrement if the counter is greater than 0
+                currentCount--;
+            } else {
+                // Increment if the counter is 0
+                currentCount++;
+            }
+            counter.textContent = currentCount; // Update the counter on the page
+
+            // Use emoji text (❤️ or 👍) as part of the unique key
+            const emojiKey = `${emojiGroup.dataset.link}-${emoji.textContent.trim()}`;
+            localStorage.setItem(emojiKey, currentCount.toString()); // Store the count in localStorage
+
+            const payload = {
+                url: websiteLink.href,
+                name: websiteName,
+                type: websiteType
+            };
+
+            try {
+                const response = await fetch('/toggle_website', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    const updatedHTML = await response.text(); // Get the HTML response
+                    document.getElementById('favorite-websites-list').innerHTML = updatedHTML.match(/<ul id="favorite-websites-list">([\s\S]*?)<\/ul>/)[1];
+                    document.getElementById('liked-websites-list').innerHTML = updatedHTML.match(/<ul id="liked-websites-list">([\s\S]*?)<\/ul>/)[1];
+
+                    // Reinitialize the counters after HTML is updated
+                    initializeCounters(); 
+                } else {
+                    console.error('Failed to toggle website');
+                }
+            } catch (error) {
+                console.error('Error toggling website:', error);
+            }
+        });
+    });
+}
+    
+        // Clear LocalStorage for debugging purposes
+        function clearLocalStorage() {
+            localStorage.clear();
+            alert('Local Storage cleared!');
+        }
+    </script>
+
+
     <!-- Footer -->
     <footer>
         <div class="footer-container">
@@ -603,6 +639,5 @@ form {
                 &copy; 2025 Red Rat Games. All rights reserved.
             </div>
         </footer>
-    </div>
 </body>
 </html>

@@ -40,12 +40,12 @@ body {
     margin-top: 150px; /* Adjust to make space below the header */
     width: 100%;
     bottom: 6.2em; /* Match this value to the height of the fixed header */
-    background: linear-gradient(357deg, #bab6b6 30%, #e5dede 100%);    
+    background: linear-gradient(357deg, #bab6b6 30%, #ada9a9 100%);    
     box-shadow: 0 0 80px rgba(0, 0, 0, 0.7); /* Softer shadow */
 }
 
 .sewer-header {
-    background-color: rgb(255 165 165 / 24%); /* Brighter tone */
+    background-color:rgb(98 62 62); /* Brighter tone */
     padding: 50px; /* This will still add padding inside the header */
     border-radius: 15px;
     box-shadow: 0 0 40px rgba(0, 255, 13, 0.225); /* More glow */
@@ -136,6 +136,7 @@ p {
     transition: opacity 0.3s ease, transform 0.3s ease;
     z-index: 10; /* Ensure tooltip is above other elements */
 }
+
 .sewer-link:hover::after {
     opacity: 1;
     transform: translate(-50%, -70px);
@@ -274,14 +275,13 @@ body::before {
 }
 
 .sewer-chamber a {
-    color: #323f17;
-    text-decoration: none;
-    transition: color 0.3s ease, transform 0.3s ease;
+    color: #323f17; /* Muted, medium purple for a subtle yet noticeable link color */
+    text-decoration: none; /* Keep links clean with no underline */
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth color transition and slight transform on hover */
 }
 
-
 .sewer-chamber a:hover {
-    color: #9a66f3; /* Lighter purple for hover effect */
+    color: #323f17; /* Lighter purple for hover effect */
     transform: translateY(-2px); /* Slight lift effect on hover */
     text-decoration: underline; /* Underline on hover for better interactivity */
 }
@@ -291,7 +291,6 @@ body::before {
     margin-bottom: 10px;
     color: #d4bcf9; /* Dark grayish-blue for the header */
     text-shadow: 1px 1px 3px rgb(0 0 0 / 85%); /* Light shadow for depth */
-    font-weight: bold;
 }
 
 .sewer-search{
@@ -317,7 +316,7 @@ body::before {
     display: flex;
     justify-content: flex-start;
     flex-grow: 1;
-    margin-left: 0vw;
+    margin-left: 10vw;
 }
 
 .default nav ul {
@@ -327,8 +326,9 @@ body::before {
     align-items: center;
     margin: 0;
     padding: 0;
-    margin-left: 10vw;
 }
+
+
 
 .default nav ul li {
     margin-left: 1vw;
@@ -527,6 +527,7 @@ footer {
     border-radius: 8px;
 }
 
+
 </style>
 <script>
 
@@ -600,41 +601,15 @@ footer {
             <div class="sewer-search">
                 <input type="text" id="search-sewer" placeholder="Search For A Category...">
                 <section class="sewer-chamber">
-                    <h2>Clothing & Retail Stores</h2>
+                    <h2>News & Information</h2>
                     <nav>
-                        <img src="https://www.n41.com/wp-content/uploads/2021/07/July-blog-1.png" alt="Browser Games" class="sewer-icon">
-                        <a href="{{ url_for('clothing') }}" class="sewer-link" data-title="Name Brand Clothing Stores" target="_blank">Clothing Stores</a>
-                        <a href="{{ url_for('retail') }}" class="sewer-link" target="_blank" data-title="Come And Buy Whatever You Want"> Retail Stores</a>
-                        <img src="https://retail-merchandiser.com/wp-content/uploads/sites/8/2023/09/Online-retail-shops-scaled.jpeg" alt="Browser Games" class="sewer-icon">
+                        <img src="https://www.shutterstock.com/image-vector/online-fitness-personal-trainer-concept-260nw-2552511129.jpg" alt="Browser Games" class="sewer-icon">
+                        <a href="{{ url_for('fitness') }}" class="sewer-link" data-title="Keep Up With Your Body Using These Fitness & Dieting Services" target="_blank">Fitness & Exercise</a>
+                        <a href="{{ url_for('mind') }}" class="sewer-link" target="_blank" data-title="Prioritize And Keep Up With Your Mental Health">Mental Health</a>
+                        <img src="https://www.amansw.com.au/wp-content/uploads/2020/11/6-Mental-health-image.jpg" alt="Browser Games" class="sewer-icon">
                     </nav>
                 </section>
                 <section class="sewer-chamber">
-                    <h2>Electronic & Luxury Brands</h2>
-                    <nav>
-                        <img src="https://storecitis.wordpress.com/wp-content/uploads/2020/02/online-electronic-shop-in-zirakpur.jpg?w=773" alt="Browser Games" class="sewer-icon">
-                        <a href="{{ url_for('electronics') }}" class="sewer-link" target="_blank" data-title="Keep Yourself Updated">Electronics</a>                  
-                        <a href="{{ url_for('luxury') }}" class="sewer-link" target="_blank" data-title="Explore The Most Highend Stores">Luxury & Highend Brands</a>
-                        <img src="https://miro.medium.com/v2/resize:fit:1400/1*xS6B6tMfqS14ff3jju4QMQ.png" alt="Browser Games" class="sewer-icon">
-                    </nav>
-                </section>
-                <section class="sewer-chamber">
-                    <h2>Entertainment & Supply Stores</h2>
-                    <nav>
-                        <img src="https://i0.wp.com/daybreak.ng/wp-content/uploads/2021/05/TV-Streaming-Services.jpg?fit=1000%2C562&ssl=1" alt="Browser Games" class="sewer-icon">
-                        <a href="{{ url_for('entertainment') }}" class="sewer-link" target="_blank" data-title="All Of Your Entertainment Needs">Entertainment</a>
-                        <a href="{{ url_for('supply') }}" class="sewer-link" target="_blank" data-title="All Of Your Needs For Supplies, DIY, & Home Improvement Projects">Supply & Project Stores</a>                                    
-                        <img src="https://blog.varstreetinc.com/wp-content/uploads/2018/12/How-to-Start-an-Office-Supply-Store.png" alt="Browser Games" class="sewer-icon">
-                    </nav>
-                </section>
-                <section class="sewer-chamber">
-                    <h2>Marketplaces</h2>
-                    <nav>
-                        <img src="https://i0.wp.com/daybreak.ng/wp-content/uploads/2021/05/TV-Streaming-Services.jpg?fit=1000%2C562&ssl=1" alt="Browser Games" class="sewer-icon">
-                        <a href="{{ url_for('marketplace') }}" class="sewer-link" target="_blank" data-title="Apps, Products, & Services Created By Everyone">Marketplaces</a>
-                        <a href="{{ url_for('groceries') }}" class="sewer-link" target="_blank" data-title="Shop For Your Groceries Online & Even Get Them Delivered">Grocery Stores</a>
-                        <img src="https://www.littlehouseliving.com/wp-content/uploads/2024/01/groceries-1200x1600.jpg" alt="Browser Games" class="sewer-icon">
-                    </nav>
-                </section>
                     <nav>
                     </nav>
                 </section>

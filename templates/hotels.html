@@ -259,7 +259,7 @@
             position: fixed;
         }
 
-        .row1 img, .row2 img, .row3 img, .row4 img, .row5 img, .row6 img, .row7 img{
+        .row1 img, .row2 img, .row3 img{
             display: flex;
             justify-content: center; /* Center align the items */
             gap: 1%; /* Adjust gap between images */
@@ -283,7 +283,7 @@
             flex-wrap: wrap;
         }
 
-        .row2, .row3, .row4, .row5, .row6, .row7{
+        .row2, .row3{
             display: flex;
             justify-content: center;
             gap: 6%; /* Increase the gap between images */
@@ -291,24 +291,22 @@
             flex-wrap: wrap;
         }
 
-        .click {
+        .support {
             display: flex;
-            flex-direction: column; /* Stack the text for better readability on smaller screens */
-            align-items: center;
             justify-content: center;
-            color: #ffffff;
-            text-align: center;
-            padding: .5em; /* Add some padding */
-            border-radius: 50px; /* Round the edges more for a modern look */
+            border-radius: 8em;
             background-color: rgb(202, 137, 57);
-            border: 0.05em solid rgb(202, 137, 57);
-            width: 70%; /* Use a percentage for adaptability */
-            max-width: 20em; /* Limit the width for large screens */
-            margin: 2em auto; /* Center on the page with spacing */
-            font-size: 1em; /* Set a default font size */
-            line-height: 1.5; /* Improve text readability */
-            margin-top: .5%;
-            font-size: 1.2em;
+            border: .7em solid rgb(202, 137, 57);
+            width: 30%; /* Adjust the width as needed */
+            max-width: 30%; /* Optional: Limit the maximum width */
+            margin: 0 auto; /* Center the element horizontally */
+            margin-top: 0vh;
+        }
+
+
+        .support:hover {
+            background-color: rgb(160, 103, 45); /* Lighter shade on hover */
+            transform: scale(1.05); /* Slight zoom effect */
         }
 
         #search {
@@ -385,7 +383,7 @@ form {
                 z-index: 5;
             }
 
-            .click {
+            .support {
             width: 80%; /* Make it occupy more space on smaller screens */
             font-size: 0.9em; /* Adjust font size for readability */
             padding: 1.5em; /* Add more padding for touch devices */
@@ -393,7 +391,7 @@ form {
     }
 
     @media (max-width: 480px) {
-        .click {
+        .support {
             width: 90%; /* Almost full width on very small screens */
             font-size: 0.8em; /* Slightly smaller font for compact screens */
             padding: 1.2em; /* Reduce padding to fit */
@@ -430,22 +428,25 @@ form {
     {% endif %}
 
     </header>
-
     <!-- Main Content -->
     <div class="content">
         <canvas></canvas>
 
-        <h1>Sports Betting & Online Casinos</h1>
-        <p class="click">Call: 1-800-522-4700 For Gambling Problems (Available In Every State)</p>
+        <h1>Hotels & Places To Stay</h1>
+        <a class="support">
+            <button>
+                Get The Best Out Of Your Stay
+            </button>
+        </a>
 
 
         <div class="gameImgs">
             <!-- Row 1 -->
             <div class="row1">
                 <div class="gameItem">
-                <a href="https://sportsbook.draftkings.com/sportsbook-sem?wpcid=22042505430&wpsnetn=g&wpkwn=fanduel&wpkmatch=b&wpcrid=727680540186&wpscid=176113600527&wpkwid=kwd-13057536565&an=adwords&gclsrc=aw.ds&gad_source=1&gclid=Cj0KCQiA1p28BhCBARIsADP9HrNsJIUfOYpFvphdxPev7JFrUh_AlJAE3E40F1hCsIFPDo62T1eX3oEaAoyeEALw_wcB" target="_blank" data-name="DRAFTKINGS">
-                    <img class="draft" title="The Number One Place For Sports Betting" src="https://play-lh.googleusercontent.com/plXQ4mtxzKUa3LAeh7F5EuJ9TsPtk8J6pw30OkmYsW1L3k8zOymQauYq04KH-oQHf40=w3840-h2160-rw"  alt="DRAFTKINGS draft kings"></a>
-                    <div class="emoji" data-link="draft">
+                <a href="https://www.trivago.com/en-US?themeId=280&sem_keyword=trivago&sem_creativeid=716826441296&sem_matchtype=e&sem_network=g&sem_device=c&sem_placement=&sem_target=&sem_adposition=&sem_param1=&sem_param2=&sem_campaignid=875342563&sem_adgroupid=123974970213&sem_targetid=kwd-5593367084&sem_location=9003590&cipc=br&cip=9971900005&gad_source=1&gclid=Cj0KCQiA-aK8BhCDARIsAL_-H9nnAoEepCAK5D5Qivr3UPccr9HD1uo3B9HEqbAXmIyzbjamk0w2DE4aAiNIEALw_wcB" target="_blank" data-name="Trivago">
+                    <img class="trivago" title="The Best Offers & Places To Stay" src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/48/81/a0/4881a07a-e3bb-c202-510a-0aac662b1340/AppIcon-0-0-1x_U007epad-0-1-85-220.png/1200x600wa.png"  alt="Trivago"></a>
+                    <div class="emoji" data-link="trivago">
                         <span class="emoji-icon">👍</span> 
                         <span class="counter">0</span> <!-- Thumbs up counter -->
                         <span class="emoji-icon">❤️</span> 
@@ -453,10 +454,10 @@ form {
                     </div>
                 </div>
                 <div class="gameItem">
-                    <a href="https://sports.nj.betmgm.com/en/sports?gad_source=1&gclid=Cj0KCQiA1p28BhCBARIsADP9HrOxdBayKj76qjFPL0L5AkQgtuNU2U22ooFGI3B1PLf3iHUAiou6CrYaAhAwEALw_wcB" target="_blank" data-name="BET MGM">
-                    <img class="bet" title="Sports betting, Online Casinos, & More" src="https://www.profitduel.com/hubfs/BetMGM.jpg" alt="BET MGM betmgm">
+                <a href="https://www.tripadvisor.com/Hotels" target="_blank" data-name="Tripadvisor">
+                    <img class="trip" title="Plan Your Trip & Find A Place To Stay" src="https://play-lh.googleusercontent.com/xIiqvVG7FenmazYjyjGlf4RqO_q-Fsu_mo28mcCuGAtu0j0GPNa_4VpL6UJ506ZVkCw=w416-h235-rw" alt="tripadvisor trip advisor">
                 </a>
-                <div class="emoji" data-link="bet">
+                <div class="emoji" data-link="tri[]">
                     <span class="emoji-icon">👍</span> 
                     <span class="counter">0</span> <!-- Thumbs up counter -->
                     <span class="emoji-icon">❤️</span> 
@@ -464,10 +465,35 @@ form {
                 </div>
             </div>
             <div class="gameItem">
-                <a href="https://www.fanduel.com/" target="_blank" data-name="FANDUEL">
-                    <img class="fan" title="Manage And Keep Up With The Latest Sporting Events" src="https://press.fanduel.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fpbwem9y5%2Ffanduel_marketing_production%2Ffad1826fe508811c248deb708f5b40d65f148af5-1089x612.png&w=1920&q=100" alt="FANDUEL fan duel">
+                <a href="https://www.hotels.com/" target="_blank" data-name="Escaping The Prison">
+                    <img class="hotel" title="Makes Finding A Hotel Simple" src="https://mma.prnewswire.com/media/1165353/Hotels_Logo.jpg?p=facebook" alt="Hotels.com">
                 </a>
-                <div class="emoji" data-link="FANDUEL">
+                <div class="emoji" data-link="hotel">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.newgrounds.com/portal/view/574241" target="_blank" data-name="Stealing The Diamond">
+                    <img class="steal" title="Cmon You Know You Want It" src="https://images.crazygames.com/games/stealing-the-diamond/cover-1657103226139.png?auto=format,compress&q=75&cs=strip" alt="Stealing The Diamond">                </a>
+                    <div class="emoji" data-link="steal">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="row2">
+                <div class="gameItem">
+                <a href="https://www.airbnb.com/?c=.pi0.pk36239956_25650614176&&c=.pi0.pk36239956_25650614176&ghost=true&gad_source=1&gclid=Cj0KCQiA-aK8BhCDARIsAL_-H9lYFbB4P0jdG3QAKOs3LoN2gs17wIKYddvK_WrCjQvBrUNdWiTRZdAaAs8zEALw_wcB&gclsrc=aw.ds" target="_blank" data-name="airbnb">
+                    <img class="air" title="Fid Your Own House To Stay In During Your Vacation" src="https://www.stratosjets.com/wp-content/uploads/2020/05/airbnb-statistics.jpg" alt="airbnb air bnb">
+                </a>
+                <div class="emoji" data-link="air">
                     <span class="emoji-icon">👍</span> 
                     <span class="counter">0</span> <!-- Thumbs up counter -->
                     <span class="emoji-icon">❤️</span> 
@@ -564,6 +590,7 @@ form {
                 alert('Local Storage cleared!');
             }
         </script>
+
     <!-- Footer -->
     <footer>
         <div class="footer-container">
@@ -603,6 +630,5 @@ form {
                 &copy; 2025 Red Rat Games. All rights reserved.
             </div>
         </footer>
-    </div>
 </body>
 </html>

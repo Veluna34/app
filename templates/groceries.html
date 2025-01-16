@@ -259,7 +259,7 @@
             position: fixed;
         }
 
-        .row1 img, .row2 img, .row3 img, .row4 img, .row5 img, .row6 img, .row7 img{
+        .row1 img, .row2 img, .row3 img{
             display: flex;
             justify-content: center; /* Center align the items */
             gap: 1%; /* Adjust gap between images */
@@ -283,7 +283,7 @@
             flex-wrap: wrap;
         }
 
-        .row2, .row3, .row4, .row5, .row6, .row7{
+        .row2, .row3{
             display: flex;
             justify-content: center;
             gap: 6%; /* Increase the gap between images */
@@ -291,24 +291,22 @@
             flex-wrap: wrap;
         }
 
-        .click {
+        .support {
             display: flex;
-            flex-direction: column; /* Stack the text for better readability on smaller screens */
-            align-items: center;
             justify-content: center;
-            color: #ffffff;
-            text-align: center;
-            padding: .5em; /* Add some padding */
-            border-radius: 50px; /* Round the edges more for a modern look */
+            border-radius: 8em;
             background-color: rgb(202, 137, 57);
-            border: 0.05em solid rgb(202, 137, 57);
-            width: 70%; /* Use a percentage for adaptability */
-            max-width: 20em; /* Limit the width for large screens */
-            margin: 2em auto; /* Center on the page with spacing */
-            font-size: 1em; /* Set a default font size */
-            line-height: 1.5; /* Improve text readability */
-            margin-top: .5%;
-            font-size: 1.2em;
+            border: .7em solid rgb(202, 137, 57);
+            width: 30%; /* Adjust the width as needed */
+            max-width: 30%; /* Optional: Limit the maximum width */
+            margin: 0 auto; /* Center the element horizontally */
+            margin-top: 0vh;
+        }
+
+
+        .support:hover {
+            background-color: rgb(160, 103, 45); /* Lighter shade on hover */
+            transform: scale(1.05); /* Slight zoom effect */
         }
 
         #search {
@@ -385,7 +383,7 @@ form {
                 z-index: 5;
             }
 
-            .click {
+            .support {
             width: 80%; /* Make it occupy more space on smaller screens */
             font-size: 0.9em; /* Adjust font size for readability */
             padding: 1.5em; /* Add more padding for touch devices */
@@ -393,7 +391,7 @@ form {
     }
 
     @media (max-width: 480px) {
-        .click {
+        .support {
             width: 90%; /* Almost full width on very small screens */
             font-size: 0.8em; /* Slightly smaller font for compact screens */
             padding: 1.2em; /* Reduce padding to fit */
@@ -430,22 +428,25 @@ form {
     {% endif %}
 
     </header>
-
     <!-- Main Content -->
     <div class="content">
         <canvas></canvas>
 
-        <h1>Sports Betting & Online Casinos</h1>
-        <p class="click">Call: 1-800-522-4700 For Gambling Problems (Available In Every State)</p>
+        <h1>Grocery Stores</h1>
+        <a class="support">
+            <button>
+                All Your Groceries In One Place
+            </button>
+        </a>
 
 
         <div class="gameImgs">
             <!-- Row 1 -->
             <div class="row1">
                 <div class="gameItem">
-                <a href="https://sportsbook.draftkings.com/sportsbook-sem?wpcid=22042505430&wpsnetn=g&wpkwn=fanduel&wpkmatch=b&wpcrid=727680540186&wpscid=176113600527&wpkwid=kwd-13057536565&an=adwords&gclsrc=aw.ds&gad_source=1&gclid=Cj0KCQiA1p28BhCBARIsADP9HrNsJIUfOYpFvphdxPev7JFrUh_AlJAE3E40F1hCsIFPDo62T1eX3oEaAoyeEALw_wcB" target="_blank" data-name="DRAFTKINGS">
-                    <img class="draft" title="The Number One Place For Sports Betting" src="https://play-lh.googleusercontent.com/plXQ4mtxzKUa3LAeh7F5EuJ9TsPtk8J6pw30OkmYsW1L3k8zOymQauYq04KH-oQHf40=w3840-h2160-rw"  alt="DRAFTKINGS draft kings"></a>
-                    <div class="emoji" data-link="draft">
+                <a href="https://www.shoprite.com/sm/pickup/rsid/3000?srsltid=AfmBOorx1CINxCntBP5OjXnOLr4JLqPSY83hwSpi4Z8jPGpk00wmZDnC" target="_blank" data-name="ShopRite">
+                    <img class="shop" title="One Of The Largest Grocery Stores In The Country" src="https://d368g9lw5ileu7.cloudfront.net/races/race20142-social1200x630.bJkGA6.jpg"  alt="shoprite shop rite"></a>
+                    <div class="emoji" data-link="shop">
                         <span class="emoji-icon">👍</span> 
                         <span class="counter">0</span> <!-- Thumbs up counter -->
                         <span class="emoji-icon">❤️</span> 
@@ -453,10 +454,10 @@ form {
                     </div>
                 </div>
                 <div class="gameItem">
-                    <a href="https://sports.nj.betmgm.com/en/sports?gad_source=1&gclid=Cj0KCQiA1p28BhCBARIsADP9HrOxdBayKj76qjFPL0L5AkQgtuNU2U22ooFGI3B1PLf3iHUAiou6CrYaAhAwEALw_wcB" target="_blank" data-name="BET MGM">
-                    <img class="bet" title="Sports betting, Online Casinos, & More" src="https://www.profitduel.com/hubfs/BetMGM.jpg" alt="BET MGM betmgm">
+                <a href="https://stores.stopandshop.com/nj/pompton-plains/500-rte-23-north" target="_blank" data-name="Stop&Shop">
+                    <img class="stop" title="The Best Of Weekly Coupons, Sales, & Specials" src="https://1000logos.net/wp-content/uploads/2024/02/Stop-and-Shop-Logo.jpg" alt="Stop&Shop STop & Shop stopandshop stop and shop">
                 </a>
-                <div class="emoji" data-link="bet">
+                <div class="emoji" data-link="stop">
                     <span class="emoji-icon">👍</span> 
                     <span class="counter">0</span> <!-- Thumbs up counter -->
                     <span class="emoji-icon">❤️</span> 
@@ -464,10 +465,35 @@ form {
                 </div>
             </div>
             <div class="gameItem">
-                <a href="https://www.fanduel.com/" target="_blank" data-name="FANDUEL">
-                    <img class="fan" title="Manage And Keep Up With The Latest Sporting Events" src="https://press.fanduel.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fpbwem9y5%2Ffanduel_marketing_production%2Ffad1826fe508811c248deb708f5b40d65f148af5-1089x612.png&w=1920&q=100" alt="FANDUEL fan duel">
+                <a href="https://www.lidl.com/" target="_blank" data-name="Lidl">
+                    <img class="lidl" title="High Quality Goods" src="https://i.ytimg.com/vi/YUxQNzM4ehU/sddefault.jpg" alt="Lidl">
                 </a>
-                <div class="emoji" data-link="FANDUEL">
+                <div class="emoji" data-link="lidl">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+            </div>
+            <div class="gameItem">
+                <a href="https://www.wholefoodsmarket.com/" target="_blank" data-name="Whole Foods">
+                    <img class="whole" title="The Best Of High Quality" src="https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,f_jpg,h_445,q_65,w_640/v1/crm/parkcity/whole-foods-logo10_5ec1a0b1-5056-b3a8-49b0397baf41fcfb.jpg" alt="Whole Foods">                </a>
+                    <div class="emoji" data-link="whole">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="row2">
+                <div class="gameItem">
+                <a href="https://quickchek.com/" target="_blank" data-name="QuickCheck">
+                    <img class="quick" title="The Number One Conveinant Store" src="https://cdn.myportfolio.com/10b1fbe4-d998-4986-b898-ed3df0b25fed/39706e25-d8e4-49da-9e47-52f877a91249_rw_1920.jpg?h=d7250f776531844cd5f9d7d7ae45a711" alt="Quick Check quickcheck">
+                </a>
+                <div class="emoji" data-link="quick">
                     <span class="emoji-icon">👍</span> 
                     <span class="counter">0</span> <!-- Thumbs up counter -->
                     <span class="emoji-icon">❤️</span> 
@@ -564,6 +590,7 @@ form {
                 alert('Local Storage cleared!');
             }
         </script>
+
     <!-- Footer -->
     <footer>
         <div class="footer-container">
@@ -603,6 +630,5 @@ form {
                 &copy; 2025 Red Rat Games. All rights reserved.
             </div>
         </footer>
-    </div>
 </body>
 </html>
