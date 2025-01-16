@@ -906,6 +906,10 @@ def health():
 def travel():
     return render_template('travel.html')
 
+@app.route('/travelling')
+def travelling():
+    return render_template('travelling.html')
+
 
 @app.route('/submitted', methods=['GET', 'POST'])
 def submitted():
