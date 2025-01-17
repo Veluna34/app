@@ -239,6 +239,34 @@ form {
     font-weight: bold;
 }
 
+@media (max-width: 800px) { /* Added px unit */
+
+
+body {
+    padding-top: 6em; /* Space below fixed header */
+}
+
+nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+nav ul li {
+    margin-left: 0;
+    margin-bottom: 0.5em;
+}
+
+header {
+    flex-wrap: wrap;
+    margin-top: -12vh;
+}
+
+.logo img {
+    height: 40px;
+}
+}
+
+
         /* Keyframe Animation for Fade-In */
         @keyframes fadeIn {
             0% { opacity: 0; transform: translateY(30px); }

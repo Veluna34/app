@@ -347,48 +347,49 @@ form {
         }
 
         /* Responsive Styling */
-        @media (max-width: 800px) {
-            h1{
-                transform: translate(0vw, 14vh);
-            }
-
-            body {
-                padding-top: 6em; /* Space below fixed header */
-            }
-
-            nav ul {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            nav ul li {
-                margin-left: 0;
-                margin-bottom: 0.5em;
-            }
-
-            header {
-                flex-wrap: wrap;
-            }
-
-            .logo img {
-                height: 40px;
-            }
-
-            h1{
-                transform: translate(0vw, 1vh);
-            }
-
-            .lofiMessage{
-                transform: translate(0vw, 3vh);
-                z-index: 5;
-            }
-
-            .support {
-            width: 80%; /* Make it occupy more space on smaller screens */
-            font-size: 0.9em; /* Adjust font size for readability */
-            padding: 1.5em; /* Add more padding for touch devices */
-        }
+        @media (max-width: 800px) { /* Added px unit */
+    h1 {
+        margin-top: -10vh;
+        margin-bottom: 10vh;
+        text-align: center;
     }
+
+    body {
+        padding-top: 6em; /* Space below fixed header */
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul li {
+        margin-left: 0;
+        margin-bottom: 0.5em;
+    }
+
+    header {
+        flex-wrap: wrap;
+        position: static;
+        margin-top: -12vh;
+    }
+
+    .logo img {
+        height: 40px;
+    }
+
+    .lofiMessage {
+        transform: translate(0, 3vh); /* Optional: keep in px for consistency */
+        z-index: 5;
+    }
+
+    .click {
+        width: 80%; /* Make it occupy more space on smaller screens */
+        font-size: 0.9em; /* Adjust font size for readability */
+        padding: 1.5em; /* Add more padding for touch devices */
+        margin-top: -7vh;
+    }
+}
 
     @media (max-width: 480px) {
         .support {
@@ -476,20 +477,6 @@ form {
                 </div>
             </div>
             <div class="gameItem">
-                <a href="https://www.newgrounds.com/portal/view/574241" target="_blank" data-name="Stealing The Diamond">
-                    <img class="steal" title="Cmon You Know You Want It" src="https://images.crazygames.com/games/stealing-the-diamond/cover-1657103226139.png?auto=format,compress&q=75&cs=strip" alt="Stealing The Diamond">                </a>
-                    <div class="emoji" data-link="steal">
-                        <span class="emoji-icon">👍</span> 
-                        <span class="counter">0</span> <!-- Thumbs up counter -->
-                        <span class="emoji-icon">❤️</span> 
-                        <span class="counter">0</span> <!-- Heart counter -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Row 2 -->
-            <div class="row2">
-                <div class="gameItem">
                 <a href="https://www.airbnb.com/?c=.pi0.pk36239956_25650614176&&c=.pi0.pk36239956_25650614176&ghost=true&gad_source=1&gclid=Cj0KCQiA-aK8BhCDARIsAL_-H9lYFbB4P0jdG3QAKOs3LoN2gs17wIKYddvK_WrCjQvBrUNdWiTRZdAaAs8zEALw_wcB&gclsrc=aw.ds" target="_blank" data-name="airbnb">
                     <img class="air" title="Fid Your Own House To Stay In During Your Vacation" src="https://www.stratosjets.com/wp-content/uploads/2020/05/airbnb-statistics.jpg" alt="airbnb air bnb">
                 </a>
@@ -500,6 +487,8 @@ form {
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
             </div>
+            </div>
+
             </div>
         </div>
         <script>

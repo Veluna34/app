@@ -13,6 +13,7 @@
             color: #333;
             margin: 0;
             padding: 0;
+            overflow-y: none;
         }
 
             .header {
@@ -23,6 +24,8 @@
                 box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             }
 
+
+
             .header h1 {
                 font-family: 'Montserrat', sans-serif;
                 font-size: 2.5rem;
@@ -32,16 +35,28 @@
         .profile-container {
             width: 95%;
             max-width: 900px;
-            margin: 40px auto;
+            margin: 0px auto;
             background-color: #d1aaaa;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 40px;
+            padding: 65px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
+        @media (max-width: 768px) {
+    .profile-container {
+        padding: 63px;
+        width: 60%;
+        max-width: 100%;
+        margin: 0 10px;
+    }
+
+    .header{
+        width: 100%;
+    }
+}
         .profile-container h2 {
             font-size: 1.8rem;
             color: #BF3030;
@@ -88,19 +103,6 @@
 
         }
 
-        .upload-section label {
-    background-color: #ff8f1fd2;
-    color: white;
-    padding: 5px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 1.3rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    position: static;  /* Temporarily remove absolute positioning */
-    transform: none;   /* Temporarily remove transformation */
-}
-
         .upload-section input[type="file"] {
             display: none;
         }
@@ -114,7 +116,6 @@
             font-size: 1.3rem;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
-            position: absolute;
     top: 325px;  /* Moves the label upwards */
     transform: translateX(50%); /* Centers it horizontally relative to the profile image */
 }

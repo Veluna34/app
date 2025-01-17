@@ -466,7 +466,7 @@ form {
 }
 
 
-        @media (max-width: 800px) {
+        @media (max-width: 765px) {
             .hello {
                 transform: translate(0vw, 14vh); /* Push the .hello content further down */
             }
@@ -490,11 +490,20 @@ form {
             header {
                 display: flex;
                 flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+                position: relative; /* Ensures it's placed within the normal flow but can still respond to `top` */
+                margin-top: -25%;
             }
 
             .logo img {
                 height: 40px; /* Adjust logo size for smaller screens */
             }
+
+            .carousel-caption {
+        transform: translate(0vw, 0); /* Ensure it's properly positioned */
+        max-width: 90%; /* Allow more space for captions */
+        font-size: 0.9em; /* Adjust font size for readability */
+        padding: 0.8em; /* Adjust padding for smaller screens */
+    }
 
 
             .carousel-caption {
@@ -506,6 +515,7 @@ form {
                 flex-wrap: nowrap;
                 transform: translate(0vw, 5vh);
                 justify-content: center; /* Push the .hello content further down */
+                margin-top: 5vh;
 
             }
 
@@ -521,8 +531,16 @@ form {
                 bottom: 10px; /* Move indicators closer to the bottom */
             }
 
+            .musicContainer{
+                display: none;
+            }
+
             .pfp img{
-                transform: translate(0vw, 4.5vh);
+                height: 180px;
+        width: 350px;
+        margin-right: 5vw;
+        margin-top: 3vh;
+        margin-bottom: -5.6vh;
             }
 
 
@@ -532,9 +550,7 @@ form {
                 transform: translate(0vw, 0vh);
             }
 
-            .carousel-caption {
-                font-size: 0.9em; /* Smaller font for captions on mobile */
-            }
+
 
             .carousel-border-wrapper {
                 padding: 10px; /* Reduce padding on smaller screens */
@@ -544,7 +560,6 @@ form {
                 /* Adjust image size on smaller screens */
             .carousel-inner img {
                 width: 100%; /* Ensure it occupies full width */
-                height: 40vh; /* Maintain a reasonable height */
             }
 
             .carousel-indicators {
@@ -575,12 +590,31 @@ form {
             footer{
                 transform: translate(0vw, -139vh);
             }
+
+
+
+            .sewerMessage{
+                text-align: center;
+
+                margin-top: 140px;
+            }
+
+            .about{
+                text-align: left;
+            }
+
+            h1{
+                margin-top:-15vh;
+            }
+
+
         }
 
         @media (min-width: 1778px) {
             .carousel-border-wrapper {
                 transform: translate(0vw, -160.7vh);
             }
+
 
         }
 
@@ -660,6 +694,27 @@ document.addEventListener('DOMContentLoaded', () => {
         </audio>
     </div>
 
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Sign In</a></li>
+
+            </ul>
+        </nav>
+        <form action="{{ url_for('search') }}" method="get">
+            <input type="text" name="query" id="search" placeholder="Search for anything..." value="{{ query or '' }}" />
+        </form>
+        {% if session.get('username') %}
+        <span class="username">Welcome: {{ session['username'] }}!</span>
+    {% else %}
+        <span>Welcome: Guest!</span>
+    {% endif %}
+
+    </header>
+
     <div class="hello">
         <h1>
             {% with messages = get_flashed_messages(with_categories=true) %}
@@ -676,8 +731,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         </h1>
 
-
     </div>
+
+  
 
     <p class="sewerMessage"> Your Gateway To The Internet</p>
 
@@ -702,26 +758,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 -->
 
-    <header>
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('profile') }}">Profile</a></li>
-                <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
-                <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
-                <li><a href="{{ url_for('signInPage') }}">Sign In</a></li>
 
-            </ul>
-        </nav>
-        <form action="{{ url_for('search') }}" method="get">
-            <input type="text" name="query" id="search" placeholder="Search for anything..." value="{{ query or '' }}" />
-        </form>
-        {% if session.get('username') %}
-        <span class="username">Welcome: {{ session['username'] }}!</span>
-    {% else %}
-        <span>Welcome: Guest!</span>
-    {% endif %}
-
-    </header>
 
     <canvas id="projector" width="800" height="600"></canvas>
 

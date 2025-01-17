@@ -232,24 +232,7 @@ body::before {
 }
 
 /* For medium screens (tablets) */
-@media (max-width: 1280px) {
-    #search {
-        width: 80%;
-    padding: 5px;
-    font-size: 1.2rem;
-        left: 27vw;
-    }
-}
-
-/* For smaller screens (smartphones) */
-@media (max-width: 480px) {
-    #search {
-        width: 80%;
-    padding: 5px;
-    font-size: 1.2rem;
-        left: 30vw;
-    }
-}
+ 
 
 #search-sewer{
     width: 80%;
@@ -526,6 +509,40 @@ footer {
     object-fit: cover;
     border-radius: 8px;
 }
+
+@media (max-width: 765px) {
+            
+            /* Add margin to the body or .hello element to prevent overlap with the header */
+            body {
+                padding-top: 6em; /* Ensure there's enough space below the header */
+            }
+            
+            /* Stacking navigation items and adjusting other elements in the header */
+            nav ul {
+                flex-direction: column; /* Stack nav items on smaller screens */
+                align-items: flex-start;
+            }
+
+            nav ul li {
+                margin-left: 0;
+                margin-bottom: 0.5em;
+            }
+
+
+            .content-container {
+            flex-direction: column; /* Stack items on smaller screens */
+            }
+
+
+            .about{
+                text-align: left;
+            }
+            
+            #search{
+                left: 0vw;
+            }
+
+        }
 
 
 </style>

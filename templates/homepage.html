@@ -15,16 +15,17 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    background: url('https://www.transparenttextures.com/patterns/asfalt.png'), linear-gradient(135deg, #330000, #6b1e1b);
-    color: #fff;
-    overflow: hidden;
-    background-size: cover;
-    display: flex;
-    flex-direction: column; /* Allow the content to stretch */
-    justify-content: flex-start; /* Align items at the top */
-    height: 100vh;
-    margin: 0;
+    text-align: center;
+    background: 
+        linear-gradient(357deg, #cac1c1 30%, #e5dede 100%), /* Gradient background */
+        url('https://www.transparenttextures.com/patterns/dark-matter.png'), /* Texture overlay */
+        rgba(232, 199, 199, 0.122); /* Add a semi-transparent layer for texture opacity */
+    background-blend-mode: overlay; /* Blends the texture with the gradient */
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.3); /* Softer shadow */
+    max-height: 110vh;
+    overflow-y: auto;
+    margin-top: 150px; /* Adjust to make space below the header */
+    opacity: 1; /* Adjust opacity for the whole body */
 }
 
 .chart-container {
@@ -48,22 +49,6 @@ canvas {
 
 
 
-.sewer-container {
-    text-align: center;
-    position: relative;
-    padding: 50px;
-    background: linear-gradient(357deg, #bab6b6 30%, #e5dede 100%); /* Soft white with low opacity for a light, airy background */
-    border-radius: 30px;
-    box-shadow: 0 0 60px rgba(0, 0, 0, 0.3); /* Softer shadow */
-    backdrop-filter: blur(10px);
-    max-height: 110vh;
-    overflow-y: auto;
-    margin-top: 150px; /* Adjust to make space below the header */
-    width: 100%;
-    bottom: 6.2em; /* Match this value to the height of the fixed header */
-    background: linear-gradient(357deg, #cac1c1 30%, #e5dede 100%); /* Light gray to soft, warm pink gradient */
-    box-shadow: 0 0 80px rgba(0, 0, 0, 0.2); /* Lighter shadow for a more gentle effect */
-}
 
 .sewer-header {
     background-color: rgb(48 0 0 / 52%);/* Lightened background with a soft opacity */
@@ -75,8 +60,8 @@ canvas {
     width: 100.3vw;
     box-sizing: border-box;
     overflow: hidden;
-    margin-top: 1vh;
-    right: 3.5vw;
+    margin-top: -6vh;
+    right: 1.3vw
 }
 
 h1 {
@@ -84,7 +69,7 @@ h1 {
     margin-right: 0;
     font-size: 3.5rem; /* Slightly smaller font size for better balance */
     margin-bottom: 15px; /* Reduced bottom margin for cleaner spacing */
-    margin-top: 0; /* Reset top margin for more even spacing */
+    margin-top: -5vh; /* Reset top margin for more even spacing */
     font-family: 'Roboto', sans-serif; /* Modern sans-serif font for readability */
     text-shadow: 4px 4px 10px rgb(0 0 0 / 89%); /* Slightly softer shadow for depth */
     line-height: 1.4; /* Adjusted for better readability and spacing */
@@ -229,29 +214,6 @@ h1 {
     font-size: 0.9rem;
 }
 
-body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(100, 40, 40, 0.3); /* Brighter overlay */
-    filter: blur(12px); /* Softer blur */
-    z-index: -1;
-}
-
-.sewer-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('https://www.transparenttextures.com/patterns/dark-matter.png'); /* Updated texture */
-    opacity: 0.25;
-    z-index: -1;
-}
 
 #search {
     position: relative;
@@ -278,26 +240,62 @@ body::before {
     /* Default settings for larger screens */
 }
 
+@media (max-width: 765px) {
+            
+            /* Add margin to the body or .hello element to prevent overlap with the header */
+            body {
+                padding-top: 6em; /* Ensure there's enough space below the header */
+            }
+
+            
+            /* Stacking navigation items and adjusting other elements in the header */
+            nav ul {
+                flex-direction: column; /* Stack nav items on smaller screens */
+                align-items: flex-start;
+            }
+
+            nav ul li {
+                margin-left: 0;
+                margin-bottom: 0.5em;
+            }
+
+
+            .content-container {
+            flex-direction: column; /* Stack items on smaller screens */
+            }
+
+
+            .about{
+                text-align: left;
+            }
+
+
+            .lofiMessage{
+                display: none;
+            }
+
+            iframe{
+                display: none;
+            }
+
+            .sewer-container{
+                bottom: 30em;
+            }
+
+            .lofi{
+                display: none;
+            }
+
+            #search{
+                left: 0vw;
+            }
+
+
+        }
+
 /* For medium screens (tablets) */
-@media (max-width: 1280px) {
-    #search {
-        width: 80%;
-    padding: 5px;
-    font-size: 1.2rem;
-        left: 27vw;
-    }
-}
 
 /* For smaller screens (smartphones) */
-@media (max-width: 480px) {
-    #search {
-        width: 80%;
-    padding: 5px;
-    font-size: 1.2rem;
-        left: 30vw;
-    }
-}
-
 #search-sewer{
     width: 80%;
     padding: 10px;
@@ -340,6 +338,7 @@ body::before {
     color: #c9abff; /* Dark grayish-blue for the header */
     text-shadow: 1px 1px 3px rgb(0, 0, 0); /* Light shadow for depth */
     font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 
@@ -608,7 +607,7 @@ footer {
     align-items: center;
     justify-content: center;
     margin-top: 15px;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 
 .suggestion-label {
@@ -643,14 +642,18 @@ footer {
 .Internet{
     margin-top: -20px;
     margin-bottom: 20px;
+    color: wheat;
+    font-size: 1.2em;
+    font-weight: bold;
 }
 
-.lofiMessage {
-            position: fixed;
-            color: aliceblue;
-            margin-left: 83.5%;
-            transform: translate(0vw, -14vh);
-        }
+.lofi{
+    position: relative;
+    color: white;
+    margin-left: 68vw;
+    top:32.5vh;    
+}
+
 
 
 </style>
@@ -749,7 +752,6 @@ footer {
 
 
     <main>
-        <div class="sewer-container">
             {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <div id="flash-message" class="alert alert-info">
@@ -762,6 +764,12 @@ footer {
             {% endif %}
     {% endwith %}
     <header class="sewer-header">
+        <iframe class="music" title="background" allow="autoplay" controls="loop"
+        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1921149395&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true" 
+        style="width: 15%; height: 15%; margin-right: -67vw; margin-bottom: -33vh; margin-top: 0vh">
+    </iframe>
+    <p class="lofi">Press Play And Chill Out With Me</p>
+
         <h1>Welcome To The <span class="highlight">Red Rat's</span> Web</h1>
         <p class="Internet"> The Entire Internet In One Place</p>
     
@@ -770,18 +778,6 @@ footer {
             <button id="open-form-btn" class="toggle-menu">Share A Missing Website</button>
             <button id="open-create-website-btn" class="toggle-menu" style="margin-left: 10px;">Submit Your Created Website</button>
 
-            
-        <iframe title="background" allow="autoplay" controls="loop"
-        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1921149395&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true" 
-        style="width: 15%; height: 15%; position: fixed; top: 10%; left: 85%; z-index: 10;">
-    </iframe>
-
-
-    <div style="font-size: 10px; color: #cccccc; position: fixed; top:10%; left: 85.89%; line-break: anywhere; word-break: normal; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
-        <a href="https://soundcloud.com/aiden-figueroa-634927617" title="Aiden Figueroa" target="_blank" style="color: #cccccc; text-decoration: none;">the RED RAT</a> ·
-        <a href="https://soundcloud.com/aiden-figueroa-634927617/flowers" title="flowers" target="_blank" style="color: #cccccc; text-decoration: none;">flowers</a>
-    </div>
-    <p class="lofiMessage"> Press Play And Chill Out With Me</p>
 
 
         </div>
@@ -974,7 +970,6 @@ footer {
                         </div>
                     </footer>
             </div>
-        </div>
     </main>
     <script>
         // Establish WebSocket connection

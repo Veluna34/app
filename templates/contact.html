@@ -177,7 +177,37 @@
     margin-top: 80px; /* Adjust as needed for spacing */
     border: 1px solid #b47575; /* Subtle border for structure */
     transition: box-shadow 0.3s ease-in-out; /* Smooth transition effect */
+    width:100%;
 }
+
+@media (max-width: 800px) { /* Added px unit */
+
+
+    body {
+        padding-top: 6em; /* Space below fixed header */
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul li {
+        margin-left: 0;
+        margin-bottom: 0.5em;
+    }
+
+    header {
+        flex-wrap: wrap;
+        position: static;
+        margin-top: -12vh;
+    }
+
+    .logo img {
+        height: 40px;
+    }
+}
+
 
 .contact-container:hover {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Slightly more prominent shadow on hover */
