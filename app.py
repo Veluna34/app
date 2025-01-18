@@ -9,10 +9,7 @@ from werkzeug.utils import secure_filename
 from flask_socketio import SocketIO
 import time
 from threading import Thread
-from pytrends.request import TrendReq
 import requests
-import spacy
-import heapq
 from transformers import pipeline
 
 
