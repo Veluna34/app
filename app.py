@@ -1423,6 +1423,8 @@ def originalgames():
 
 
 if __name__ == "__main__":
+    port = int(os.getenv("PORT", 5000))  # Get the port from the environment or use 5000 as default
+    app.run(host="0.0.0.0", port=port) 
     socketio.run(app, debug=True)
   # Initialize the database
 
