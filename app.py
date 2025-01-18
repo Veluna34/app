@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template, request, session, flash, render_template_string
+from flask import Flask, redirect, url_for, render_template, request, session, flash, render_template_string, jsonify
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
@@ -11,6 +11,9 @@ import time
 from threading import Thread
 from pytrends.request import TrendReq
 import requests
+import spacy
+import heapq
+from transformers import pipeline
 
 
 
@@ -291,6 +294,7 @@ def fetch_and_emit_data(test_mode=True):
         # Use a short delay for testing, longer delay for production
         time.sleep(30 if test_mode else 28800)  # 28800 seconds = 8 hours for production
 
+nlp_model = pipeline("zero-shot-classification")
 
 @socketio.on('connect')
 def handle_connect():
@@ -298,6 +302,7 @@ def handle_connect():
     # Start the data-fetching thread
     thread = Thread(target=fetch_and_emit_data, args=(True,))  # Set to True for testing mode
     thread.start()
+
 
 
 # Function to extract alt texts from templates
@@ -324,11 +329,110 @@ alt_text_data = {}
 for template in TEMPLATES:
     alt_text_data[template] = extract_alt_texts(template)
 
+
 @app.route("/", methods=["GET", "POST"])
 def signInPage():
     return render_template('signInPage.html')
 
+@app.route("/test")
+def test():
+    return render_template('test.html')
 
+
+# Define a list of websites to crawl
+nlp_model = pipeline('zero-shot-classification', model='facebook/bart-large-mnli')
+
+# Define a list of websites to crawl
+websites_to_crawl = [
+    "https://www.blender.org",  # Example site for 3D art
+    "https://www.artstation.com",
+    "https://www.cgtrader.com",
+    "https://www.turbosquid.com",
+    "https://www.deviantart.com"
+]
+
+websites_by_category = {
+    "art": [
+        "https://www.blender.org",  # Example site for 3D art
+        "https://www.artstation.com",
+        "https://www.cgtrader.com",
+        "https://www.turbosquid.com",
+        "https://www.deviantart.com"
+    ],
+    "business": [
+        "https://www.forbes.com",
+        "https://www.inc.com",
+        "https://www.businessinsider.com",
+        "https://www.entrepreneur.com",
+        "https://www.mckinsey.com"
+    ],
+    # Add more categories as needed
+}
+
+def crawl_website(url):
+    """Crawl a given website and extract textual content."""
+    try:
+        page = requests.get(url)
+        soup = BeautifulSoup(page.content, 'html.parser')
+        paragraphs = soup.find_all('p')
+        page_text = ' '.join([para.text for para in paragraphs if para.text.strip() != ''])
+        return page_text
+    except Exception as e:
+        print(f"Failed to crawl {url}: {str(e)}")
+        return ""
+
+def analyze_relevance(prompt, websites_by_category):
+    """Analyze the relevance of the scraped websites based on the user prompt."""
+    relevance_scores = []
+    
+    # Normalize the prompt to lowercase to handle case insensitivity
+    prompt = prompt.lower()
+
+    # Find the relevant category based on the prompt
+    selected_category = None
+    for category in websites_by_category:
+        if category in prompt:  # Match category by keyword
+            selected_category = category
+            break
+
+    if not selected_category:
+        return {"error": "No relevant category found for your prompt"}
+
+    # Get the websites that belong to the selected category
+    websites = websites_by_category[selected_category]
+
+    # Loop through all the websites and get the relevance score for each
+    for website in websites:
+        page_text = crawl_website(website)
+        
+        if page_text:  # Only analyze if text was successfully scraped
+            # Perform zero-shot classification to evaluate relevance to the prompt
+            result = nlp_model(prompt, candidate_labels=[selected_category])
+            
+            # Store the relevance score and website URL
+            relevance_scores.append((website, result['scores'][0]))  # Score of relevance
+    
+    # Sort the websites based on the highest relevance score
+    relevance_scores.sort(key=lambda x: x[1], reverse=True)
+    
+    # Return the top 4 most relevant websites
+    return [website for website, score in relevance_scores[:5]]
+
+@app.route('/get_relevant_links', methods=['POST'])
+def get_relevant_links():
+    data = request.get_json()
+    user_prompt = data.get('prompt')
+
+    if not user_prompt:
+        return jsonify({"error": "No prompt provided"}), 400
+    
+    relevant_links = analyze_relevance(user_prompt, websites_by_category)
+    
+    # Check if an error occurred or if there are relevant links
+    if "error" in relevant_links:
+        return jsonify({"error": relevant_links["error"]}), 400
+
+    return jsonify({"links": relevant_links})
 
 def login_required(f):
     @wraps(f)

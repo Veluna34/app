@@ -240,11 +240,15 @@ h1 {
     /* Default settings for larger screens */
 }
 
-@media (max-width: 765px) {
+@media (max-width: 800px) {
             
             /* Add margin to the body or .hello element to prevent overlap with the header */
             body {
                 padding-top: 6em; /* Ensure there's enough space below the header */
+            }
+
+            .google-container {
+                margin-left: 0% !important; /* Ensure there's enough space below the header */
             }
 
             
@@ -288,6 +292,7 @@ h1 {
 
             #search{
                 left: 0vw;
+                width: 30% !important;;
             }
 
 
@@ -654,6 +659,122 @@ footer {
     top:32.5vh;    
 }
 
+#gsc-i-id1 {
+            width: 100%;
+            padding: 18px 20px;
+            font-size: 16px;
+            border: 2px solid #e1e4e8;
+            border-radius: 30px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+        }
+
+        #gsc-i-id1:focus {
+            border-color: #007bff;
+            outline: none;
+            background-color: #ffffff;
+        }
+
+        /* Search button */
+        .gsc-search-button input {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            font-size: 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gsc-search-button input:hover {
+            background-color: #0056b3;
+        }
+
+        /* Results styling */
+        .gsc-results-wrapper-overlay {
+            margin-top: 25px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Web results - container */
+        .gsc-webResult.gsc-result {
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .gsc-webResult.gsc-result:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Links in search results */
+        .gsc-webResult.gsc-result a {
+            color: #007bff;
+            font-size: 18px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .gsc-webResult.gsc-result a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        /* Result description text */
+        .gsc-webResult.gsc-result .gsc-snippet {
+            color: #6c757d;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-top: 8px;
+        }
+
+        /* Result thumbnails */
+        .gsc-thumbnail-inside {
+            border-radius: 8px;
+            margin-right: 12px;
+        }
+
+        /* Pagination styles */
+        .gsc-cursor {
+            display: inline-block;
+            margin-top: 30px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .gsc-cursor-page {
+            padding: 12px 18px;
+            font-size: 14px;
+            background-color: #f1f3f5;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-right: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .gsc-cursor-page:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .google-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
+            margin-left: 28%;
+        }
 
 
 </style>
@@ -763,6 +884,7 @@ footer {
                 </div>
             {% endif %}
     {% endwith %}
+
     <header class="sewer-header">
         <iframe class="music" title="background" allow="autoplay" controls="loop"
         src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1921149395&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true" 
@@ -865,6 +987,11 @@ footer {
 
             <div class="sewer-search">
                 <input type="text" id="search-sewer" placeholder="Search For A Category...">
+                <div class="google-container">
+                    <script async src="https://cse.google.com/cse.js?cx=b2a79672bea2d44a0"></script>
+                    <p>Use The Google Search Engine Right Here On The Red Rats Web</p>
+                    <div class="gcse-search"></div>
+                </div>
                 <section class="sewer-chamber">
                     <h2>Entertainment</h2>
                     <nav>

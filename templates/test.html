@@ -3,11 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canvas Animation</title>
+    <title>AI Bot - Top 5 Relevant Links</title>
+    <style>
+        /* styles.css */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .input-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #userPrompt {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .results-section {
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 8px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+        }
+
+        li a {
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        li a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <canvas id="canvas1"></canvas>
+    <div class="container">
+        <h1>AI Bot for Relevant Links</h1>
+        <div class="input-section">
+            <input type="text" id="userPrompt" placeholder="Enter a topic (e.g., 3D art websites)" />
+            <button onclick="getRelevantLinks()">Get Relevant Links</button>
+        </div>
+        <div id="resultsSection" class="results-section" style="display: none;">
+            <ul id="resultsList"></ul>
+        </div>
+    </div>
 
-    <script src="../originalGames/learning.js"></script> <!-- Link to the JavaScript file -->
+    <script>
+        // app.js
+
+        // Function to call the Flask backend
+        function getRelevantLinks() {
+            const userPrompt = document.getElementById("userPrompt").value;
+            const resultsList = document.getElementById("resultsList");
+            const resultsSection = document.getElementById("resultsSection");
+
+            // Clear previous results
+            resultsList.innerHTML = '';
+            resultsSection.style.display = 'none';
+
+            if (userPrompt.trim() === "") {
+                alert("Please enter a topic.");
+                return;
+            }
+
+            // Display loading indicator (optional)
+            resultsList.innerHTML = '<li>Loading...</li>';
+
+            // Send the user prompt to the backend (Python server)
+            fetch('/get_relevant_links', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ prompt: userPrompt })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.links && data.links.length > 0) {
+                    resultsList.innerHTML = '';  // Clear the loading text
+
+                    // Display the top 5 relevant links
+                    data.links.forEach((link, index) => {
+                        const listItem = document.createElement("li");
+                        const linkElement = document.createElement("a");
+                        linkElement.href = link;
+                        linkElement.target = "_blank";
+                        linkElement.textContent = `Link ${index + 1}: ${link}`;
+                        listItem.appendChild(linkElement);
+                        resultsList.appendChild(listItem);
+                    });
+
+                    resultsSection.style.display = 'block';
+                } else {
+                    resultsList.innerHTML = '<li>No relevant links found. Please try a different query.</li>';
+                }
+            })
+            .catch(error => {
+                resultsList.innerHTML = '<li>Error fetching results. Please try again later.</li>';
+                console.error("Error fetching data:", error);
+            });
+        }
+    </script>
+
+    <!-- Flask Backend Code -->
+    <script>
+    // app.js
+
+    // Function to call the Flask backend
+    function getRelevantLinks() {
+        const userPrompt = document.getElementById("userPrompt").value;
+        const resultsList = document.getElementById("resultsList");
+        const resultsSection = document.getElementById("resultsSection");
+
+        // Clear previous results
+        resultsList.innerHTML = '';
+        resultsSection.style.display = 'none';
+
+        if (userPrompt.trim() === "") {
+            alert("Please enter a topic.");
+            return;
+        }
+
+        // Display loading indicator (optional)
+        resultsList.innerHTML = '<li>Loading...</li>';
+
+        // Send the user prompt to the backend (Python server)
+        fetch('/get_relevant_links', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ prompt: userPrompt })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.links && data.links.length > 0) {
+                resultsList.innerHTML = '';  // Clear the loading text
+
+                // Display the top 5 relevant links
+                data.links.forEach((link, index) => {
+                    const listItem = document.createElement("li");
+                    const linkElement = document.createElement("a");
+                    linkElement.href = link;
+                    linkElement.target = "_blank";
+                    linkElement.textContent = `Link ${index + 1}: ${link}`;
+                    listItem.appendChild(linkElement);
+                    resultsList.appendChild(listItem);
+                });
+
+                resultsSection.style.display = 'block';
+            } else {
+                resultsList.innerHTML = '<li>No relevant links found. Please try a different query.</li>';
+            }
+        })
+        .catch(error => {
+            resultsList.innerHTML = '<li>Error fetching results. Please try again later.</li>';
+            console.error("Error fetching data:", error);
+        });
+    }
+</script>
 </body>
 </html>
