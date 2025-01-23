@@ -11,6 +11,7 @@ import time
 from threading import Thread
 import requests
 from transformers import pipeline
+import re
 
 
 
@@ -98,8 +99,8 @@ TEMPLATES = [
     'juicy.html',
     'multiplayer.html',
     'neilsGames.html',
-    'newgrounds.html',
     'online.html',
+    'newgrounds.html',
     'original.html',
     'orteil.html',
     'otto.html',
@@ -134,7 +135,7 @@ TEMPLATES = [
     'users.html',
     'video.html',
     'workspace.html',
-    'submitted.html',
+    'users.html',
     'insurance.html',
     'invest.html',
     'currency.html',
@@ -150,7 +151,8 @@ TEMPLATES = [
     'mind.html',
     'hotels.html',
     'travelling.html',
-    'groceries.html'
+    'groceries.html',
+    'events.html'
 ]
 
 TEMPLATE_TITLES = {
@@ -196,28 +198,29 @@ TEMPLATE_TITLES = {
     'recommendations.html':'Games I Recommend',
     'retail.html':'Retail Stores (Shopping)',
     'retro.html':'Retro Games (Games)',
-    'shows.html':'Strem Your Shows (Media)',
+    'shows.html':'Stream Your Shows (Media)',
     'Timeline.html':'The Timeline (Games)',
     'users.html':'Independant Web Devlopers',
     'video.html':'For Video Editing (Design)',
     'workspace.html': 'Googe Workspace (Productivity)',
     'homepage.html': 'The Red Rat Web',
-    'submitted.html':'User Submitted Websites (Community)',
+    'users.html':'User Submitted Websites (Community)',
     'insurance.html': 'Insurance Services (Fincances)',
     'invest.html': 'Invest Your Money (Finances)',
     'banks.html': 'Online Banking (Finances)',
     'currency.html': 'Online Currencies (Finances)',
     'gambling.html': 'Gambling & Betting (Finances)',
-    'credit.html': 'Credit Cards/Services (Finances)',
+    'credit.html': 'Credit Card Services (Finances)',
     'financial.html': 'General Financial Tools (Finances)',
     'delivery.html': 'Delivery/Transportation Services',
     'supply.html': 'Supplies For Home & DIY Projects (Shopping)',
     'marketplace.html': 'Marketplaces (Shopping)',
     'internet.html': 'Internet Services',
-    'fitness.html': 'Physical Health',
-    'mind.html': 'Mental Health',
-    'hotels.html': 'Places To Stay',
-    'travelling.html': 'Buy Your Flight',
+    'fitness.html': 'Workout & Weight Programs (Health)',
+    'mind.html': 'Mental Health (Health)',
+    'hotels.html': 'Hotels & Housing (Travel)',
+    'travelling.html': 'Flight Services (Travel)',
+    'events.html': 'Events & Tickets (Shopping)',
     'groceries.html': 'Grocery Stores (Shopping)'
 }
 
@@ -339,31 +342,309 @@ def test():
 # Define a list of websites to crawl
 nlp_model = pipeline('zero-shot-classification', model='facebook/bart-large-mnli')
 
-# Define a list of websites to crawl
-websites_to_crawl = [
-    "https://www.blender.org",  # Example site for 3D art
-    "https://www.artstation.com",
-    "https://www.cgtrader.com",
-    "https://www.turbosquid.com",
-    "https://www.deviantart.com"
-]
 
 websites_by_category = {
     "art": [
-        "https://www.blender.org",  # Example site for 3D art
-        "https://www.artstation.com",
-        "https://www.cgtrader.com",
-        "https://www.turbosquid.com",
-        "https://www.deviantart.com"
+        "https://www.blender.org",  # 3D art and animation
+        "https://www.artstation.com",  # Digital art portfolio
+        "https://www.cgtrader.com",  # 3D models marketplace
+        "https://www.turbosquid.com",  # 3D assets
+        "https://www.deviantart.com",  # Art sharing platform
+        "https://www.behance.net",  # Creative portfolio
+        "https://www.pixiv.net"  # Japanese art and illustration sharing
     ],
     "business": [
-        "https://www.forbes.com",
-        "https://www.inc.com",
-        "https://www.businessinsider.com",
-        "https://www.entrepreneur.com",
-        "https://www.mckinsey.com"
+        "https://www.forbes.com",  # Business news
+        "https://www.inc.com",  # Small business advice
+        "https://www.businessinsider.com",  # News and trends
+        "https://www.entrepreneur.com",  # Resources for entrepreneurs
+        "https://www.mckinsey.com",  # Consulting and business insights
+        "https://www.hbr.org",  # Harvard Business Review
+        "https://www.fastcompany.com"  # Business and innovation news
     ],
-    # Add more categories as needed
+    "technology": [
+        "https://www.techcrunch.com",  # Tech industry news
+        "https://www.wired.com",  # Technology and science
+        "https://www.theverge.com",  # Tech, science, and culture
+        "https://www.arstechnica.com",  # Technology-focused news
+        "https://www.gizmodo.com",  # Technology and gadget news
+        "https://www.tomshardware.com",  # PC and hardware
+        "https://www.howtogeek.com"  # Tech tutorials and guides
+    ],
+    "education": [
+        "https://www.khanacademy.org",  # Free educational content
+        "https://www.coursera.org",  # Online courses
+        "https://www.edx.org",  # Online university-level courses
+        "https://www.udemy.com",  # Learn anything from courses
+        "https://www.ted.com",  # Educational and inspirational talks
+        "https://www.openculture.com",  # Free cultural and educational media
+        "https://www.academia.edu"  # Research papers and academic content
+    ],
+    "health": [
+        "https://www.webmd.com",  # Medical information
+        "https://www.mayoclinic.org",  # Health advice
+        "https://www.healthline.com",  # Health and wellness
+        "https://www.cdc.gov",  # Public health info
+        "https://www.nih.gov",  # Medical research
+        "https://www.who.int",  # World Health Organization
+        "https://www.medicalnewstoday.com"  # Health news and articles
+    ],
+    "science": [
+        "https://www.sciencemag.org",  # Science news
+        "https://www.nature.com",  # Scientific journals
+        "https://www.space.com",  # Space and astronomy
+        "https://www.scientificamerican.com",  # Science and technology
+        "https://www.nasa.gov",  # NASA space-related content
+        "https://www.phys.org",  # Physics and general science
+        "https://www.livescience.com"  # Science news and explanations
+    ],
+    "finance": [
+        "https://www.bloomberg.com",  # Financial news
+        "https://www.wsj.com",  # Wall Street Journal
+        "https://www.marketwatch.com",  # Market insights
+        "https://www.investopedia.com",  # Investment education
+        "https://www.nerdwallet.com",  # Personal finance tips
+        "https://www.morningstar.com",  # Investment research
+        "https://www.robinhood.com"  # Stock trading
+    ],
+    "gaming": [
+        "https://www.ign.com",  # Video game reviews and news
+        "https://www.gamespot.com",  # Game-related news
+        "https://www.pcgamer.com",  # PC gaming
+        "https://www.kotaku.com",  # Gaming culture and news
+        "https://www.twitch.tv",  # Game streaming
+        "https://www.rockpapershotgun.com",  # PC gaming news
+        "https://www.metacritic.com/game"  # Game reviews aggregator
+    ],
+    "travel": [
+        "https://www.tripadvisor.com",  # Travel reviews
+        "https://www.expedia.com",  # Travel booking
+        "https://www.airbnb.com",  # Short-term accommodations
+        "https://www.lonelyplanet.com",  # Travel guides
+        "https://www.booking.com",  # Hotel bookings
+        "https://www.skyscanner.net",  # Flights and hotels
+        "https://www.kayak.com"  # Travel deals
+    ],
+    "news": [
+        "https://www.bbc.com",  # Global news
+        "https://www.cnn.com",  # U.S. and global news
+        "https://www.nytimes.com",  # News and analysis
+        "https://www.reuters.com",  # International news
+        "https://www.aljazeera.com",  # News and current events
+        "https://www.theguardian.com",  # News and opinion
+        "https://www.apnews.com"  # Associated Press
+    ],
+    "sports": [
+        "https://www.espn.com",  # Sports news and scores
+        "https://www.nfl.com",  # NFL updates
+        "https://www.nba.com",  # NBA updates
+        "https://www.mlb.com",  # MLB updates
+        "https://www.skysports.com",  # Sports news and analysis
+        "https://www.fifa.com",  # Soccer and FIFA
+        "https://www.olympic.org"  # Olympic Games
+    ],
+    "shopping": [
+        "https://www.amazon.com",  # Online shopping
+        "https://www.ebay.com",  # Auctions and shopping
+        "https://www.walmart.com",  # General retail
+        "https://www.target.com",  # Retail shopping
+        "https://www.bestbuy.com",  # Electronics shopping
+        "https://www.etsy.com",  # Handmade and unique goods
+        "https://www.alibaba.com"  # Wholesale products
+    ],
+    "programming": [
+        "https://www.github.com",  # Code hosting
+        "https://www.stackoverflow.com",  # Coding questions and answers
+        "https://www.codewars.com",  # Coding challenges
+        "https://www.freecodecamp.org",  # Free coding tutorials
+        "https://www.hackerrank.com",  # Coding practice
+        "https://www.gitlab.com",  # Git repository hosting
+        "https://www.replit.com"  # Online IDE and coding platform
+    ],
+    "movies": [
+        "https://www.imdb.com",  # Movies and TV database
+        "https://www.rottentomatoes.com",  # Movie reviews
+        "https://www.metacritic.com/movie",  # Movie scores
+        "https://www.netflix.com",  # Streaming movies
+        "https://www.hulu.com",  # TV shows and movies
+        "https://www.disneyplus.com",  # Disney movies and shows
+        "https://www.criterion.com"  # Classic films
+    ],
+
+        "movie": [
+        "https://www.imdb.com",  # Movies and TV database
+        "https://www.rottentomatoes.com",  # Movie reviews
+        "https://www.metacritic.com/movie",  # Movie scores
+        "https://www.netflix.com",  # Streaming movies
+        "https://www.hulu.com",  # TV shows and movies
+        "https://www.disneyplus.com",  # Disney movies and shows
+        "https://www.criterion.com"  # Classic films
+    ],
+
+    "food": [
+        "https://www.allrecipes.com",  # Recipes and cooking tips
+        "https://www.foodnetwork.com",  # Cooking shows and recipes
+        "https://www.epicurious.com",  # Food and drink recipes
+        "https://www.yummly.com",  # Recipe recommendations
+        "https://www.tasty.co",  # Video recipes
+        "https://www.bonappetit.com",  # Food news and recipes
+        "https://www.seriouseats.com"  # In-depth cooking guides
+    ],
+
+    "music": [
+        "https://www.spotify.com", 
+        "https://www.apple.com/music", 
+        "https://www.soundcloud.com", 
+        "https://www.bandcamp.com", 
+        "https://www.pandora.com", 
+        "https://www.tidal.com", 
+        "https://www.audible.com"
+    ],
+
+    "fashion": [
+        "https://www.vogue.com", 
+        "https://www.hm.com", 
+        "https://www.zara.com", 
+        "https://www.asos.com", 
+        "https://www.farfetch.com", 
+        "https://www.ssense.com", 
+        "https://www.shein.com"
+    ],
+
+    "books": [
+        "https://www.goodreads.com", 
+        "https://www.audible.com", 
+        "https://www.scribd.com", 
+        "https://www.projectgutenberg.org", 
+        "https://www.librivox.org", 
+        "https://www.bookdepository.com", 
+        "https://www.powells.com"
+    ],
+    "fitness": [
+        "https://www.bodybuilding.com", 
+        "https://www.myfitnesspal.com", 
+        "https://www.fitnessblender.com", 
+        "https://www.nerdfitness.com", 
+        "https://www.mapmyrun.com", 
+        "https://www.strava.com", 
+        "https://www.acefitness.org"
+    ],
+
+        "history": [
+        "https://www.history.com",  # History documentaries and articles
+        "https://www.archives.gov",  # U.S. National Archives
+        "https://www.britannica.com",  # Encyclopedic history resource
+        "https://www.livescience.com/history",  # History and archaeology
+        "https://www.smithsonianmag.com/history",  # Smithsonian historical articles
+        "https://www.nationalarchives.gov.uk",  # UK National Archives
+        "https://www.historyextra.com"  # History magazine
+    ],
+    "automotive": [
+        "https://www.autoblog.com",  # Automotive news
+        "https://www.motortrend.com",  # Car reviews and automotive news
+        "https://www.caranddriver.com",  # Vehicle reviews and specs
+        "https://www.edmunds.com",  # Car buying advice
+        "https://www.autotrader.com",  # Vehicle marketplace
+        "https://www.kbb.com",  # Car value and reviews
+        "https://www.roadandtrack.com"  # Automotive culture and reviews
+    ],
+    "environment": [
+        "https://www.nationalgeographic.com",  # Environment and nature news
+        "https://www.treehugger.com",  # Sustainability and environmental news
+        "https://www.greenpeace.org",  # Environmental advocacy
+        "https://www.sierraclub.org",  # Environmental organization
+        "https://www.earthwatch.org",  # Environmental conservation projects
+        "https://www.earthday.org",  # Environmental protection
+        "https://www.wwf.org"  # World Wildlife Fund
+    ],
+        "nature": [
+        "https://www.nationalgeographic.com",  # Nature documentaries and articles
+        "https://www.worldwildlife.org",  # Wildlife conservation and nature preservation
+        "https://www.mountainsmith.com",  # Outdoor adventure gear and tips
+        "https://www.nature.org",  # Environmental conservation and sustainability
+        "https://www.thenatureconservancy.org",  # Nature preservation and eco-tourism
+        "https://www.greenpeace.org",  # Global environmental activism
+        "https://www.wilderness.org"  # Protecting America's wild places
+    ],
+
+        "mental": [
+        "https://www.psychologytoday.com",  # Articles on mental health and therapy resources
+        "https://www.headspace.com",  # Meditation and mindfulness exercises
+        "https://www.talkspace.com",  # Online therapy services
+        "https://www.mhanational.org",  # Mental Health America advocacy and resources
+        "https://www.betterhelp.com",  # Online counseling and therapy
+        "https://www.nami.org",  # National Alliance on Mental Illness
+        "https://www.suicidepreventionlifeline.org"  # Suicide prevention resources and hotline
+    ],
+
+       "professionalMedia": [
+        "https://www.linkedin.com",  # Professional networking platform
+        "https://www.twitter.com",  # Social network with a professional side
+        "https://www.xing.com",  # European professional networking site
+        "https://www.meetup.com",  # Event hosting and networking
+        "https://www.clubhouse.com",  # Audio-based social network for professionals
+        "https://www.glassdoor.com",  # Reviews of companies and job listings
+        "https://www.reddit.com/r/entrepreneur"  # Entrepreneur-focused subreddit
+    ],
+
+       "personalMedia": [
+        "https://www.facebook.com",  # General social networking
+        "https://www.instagram.com",  # Photo and video sharing
+        "https://www.snapchat.com",  # Multimedia messaging
+        "https://www.twitter.com",  # Microblogging and social networking
+        "https://www.tiktok.com",  # Short video sharing platform
+        "https://www.pinterest.com",  # Image sharing and discovery
+        "https://www.whatsapp.com"  # Instant messaging and voice calls
+    ],
+
+    "video": [
+    "https://www.youtube.com",  # Video sharing and creation platform
+    "https://www.twitch.tv",  # Live streaming and video gaming
+    "https://www.vimeo.com",  # Video hosting and sharing platform
+    "https://www.bandicam.com",  # Screen recording and video capture
+    "https://www.dailymotion.com",  # Video hosting and sharing
+    "https://www.obspproject.com",  # Open-source streaming and recording software
+    "https://www.streamlabs.com"  # Live streaming and broadcasting tools
+    ],
+
+    "manage": [
+        "https://www.asana.com",  # Task and project management
+        "https://www.trello.com",  # Visual project management and collaboration
+        "https://www.slack.com",  # Team communication and collaboration
+        "https://www.monday.com",  # Work management and team collaboration
+        "https://www.basecamp.com",  # Project management and team collaboration
+        "https://www.quickbooks.intuit.com",  # Accounting and financial management
+        "https://www.salesforce.com"  # Customer relationship management (CRM)
+    ],
+
+    "internet": [
+    "https://www.xfinity.com",  # Comcast's internet service
+    "https://www.att.com",  # AT&T internet services
+    "https://www.verizon.com",  # Verizon internet service
+    "https://www.spectrum.com",  # Spectrum internet service
+    "https://www.frontier.com",  # Frontier internet service
+    "https://www.cox.com",  # Cox internet service
+    "https://www.optimum.com"  # Optimum internet service
+    ],
+
+        "gaming": [
+    "https://store.steampowered.com/",  # Comcast's internet service
+    "https://www.g2a.com/?adid=GA-US_PB_MIX_SN_PURE_BRAND-English&id=35&utm_medium=cpc&utm_source=google&utm_campaign=GA-US_PB_MIX_SN_PURE_BRAND-English&utm_id=18956348617&gad_source=1&gclid=Cj0KCQiAv628BhC2ARIsAIJIiK8gxWJGFNN4lJLyIasuHJe4YHvBXEqX36fx9n2zZsFsiXN4N0SaYYMaAjiTEALw_wcB&gclsrc=aw.ds",  # AT&T internet services
+    "https://store.epicgames.com/en-US/",  # Verizon internet service
+    "https://www.playstation.com/en-us/",  # Spectrum internet service
+    "https://www.xbox.com/en-US/microsoft-store",  # Frontier internet service
+    "https://www.nintendo.com/us/",  # Cox internet service
+    "https://www.dell.com/en-us/gaming/alienware"  # Optimum internet service
+    ],
+            "electronics": [
+    "https://www.samsung.com/us/smartphones/the-next-galaxy/reserve/?cid=sem-mktg-pfs-mob-us-google-na-01062025-142549-&ds_e=GOOGLE-cr:0-pl:382719933-&ds_c=CN~Samsung-Core_ID~n_PR~f1h24-e1_SB~smart_PH~long_KS~ba_MK~us_OB~conv_FS~lo_FF~n_BS~mx_KM~exact-&ds_ag=ID~n_AG~Samsung+Core_AE~mass_AT~stads_MD~h_PK~roah_PB~google_PL~sa360_CH~search_FF~Mass+Target-&ds_k=samsung&gad_source=1&gclid=Cj0KCQiAv628BhC2ARIsAIJIiK8KTRHI_pzp9gTxIdgZ3wEB5k5Oe2V-HK0uRVJWI_1LHdiSZd8EascaAt8-EALw_wcB&gclsrc=aw.ds",  # Comcast's internet service
+    "https://www.apple.com/store?afid=p238%7CseIEs444j-dc_mtid_1870765e38482_pcrid_724099485023_pgrid_13945964887_pntwk_g_pchan__pexid__ptid_kwd-10778630_&cid=aos-us-kwgo-brand-apple--slid---product-",  # AT&T internet services
+    "https://www.asus.com/us/laptops/for-home/all-series/asus-zenbook-a14-ux3407/?utm_source=google&utm_medium=cpc&utm_campaign=25q1_ces_hq&utm_content=sem&gad_source=1&gclid=Cj0KCQiAv628BhC2ARIsAIJIiK84Rg1Y97pSYHy21aLwQ0VDgZBAu4ujJon1Iq5SACo6am3HL4aYHwcaAgJVEALw_wcB",  # Verizon internet service
+    "https://www.acer.com/us-en",  # Spectrum internet service
+    "https://www.arduino.cc/",  # Frontier internet service
+    "https://www.raspberrypi.com/",  # Cox internet service
+    "https://www.lego.com/en-us/themes/mindstorms?consent-modal=show"  # Optimum internet service
+    ]
 }
 
 def crawl_website(url):
@@ -413,23 +694,52 @@ def analyze_relevance(prompt, websites_by_category):
     relevance_scores.sort(key=lambda x: x[1], reverse=True)
     
     # Return the top 4 most relevant websites
-    return [website for website, score in relevance_scores[:5]]
+    return [website for website, score in relevance_scores[:7]]
 
 @app.route('/get_relevant_links', methods=['POST'])
 def get_relevant_links():
     data = request.get_json()
-    user_prompt = data.get('prompt')
+    user_input = data.get('prompt')
 
-    if not user_prompt:
-        return jsonify({"error": "No prompt provided"}), 400
-    
-    relevant_links = analyze_relevance(user_prompt, websites_by_category)
-    
-    # Check if an error occurred or if there are relevant links
-    if "error" in relevant_links:
-        return jsonify({"error": relevant_links["error"]}), 400
+    if not user_input:
+        return jsonify({"error": "No category provided"}), 400
 
-    return jsonify({"links": relevant_links})
+    # Normalize user input to lowercase for case-insensitive matching
+    user_input_lower = user_input.lower()
+
+    # Bold the category keywords in the user input
+    for category in websites_by_category:
+        # Check if the category is in the input string (case-insensitive)
+        if category.lower() in user_input_lower:
+            # Use re.sub to replace and add the <b> tags with case insensitivity
+            bold_category = f"<b>{category}</b>"
+            # Replace all occurrences of the category in the user input (case-insensitive)
+            user_input = re.sub(re.escape(category), bold_category, user_input, flags=re.IGNORECASE)
+
+    # Find the relevant category by checking for partial matches
+    selected_category = None
+    for category in websites_by_category:
+        if category.lower() in user_input_lower:  # Check if the input word is part of a category
+            selected_category = category
+            break
+
+    if not selected_category:
+        return jsonify({"error": f"No relevant category found for your input: '{user_input}'"}), 400
+
+    # Get the websites that belong to the selected category
+    relevant_links = websites_by_category.get(selected_category, [])
+
+    if not relevant_links:
+        return jsonify({"error": f"No websites found for category '{selected_category}'"}), 400
+
+    # Return the modified user input with bolded category words along with the relevant links
+    return jsonify({
+        "modified_prompt": user_input,  # Modified prompt with bolded category names
+        "links": relevant_links
+    })
+
+
+
 
 def login_required(f):
     @wraps(f)
@@ -446,15 +756,15 @@ def login_required(f):
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     alt_text_data = {
-        'ai.html': ['Artificial Intelligence', 'A.I.', 'ai', 'A.I. Tools', 'ai tools', 'tools', 'working', 'productivity', 'effeciency'],
+        'ai.html': ['Artificial Intelligence', 'A.I.', 'ai', 'A.I. Tools', 'ai tools', 'tools', 'working', 'productivity', 'effeciency', 'business'],
         'art.html': ['art', 'deign', 'art tools', 'working', 'art deign', 'work', 'tools', 'media'],
         'artists.html': ['art', 'deign', 'art tools', 'working', 'art deign', 'media'],
         'artists.html': ['music', 'music production', 'music design', 'working', 'dsign tools', 'tools', 'media'],
-        'business.html': ['general', 'productivity','working', 'effeciancy'],
+        'business.html': ['general', 'productivity','working', 'effeciancy', 'business'],
         'clothing.html': ['clothes', 'clothing','online shops', 'online shopping', 'online stores'],
         'collections.html': ['game collections', 'browser games','entertainment' 'media'],
-        'designers.html': ['tools', 'general design','working'],
-        'developers.html': ['developers', 'coding','code', 'programming', 'programs', 'work', 'tools', 'design'],
+        'designers.html': ['tools', 'general design','working', 'business'],
+        'developers.html': ['developers', 'coding','code', 'programming', 'programs', 'work', 'tools', 'design', 'business'],
         'doublespeak.html': ['doublespeak games', 'browser games','entertainment', 'media'],
         'electronics.html': ['electronics', 'online shops','online shopping', 'devices'],
         'elephantCollection.html': ['browser games', 'Elephant collection','entertainment','media'],
@@ -463,7 +773,6 @@ def search():
         'Fun.html': ['other Websites', 'fun','games', 'reccomendations'],
         'google.html': ['browser games', 'google','entertainment', 'media'],
         'henry.html': ['henry stickmin collection', 'entertainment','browser games', 'media'],
-        'information.html': ['information', 'news','entertainment', 'media', 'research'],
         'inno.html': ['Inno Games', 'Browser Games','entertainment', 'media'],
         'i0.html': ['Popular IO Games', 'Browser Games','entertainment', 'media'],
         'juicy.html': ['Juicy Games', 'Browser Games','entertainment', 'media'],
@@ -473,11 +782,11 @@ def search():
         'music.html': ['music', 'streaming','podcasts', 'entertainment', 'media'],
         'neilsGames.html': ['Neil.fun', 'Browser Games','entertainment', 'media'],
         'newgorunds.html': ['popualar games from Newgrounds', 'Browser games','entertainment', 'media'],
-        'news.html': ['information', 'news','entertainment', 'media', 'research'],
+        'news.html': ['information', 'news','entertainment', 'media', 'research', 'business'],
         'nyt.html': ['games from the new york times','entertainment', 'media', 'browser games'],
         'office.html': ['microsoft office','work', 'tools', 'productivity'],
         'online.html': ['popular online games','browser games', 'media', 'entertainment'],
-        'original.html': ['original games','browser games', 'media', 'entertainment'],
+        'original.html': ['original games','browser games', 'media', 'entertainment', 'the red rat web'],
         'orteil.html': ['games from orteil','browser games', 'media', 'entertainment', 'orteil games'],
         'otto.html': ['games from otto ojala','browser games', 'media', 'entertainment', 'Otto ojala games'],
         'personal.html': ['personal social media','media', 'entertainment', 'work', 'tools'],
@@ -487,7 +796,7 @@ def search():
         'professional.html': ['professional social meda','media', 'entertainment', 'work', 'tools'],
         'projects.html': ['projects','online shopping', 'online shops', 'work', 'tools', 'arts and crafts'],
         'reading.html': ['streaming services' ,'books', 'reading', 'information', 'entertainment', 'media'],
-        'reccomendations.html': ['games i recommend','recommendations', 'games', 'entertainment', 'media'],
+        'recommendations.html': ['games i recommend','recommendations', 'games', 'entertainment', 'media'],
         'retail.html': ['retail stores','online shopping', 'online shops', 'retail shops'],
         'retro.html': ['retro games','popular games', 'browser games', 'entertainment', 'media'],
         'shows.html': ['shows','movies', 'videos', 'streaming services', 'streaming platforms', 'media', 'entertainment', 'tv', 't.v.', 'television'],
@@ -496,7 +805,7 @@ def search():
         'video.html': ['video editing','tools', 'videos', 'entertainment', 'media', 'design'],
         'wix.html': ['Wix Games', 'Browser Games', 'entertainment', 'media'],
         'workspace.html': ['Google Workspace', 'office tools', 'work', 'prodcutivity'],
-        'submitted.html': ['user submitted websites', 'community', 'from users', 'people', 'from people'],
+        'users.html': ['user submitted websites', 'community', 'from users', 'people', 'from people'],
         'insurance.html': ['insurance', 'money', 'homeowner insurance', 'car insurance', 'home insurance', 'health insurance', 'auto insurance', 'finances', 'financial services', 'tools'],
         'invest.html': ['investments', 'investing', 'money', 'finances', 'financial services', 'tools', 'work'],
         'banks.html': ['banks', 'banking', 'money', 'finances', 'financial services', 'tools'],
@@ -512,7 +821,9 @@ def search():
         'mind.html': ['mind', 'health', 'mental health', 'work', 'therapy', 'help', 'relaxation', 'services', 'tools'],
         'hotels.html': ['travelling', 'hotels', 'Places To Stay', 'work', 'vacation', 'relaxation', 'business'],
         'travelling.html': ['travel', 'travelling', 'flights', 'flying', 'airplanes', 'relaxation', 'business'],
-        'groceries.html': ['Grocery Stores', 'Shopping', 'Groceries', 'food', 'supplies', 'health', 'supply' 'resources']
+        'events.html': ['events', 'Shopping', 'tickets', 'live events', 'things to do', 'activities', 'fun', 'entertainment'],
+        'groceries.html': ['Grocery Stores', 'Shopping', 'Groceries', 'food', 'supplies', 'health', 'supply', 'resources'],
+        'io.html': ['IO Games', 'Online Games.', 'Multiplayer', 'Fun', 'Entertainment']
     }
 
     search_query = request.args.get('query', '').strip()
@@ -662,6 +973,185 @@ def get_user_id(username):
         result = cursor.fetchone()
         return result[0] if result else None
     
+@app.route('/add_to_category', methods=['POST'])
+def add_to_category():
+    # Check if the user is logged in
+    if 'username' not in session:
+        return jsonify({'success': False, 'message': 'You need to sign in to perform this action.'}), 401
+
+    # Get the user ID from the session
+    user_id = get_user_id(session['username'])
+    
+    # Parse JSON data from the request
+    try:
+        data = request.get_json()
+        website_url = data.get('url')
+        website_name = data.get('name')
+        category_id = data.get('category_id')
+    except Exception as e:
+        return jsonify({'success': False, 'message': f'Invalid JSON payload: {str(e)}'}), 400
+
+    # Validate required fields
+    if not all([website_url, website_name, category_id]):
+        return jsonify({'success': False, 'message': 'All fields (url, name, category_id) are required.'}), 400
+
+    try:
+        # Connect to the database
+        with sqlite3.connect('account.db') as conn:
+            cursor = conn.cursor()
+
+            # Check if the website already exists in the selected category
+            cursor.execute('''
+                SELECT id FROM user_websites
+                WHERE user_id = ? AND category_id = ? AND url = ?
+            ''', (user_id, category_id, website_url))
+            existing_website = cursor.fetchone()
+
+            if existing_website:
+                # If website exists in the category, return an error message
+                return jsonify({'success': False, 'message': 'This website already exists in the selected category.'}), 400
+            
+            # Insert the website into the selected category
+            cursor.execute('''
+                INSERT INTO user_websites (user_id, url, name, category_id)
+                VALUES (?, ?, ?, ?)
+            ''', (user_id, website_url, website_name, category_id))
+            conn.commit()
+
+        # Return success response
+        return jsonify({'success': True, 'message': 'Website added to category successfully.'}), 201
+    except sqlite3.Error as e:
+        # Handle database errors
+        return jsonify({'success': False, 'message': f'Database error: {str(e)}'}), 500
+    except Exception as e:
+        # Handle other unexpected errors
+        return jsonify({'success': False, 'message': f'An unexpected error occurred: {str(e)}'}), 500
+
+
+
+
+    
+@app.route('/create_category', methods=['POST'])
+def create_category():
+    if 'username' not in session:
+        flash('You need to sign in to perform this action.', 'error')
+        return redirect(url_for('signInPage'))
+
+    user_id = get_user_id(session['username'])
+    category_name = request.json.get('name')
+
+    if not category_name:
+        return {'success': False, 'message': 'Category name is required.'}, 400
+
+    try:
+        with sqlite3.connect('account.db') as conn:
+            cursor = conn.cursor()
+            cursor.execute('INSERT INTO categories (user_id, name) VALUES (?, ?)', (user_id, category_name))
+            conn.commit()
+        return {'success': True, 'message': 'Category created successfully.'}
+    except Exception as e:
+        return {'success': False, 'message': str(e)}, 500
+    
+def delete_category_from_database(category_id):
+    # Replace with your database logic
+    try:
+        # Example: db.session.delete(Category.query.get(category_id))
+        return True
+    except Exception as e:
+        print(f"Error deleting category: {e}")
+        return False
+    
+def delete_website_from_database(url):
+    try:
+        # Assuming a database connection is available as `conn`
+        conn = sqlite3.connect('account.db')
+        cursor = conn.cursor()
+
+        # Deleting the website from the user_websites table
+        cursor.execute("DELETE FROM user_websites WHERE url = ?", (url,))
+        
+        conn.commit()
+        conn.close()
+        return True
+    except Exception as e:
+        print(f"Error deleting website: {e}")
+        return False
+
+    
+@app.route('/delete_website', methods=['POST'])
+def delete_website():
+    data = request.get_json()
+    url = data.get('url')
+
+    # Perform the logic to delete the website from the database
+    success = delete_website_from_database(url)
+
+    if success:
+        return jsonify(success=True, message="Website deleted successfully.")
+    else:
+        return jsonify(success=False, message="Failed to delete the website.")
+    
+@app.route('/delete_category', methods=['POST'])
+def delete_category():
+    data = request.get_json()
+    category_id = data.get('id')
+
+    # Perform the logic to delete the category from the database
+    success = delete_category_from_database(category_id)
+
+    if success:
+        return jsonify(success=True, message="Category deleted successfully.")
+    else:
+        return jsonify(success=False, message="Failed to delete the category.")
+
+def delete_category_from_database(category_id):
+    try:
+        # Assuming a database connection is available as `conn`
+        conn = sqlite3.connect('account.db')
+        cursor = conn.cursor()
+
+        # Deleting the websites associated with the category
+        cursor.execute("DELETE FROM user_websites WHERE category_id = ?", (category_id,))
+
+        # Deleting the category itself
+        cursor.execute("DELETE FROM categories WHERE id = ?", (category_id,))
+        conn.commit()
+
+        conn.close()
+        return True
+    except Exception as e:
+        print(f"Error deleting category: {e}")
+        return False
+
+
+
+
+    
+@app.route('/get_categories', methods=['GET'])
+def get_categories():
+    if 'username' not in session:
+        flash('You need to sign in to perform this action.', 'error')
+        return redirect(url_for('signInPage'))
+
+    user_id = get_user_id(session['username'])
+
+    try:
+        with sqlite3.connect('account.db') as conn:
+            cursor = conn.cursor()
+            cursor.execute('SELECT id, name FROM categories WHERE user_id = ?', (user_id,))
+            categories = cursor.fetchall()
+
+            categories_with_websites = []
+            for category in categories:
+                cursor.execute('SELECT url, name FROM user_websites WHERE user_id = ? AND category_id = ?', (user_id, category[0]))
+                websites = cursor.fetchall()
+                categories_with_websites.append({'id': category[0], 'name': category[1], 'websites': websites})
+
+        return jsonify({'success': True, 'categories': categories_with_websites})
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+    
 @app.route('/get_user_websites', methods=['GET'])
 def get_user_websites():
     if 'username' not in session:
@@ -692,7 +1182,35 @@ def get_user_websites():
         flash({'success': False, 'message': str(e)}), 500
         return render_template('signInPage.html')
 
+@app.route('/clear_all_websites', methods=['POST'])
+def clear_all_websites():
+    if 'username' not in session:
+        flash('You need to sign in to perform this action.', 'error')
+        return redirect(url_for('signInPage'))
 
+    user_id = get_user_id(session['username'])
+
+    try:
+        with sqlite3.connect('account.db') as conn:
+            cursor = conn.cursor()
+
+            # Delete all websites from liked/favorites and categories for the user
+            cursor.execute('''
+                DELETE FROM user_websites
+                WHERE user_id = ?
+            ''', (user_id,))
+
+            # Delete all categories for the user
+            cursor.execute('''
+                DELETE FROM categories
+                WHERE user_id = ?
+            ''', (user_id,))
+
+            conn.commit()
+
+        return {'success': True, 'message': 'All websites and categories cleared successfully.'}
+    except Exception as e:
+        return {'success': False, 'message': str(e)}, 500
 
 
 @app.route('/toggle_website', methods=['POST'])
@@ -965,14 +1483,21 @@ def hotels():
     return render_template('hotels.html')
 
 
+
+
 @app.route('/share')
 def share():
     return render_template('share.html')
 
 
+
 @app.route('/retro')
 def retro():
     return render_template('retro.html')
+
+@app.route('/events')
+def events():
+    return render_template('events.html')
 
 @app.route('/invest')
 def invest():
@@ -1122,21 +1647,60 @@ def profile():
         with sqlite3.connect('account.db') as conn:
             cursor = conn.cursor()
 
-            cursor.execute('SELECT url, name FROM user_websites WHERE user_id = ? AND type = "favorite"', (user_id,))
+            # Fetch favorite and liked websites
+            cursor.execute('SELECT url, name FROM user_websites WHERE user_id = ? AND type = ?', (user_id, 'favorite'))
             favorites = cursor.fetchall()
 
-            cursor.execute('SELECT url, name FROM user_websites WHERE user_id = ? AND type = "liked"', (user_id,))
+            cursor.execute('SELECT url, name FROM user_websites WHERE user_id = ? AND type = ?', (user_id, 'liked'))
             liked = cursor.fetchall()
+
+            # Fetch categories and their associated websites in a single query
+            cursor.execute('''
+                SELECT 
+                    c.id AS category_id, 
+                    c.name AS category_name, 
+                    w.url AS website_url, 
+                    w.name AS website_name
+                FROM 
+                    categories c
+                LEFT JOIN 
+                    user_websites w 
+                ON 
+                    c.id = w.category_id AND w.user_id = ?
+                WHERE 
+                    c.user_id = ?
+            ''', (user_id, user_id))
+            results = cursor.fetchall()
+
+            # Organize data into a structured dictionary
+            categories_with_websites = {}
+            for category_id, category_name, website_url, website_name in results:
+                if category_id not in categories_with_websites:
+                    categories_with_websites[category_id] = {
+                        'id': category_id,
+                        'name': category_name,
+                        'websites': []
+                    }
+                if website_url and website_name:
+                    categories_with_websites[category_id]['websites'].append({
+                        'url': website_url,
+                        'name': website_name
+                    })
+
+        # Convert dictionary to a list for easier template rendering
+        categories_with_websites_list = list(categories_with_websites.values())
 
         # Debug: Print the values passed to the template
         print(f"Favorites: {favorites}")
         print(f"Liked: {liked}")
+        print(f"Categories with websites: {categories_with_websites_list}")
 
-        return render_template('profile.html', favorites=favorites, liked=liked)
+        return render_template('profile.html', favorites=favorites, liked=liked, categories_with_websites=categories_with_websites_list)
 
     except Exception as e:
         flash(f'Error loading profile: {e}')
         return render_template('signInPage.html')
+
 
 
 @app.route('/work')
@@ -1303,31 +1867,9 @@ def wix():
 def otherwebsites():
     return render_template('Fun.html')
 
-@app.route('/recomendations')
+@app.route('/recommendations')
 def recommendations():
     return render_template('recommendations.html')
-
-@app.route('/clear_all_websites', methods=['POST'])
-def clear_all_websites():
-    if 'username' not in session:
-        return render_template('signInPage.html')
-
-    user_id = get_user_id(session['username'])  # Helper function to get user ID
-
-    try:
-        with sqlite3.connect('account.db') as conn:
-            cursor = conn.cursor()
-            # Delete all favorite and liked websites for the user
-            cursor.execute('''
-                DELETE FROM user_websites WHERE user_id = ?
-            ''', (user_id,))
-            conn.commit()
-
-        flash({'success': True, 'message': 'All websites cleared successfully.'})
-        return render_template('profile.html')
-    except Exception as e:
-        flash({'success': False, 'message': str(e)}), 500
-        return render_template('signInPage.html')
 
 
 @app.route('/clothing')

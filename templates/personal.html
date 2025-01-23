@@ -181,7 +181,7 @@
         }
 
         .gameImgs img:hover {
-            border-color: #38464c;
+            border-color: #4a3333;
             transform: scale(1.1);
         }
 
@@ -269,9 +269,8 @@
             width: 100%; /* Fixed width for consistent size */
             max-width: 270px; /* Optional: Set a maximum width for large screens */
             height: auto; /* Maintain aspect ratio */
-            padding: 0 2%; /* Add padding to ensure spacing from the edges */
             object-fit: contain; /* Fit image within bounds without cropping */
-            border: .5em solid #437c94;
+            border: .5em solid #53487c;            
             border-radius: 1em;
             transition: transform 0.3s, border-color 0.3s;
         }
@@ -288,7 +287,7 @@
             display: flex;
             justify-content: center;
             gap: 6%; /* Increase the gap between images */
-            margin-top: 10%; /* Adjust spacing above the row */
+            margin-top: 5%; /* Adjust spacing above the row */
             flex-wrap: wrap;
         }
 
@@ -398,6 +397,70 @@ form {
             padding: 1.2em; /* Reduce padding to fit */
         }
     }
+          /* Style the button */
+          .add-to-category-btn {
+    background-color: #3498db;
+    color: white;
+    font-size: 16px;
+    padding: 5px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 60px;
+}
+
+.add-to-category-btn:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+}
+
+/* Style the select dropdown */
+.category-select {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding inside */
+    font-size: 16px; /* Font size */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background */
+    appearance: none; /* Remove default dropdown arrow */
+    cursor: pointer; /* Pointer cursor */
+    display: block; /* Ensure the select takes up full width */
+    margin-top: 10px; /* Space above */
+    opacity: 0; /* Initially hide the select element */
+    transition: opacity 0.3s ease; /* Smooth transition for visibility */
+}
+
+/* When the select is visible */
+.category-select.show {
+    opacity: 1; /* Make the select visible */
+}
+.gameItem {
+    position: relative;
+}
+
+.tooltip {
+    visibility: hidden;
+    width: 200px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.gameItem:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+
+}
     </style>
     <script>
         document.getElementById('search').addEventListener('keydown', function(event) {
@@ -412,6 +475,7 @@ form {
     <header>
         <nav>
             <ul>
+                <li><a href="{{ url_for('test') }}">SiteFinder</a></li>
                 <li><a href="{{ url_for('profile') }}">Profile</a></li>
                 <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
                 <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
@@ -433,7 +497,7 @@ form {
     <div class="content">
         <canvas></canvas>
 
-        <h1>Social Media All In One Place</h1>
+        <h1>Social Media </h1>
         <p class="click">Socialize With Friends & Family</p>
 
 
@@ -441,6 +505,7 @@ form {
             <!-- Row 1 -->
             <div class="row1">
                 <div class="gameItem">
+                    <div class="tooltip">Text Your Friends, Save Memories, Watch Vidoes, View Stories, & Snap On Snapchat</div>
                 <a href="https://www.snapchat.com/" target="_blank" data-name="Snapchat">
                     <img class="snapchat" title="Socialize On Snapchat" src="https://d1xsi6mgo67kia.cloudfront.net/uploads/2016/11/Snapchat-checklist.png"  alt="Snapchat snap chat">
                 </a>
@@ -450,10 +515,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">See What Your Friends & The World Are Up Too</div>
                 <a href="https://www.instagram.com/" target="_blank" data-name="Instagram">
-                    <img class="instagram" title="See What Your Friends Are Up To" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ__2kfpl54TinrG3wzV0DsejdhuRXGu-Il9xVg_ZA_JJNzj_nqMUTugIk3YUT7f8ljbsI&usqp=CAU"  alt="Instagram">
+                    <img class="instagram" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ__2kfpl54TinrG3wzV0DsejdhuRXGu-Il9xVg_ZA_JJNzj_nqMUTugIk3YUT7f8ljbsI&usqp=CAU"  alt="Instagram">
                 </a>
                 <div class="emoji" data-link="instagram">
                     <span class="emoji-icon">👍</span> 
@@ -461,34 +531,49 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Keep Up With Your Favorite People, Organizations, & Companies</div>
                 <a href="https://x.com/home?lang=en" target="_blank" data-name="X (Twitter)">
-                    <img class="x" title="Tweet On Twitter (X)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/X_logo.jpg/768px-X_logo.jpg"  alt="X Twitter">                </a>
+                    <img class="x" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/X_logo.jpg/768px-X_logo.jpg"  alt="X Twitter">                </a>
                     <div class="emoji" data-link="X">
                         <span class="emoji-icon">👍</span> 
                         <span class="counter">0</span> <!-- Thumbs up counter -->
                         <span class="emoji-icon">❤️</span> 
                         <span class="counter">0</span> <!-- Heart counter -->
                     </div>
+                    <button class="add-to-category-btn">Add to Category</button>
+                    <select class="category-select" style="display:none;">
+                        <!-- Categories will be populated dynamically from /get_categories -->
+                    </select>
                 </div>
                 <div class="gameItem">
+                    <div class="tooltip">Videos That Are Short & Sweet</div>
                     <a href="https://www.tiktok.com/live?enter_from_merge=paidads&enter_method=paidads&gad_source=1&gclid=Cj0KCQiA4L67BhDUARIsADWrl7Hkptp3ooA8PEojY661U7DD96wJlN4CJUhV238ZAMcXiXDBDWnN93UaAqMFEALw_wcB" target="_blank" data-name="Tiktok tik tok">
-                        <img class="tiktok" title="Short & Sweet" src="https://duet-cdn.vox-cdn.com/thumbor/0x0:2040x1360/2400x1600/filters:focal(1020x680:1021x681):format(webp)/cdn.vox-cdn.com/uploads/chorus_asset/file/23951405/STK051_VRG_Illo_N_Barclay_7_tiktok.jpg"  alt="Tiktok">                </a>
+                        <img class="tiktok" src="https://duet-cdn.vox-cdn.com/thumbor/0x0:2040x1360/2400x1600/filters:focal(1020x680:1021x681):format(webp)/cdn.vox-cdn.com/uploads/chorus_asset/file/23951405/STK051_VRG_Illo_N_Barclay_7_tiktok.jpg"  alt="Tiktok">                </a>
                         <div class="emoji" data-link="tiktok">
                             <span class="emoji-icon">👍</span> 
                             <span class="counter">0</span> <!-- Thumbs up counter -->
                             <span class="emoji-icon">❤️</span> 
                             <span class="counter">0</span> <!-- Heart counter -->
                         </div>
+                        <button class="add-to-category-btn">Add to Category</button>
+                        <select class="category-select" style="display:none;">
+                            <!-- Categories will be populated dynamically from /get_categories -->
+                        </select>
                     </div>
             </div>
 
             <!-- Row 2 -->
             <div class="row2">
                 <div class="gameItem">
+                    <div class="tooltip">Get Involved With Your Favorite Communities</div>
                 <a href="https://www.reddit.com/" target="_blank" data-name="Reddit">
-                    <img class="reddit" title="Join Your Favoirte Communities" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3whjMEYMTZ1ihvvwwkufdpFKO8DWb-tnta06xgzLxG7-1xUswJWrJMkkIJzR--RHjRL4&usqp=CAU"  alt="Reddit">
+                    <img class="reddit" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3whjMEYMTZ1ihvvwwkufdpFKO8DWb-tnta06xgzLxG7-1xUswJWrJMkkIJzR--RHjRL4&usqp=CAU"  alt="Reddit">
                 </a>
                 <div class="emoji" data-link="reddit">
                     <span class="emoji-icon">👍</span> 
@@ -496,10 +581,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Have All Your Questions Answered</div>
                 <a href="https://www.quora.com/" target="_blank" data-name="Quora">
-                    <img class="Quora" title="Have All Your Questions Answered" src="https://www.bitdegree.org/courses/storage/course-image/quora-marketing.jpg"  alt="Quora">
+                    <img class="Quora" src="https://www.bitdegree.org/courses/storage/course-image/quora-marketing.jpg"  alt="Quora">
                 </a>
                 <div class="emoji" data-link="quora">
                     <span class="emoji-icon">👍</span> 
@@ -507,20 +597,30 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Safe & Protected Texting Withoit Limits</div>
                 <a href="https://www.whatsapp.com/" target="_blank" data-name="Whatsapp">
-                    <img class="app" title="texting Without Limits" src="https://i.pcmag.com/imagery/reviews/06ZvTNln3Toz309WtTLDiwP-25..v1652212718.jpg"  alt="Whatsapp whats app">                </a>
+                    <img class="app" src="https://i.pcmag.com/imagery/reviews/06ZvTNln3Toz309WtTLDiwP-25..v1652212718.jpg"  alt="Whatsapp whats app">                </a>
                     <div class="emoji" data-link="app">
                         <span class="emoji-icon">👍</span> 
                         <span class="counter">0</span> <!-- Thumbs up counter -->
                         <span class="emoji-icon">❤️</span> 
                         <span class="counter">0</span> <!-- Heart counter -->
                     </div>
+                    <button class="add-to-category-btn">Add to Category</button>
+                    <select class="category-select" style="display:none;">
+                        <!-- Categories will be populated dynamically from /get_categories -->
+                    </select>
                 </div>
                 <div class="gameItem">
+                    <div class="tooltip">Chat WIth Different Groups</div>
                     <a href="https://telegram.org/" target="_blank" data-name="Telegram">
-                        <img class="telegram" title="Chat With Different Groups" src="https://static.euronews.com/articles/stories/08/75/07/36/1200x675_cmsv2_c637fd71-561e-5406-9502-db5b9eb9e992-8750736.jpg"  alt="Telegram">
+                        <img class="telegram" src="https://static.euronews.com/articles/stories/08/75/07/36/1200x675_cmsv2_c637fd71-561e-5406-9502-db5b9eb9e992-8750736.jpg"  alt="Telegram">
                     </a>
                     <div class="emoji" data-link="telegram">
                         <span class="emoji-icon">👍</span> 
@@ -528,142 +628,251 @@ form {
                         <span class="emoji-icon">❤️</span> 
                         <span class="counter">0</span> <!-- Heart counter -->
                     </div>
+                    <button class="add-to-category-btn">Add to Category</button>
+                    <select class="category-select" style="display:none;">
+                        <!-- Categories will be populated dynamically from /get_categories -->
+                    </select>
                 </div>
             </div>
 
             <!-- Row 3 -->
             <div class="row3">
                 <div class="gameItem">
+                    <div class="tooltip">Join & Create Servers Designed For Chatting/Talking WIth Groups</div>
                 <a href="https://discord.com/" target="_blank" data-name="Discord">
-                    <img class="discord" title="Befriend Different Communities" src="https://www.insidehighered.com/sites/default/files/2023-04/Discord-Symbol.png"  alt="Discord">                </a>
+                    <img class="discord" src="https://www.insidehighered.com/sites/default/files/2023-04/Discord-Symbol.png"  alt="Discord">                </a>
                     <div class="emoji" data-link="discord">
                         <span class="emoji-icon">👍</span> 
                         <span class="counter">0</span> <!-- Thumbs up counter -->
                         <span class="emoji-icon">❤️</span> 
                         <span class="counter">0</span> <!-- Heart counter -->
                     </div>
+                    <button class="add-to-category-btn">Add to Category</button>
+                    <select class="category-select" style="display:none;">
+                        <!-- Categories will be populated dynamically from /get_categories -->
+                    </select>
                 </div>
                 <div class="gameItem">
+                    <div class="tooltip">Browse The Works Of Different Communities</div>
                     <a href="https://www.tumblr.com/" target="_blank" data-name="Tumblr">
-                        <img class="tumblr" title="Browse The Works Of Different Communities" src="https://techcrunch.com/wp-content/uploads/2013/01/tumblr-logo.png?w=839"  alt="tumblr">                </a>
+                        <img class="tumblr" src="https://techcrunch.com/wp-content/uploads/2013/01/tumblr-logo.png?w=839"  alt="tumblr">                </a>
                         <div class="emoji" data-link="tumblr">
                             <span class="emoji-icon">👍</span> 
                             <span class="counter">0</span> <!-- Thumbs up counter -->
                             <span class="emoji-icon">❤️</span> 
                             <span class="counter">0</span> <!-- Heart counter -->
                         </div>
+                        <button class="add-to-category-btn">Add to Category</button>
+                        <select class="category-select" style="display:none;">
+                            <!-- Categories will be populated dynamically from /get_categories -->
+                        </select>
                     </div>
                     <div class="gameItem">
+                        <div class="tooltip">Let Other People Spark Your Next Idea</div>
                 <a href="https://static.euronews.com/articles/stories/08/75/07/36/1200x675_cmsv2_c637fd71-561e-5406-9502-db5b9eb9e992-8750736.jpg" target="_blank" data-name="Pinterest">
-                    <img class="Pinterest" title="Let Other People Spark Your Next Idea" src="https://storyempire.com/wp-content/uploads/2021/10/pinterest-logo.jpg"  alt="Pinterest">                </a>
+                    <img class="Pinterest" src="https://storyempire.com/wp-content/uploads/2021/10/pinterest-logo.jpg"  alt="Pinterest">                </a>
                     <div class="emoji" data-link="pinterest">
                         <span class="emoji-icon">👍</span> 
                         <span class="counter">0</span> <!-- Thumbs up counter -->
                         <span class="emoji-icon">❤️</span> 
                         <span class="counter">0</span> <!-- Heart counter -->
                     </div>
+                    <button class="add-to-category-btn">Add to Category</button>
+                    <select class="category-select" style="display:none;">
+                        <!-- Categories will be populated dynamically from /get_categories -->
+                    </select>
                 </div>
                 <div class="gameItem">
+                    <div class="tooltip">Meet & Talk To Strangers In A Moderated & Safe Way</div>
                 <a href="https://ome.tv/" target="_blank" data-name="Ome TV">
-                    <img class="Ome" title="Talk To Strangers In A Moderarted & Safe Way" src="https://play-lh.googleusercontent.com/dqXfJhXmJRvQNU-6ExVKC1QchVfscm1VpmZO16IAjAF0eN6YwWIUjdOSPSdBgK1gRQ"  alt="Ome TV ometv">                </a>
+                    <img class="Ome" src="https://play-lh.googleusercontent.com/dqXfJhXmJRvQNU-6ExVKC1QchVfscm1VpmZO16IAjAF0eN6YwWIUjdOSPSdBgK1gRQ"  alt="Ome TV ometv">                </a>
                     <div class="emoji" data-link="ome">
                         <span class="emoji-icon">👍</span> 
                         <span class="counter">0</span> <!-- Thumbs up counter -->
                         <span class="emoji-icon">❤️</span> 
                         <span class="counter">0</span> <!-- Heart counter -->
                     </div>
+                    <button class="add-to-category-btn">Add to Category</button>
+                    <select class="category-select" style="display:none;">
+                        <!-- Categories will be populated dynamically from /get_categories -->
+                    </select>
                 </div>
             </div>
         </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            loadCategories(); // Load categories when page is ready
             initializeCounters(); // Initialize counters from localStorage
             setupEmojiClickListeners(); // Add listeners to emoji groups
+            setupCategoryButtonListeners(); // Set up "Add to Category" button listeners
         });
-    
-        // Function to initialize counters from localStorage
-        function initializeCounters() {
-    document.querySelectorAll('.emoji').forEach(emojiGroup => {
-        const websiteKey = emojiGroup.dataset.link;
-        emojiGroup.querySelectorAll('.emoji-icon').forEach((emoji, index) => {
-            const counter = emoji.nextElementSibling;
-            const emojiKey = `${websiteKey}-${emoji.textContent.trim()}`; // Use the emoji text content as part of the key
-            const savedCount = localStorage.getItem(emojiKey);
-
-            if (savedCount !== null) {
-                counter.textContent = savedCount; // Set the counter to the saved value
-            } else {
-                counter.textContent = '0'; // Default to 0 if no saved count
-            }
-        });
-    });
-}
-
-// Function to set up emoji click listeners
-async function setupEmojiClickListeners() {
-    document.querySelectorAll('.emoji-icon').forEach(emoji => {
-        emoji.addEventListener('click', async event => {
-            event.stopPropagation(); // Prevent click from propagating to parent elements
-            const emoji = event.target;
-            const counter = emoji.nextElementSibling;
-            const emojiGroup = emoji.closest('.emoji');
-            const websiteLink = emoji.closest('.gameItem').querySelector('a');
-            const websiteName = websiteLink.dataset.name;
-            const websiteType = emoji.textContent.trim() === '❤️' ? 'favorite' : emoji.textContent.trim() === '👍' ? 'liked' : ''; // Determine the type of the emoji (❤️ = favorite, 👍 = liked)
-
-            if (!websiteType) return; // Exit if it's an invalid emoji type
-
-            let currentCount = parseInt(counter.textContent, 10) || 0;
-            if (currentCount > 0) {
-                // Decrement if the counter is greater than 0
-                currentCount--;
-            } else {
-                // Increment if the counter is 0
-                currentCount++;
-            }
-            counter.textContent = currentCount; // Update the counter on the page
-
-            // Use emoji text (❤️ or 👍) as part of the unique key
-            const emojiKey = `${emojiGroup.dataset.link}-${emoji.textContent.trim()}`;
-            localStorage.setItem(emojiKey, currentCount.toString()); // Store the count in localStorage
-
-            const payload = {
-                url: websiteLink.href,
-                name: websiteName,
-                type: websiteType
-            };
-
+        
+        async function loadCategories() {
             try {
-                const response = await fetch('/toggle_website', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (response.ok) {
-                    const updatedHTML = await response.text(); // Get the HTML response
-                    document.getElementById('favorite-websites-list').innerHTML = updatedHTML.match(/<ul id="favorite-websites-list">([\s\S]*?)<\/ul>/)[1];
-                    document.getElementById('liked-websites-list').innerHTML = updatedHTML.match(/<ul id="liked-websites-list">([\s\S]*?)<\/ul>/)[1];
-
-                    // Reinitialize the counters after HTML is updated
-                    initializeCounters(); 
+                const response = await fetch('/get_categories');
+                const data = await response.json();
+                
+                console.log(data);  // Log the response data for debugging
+        
+                if (data.success) {
+                    document.querySelectorAll('.category-select').forEach(select => {
+                        // Clear existing options (in case of page updates)
+                        select.innerHTML = '<option value="">Select a category</option>';
+        
+                        // Add categories to the select dropdown
+                        data.categories.forEach(category => {
+                            const option = document.createElement('option');
+                            option.value = category.id;  // Ensure category.id is properly set
+                            option.textContent = category.name;
+                            select.appendChild(option);
+                        });
+        
+                        // Make the category select dropdown visible
+                        select.style.display = 'block';  // Show the dropdown
+                    });
                 } else {
-                    console.error('Failed to toggle website');
+                    console.error('Failed to load categories:', data.message);
                 }
             } catch (error) {
-                console.error('Error toggling website:', error);
+                console.error('Error fetching categories:', error);
             }
-        });
-    });
-}
-    
+        }
+        
+        async function setupCategoryButtonListeners() {
+            document.querySelectorAll('.add-to-category-btn').forEach(button => {
+                button.addEventListener('click', async event => {
+                    const websiteElement = button.closest('.gameItem');
+                    const categorySelect = websiteElement.querySelector('.category-select');
+                    const websiteLink = websiteElement.querySelector('a');
+                    const websiteName = websiteLink ? websiteLink.dataset.name : ''; // Use dataset name if available
+                    categorySelect.classList.toggle('show');
+                    
+                    // Check if the website link is valid
+                    if (!websiteLink || !websiteLink.href) {
+                        console.error('Website link is not defined.');
+                        alert('Invalid website link.');
+                        return;
+                    }
+        
+                    const categoryId = categorySelect.value; // Get the selected category ID
+        
+        
+        
+                    // Log payload to debug category ID
+                    const payload = {
+                        url: websiteLink.href, // Ensure this is properly retrieved
+                        name: websiteName,
+                        category_id: categoryId
+                    };
+        
+                    console.log('Payload:', payload);  // Log for debugging
+        
+                    try {
+                        const response = await fetch('/add_to_category', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+        
+                        const data = await response.json();
+        
+                        if (data.success) {
+                            alert('Website added to category!');
+                        } else {
+                            console.error('Failed to add website:', data.message);
+                        }
+                    } catch (error) {
+                        console.error('Error adding website to category:', error);
+                    }
+                });
+            });
+        }
+        
+        
+        // Function to initialize counters from localStorage
+        function initializeCounters() {
+            document.querySelectorAll('.emoji').forEach(emojiGroup => {
+                const websiteKey = emojiGroup.dataset.link;
+                emojiGroup.querySelectorAll('.emoji-icon').forEach((emoji, index) => {
+                    const counter = emoji.nextElementSibling;
+                    const emojiKey = `${websiteKey}-${emoji.textContent.trim()}`; // Use the emoji text content as part of the key
+                    const savedCount = localStorage.getItem(emojiKey);
+        
+                    if (savedCount !== null) {
+                        counter.textContent = savedCount; // Set the counter to the saved value
+                    } else {
+                        counter.textContent = '0'; // Default to 0 if no saved count
+                    }
+                });
+            });
+        }
+        
+        // Function to set up emoji click listeners
+        async function setupEmojiClickListeners() {
+            document.querySelectorAll('.emoji-icon').forEach(emoji => {
+                emoji.addEventListener('click', async event => {
+                    event.stopPropagation(); // Prevent click from propagating to parent elements
+                    const emoji = event.target;
+                    const counter = emoji.nextElementSibling;
+                    const emojiGroup = emoji.closest('.emoji');
+                    const websiteLink = emoji.closest('.gameItem').querySelector('a');
+                    const websiteName = websiteLink.dataset.name;
+                    const websiteType = emoji.textContent.trim() === '❤️' ? 'favorite' : emoji.textContent.trim() === '👍' ? 'liked' : ''; // Determine the type of the emoji (❤️ = favorite, 👍 = liked)
+        
+                    if (!websiteType) return; // Exit if it's an invalid emoji type
+        
+                    let currentCount = parseInt(counter.textContent, 10) || 0;
+                    if (currentCount > 0) {
+                        // Decrement if the counter is greater than 0
+                        currentCount--;
+                    } else {
+                        // Increment if the counter is 0
+                        currentCount++;
+                    }
+                    counter.textContent = currentCount; // Update the counter on the page
+        
+                    // Use emoji text (❤️ or 👍) as part of the unique key
+                    const emojiKey = `${emojiGroup.dataset.link}-${emoji.textContent.trim()}`;
+                    localStorage.setItem(emojiKey, currentCount.toString()); // Store the count in localStorage
+        
+                    const payload = {
+                        url: websiteLink.href,
+                        name: websiteName,
+                        type: websiteType
+                    };
+        
+                    try {
+                        const response = await fetch('/toggle_website', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+        
+                        if (response.ok) {
+                            const updatedHTML = await response.text(); // Get the HTML response
+                            document.getElementById('favorite-websites-list').innerHTML = updatedHTML.match(/<ul id="favorite-websites-list">([\s\S]*?)<\/ul>/)[1];
+                            document.getElementById('liked-websites-list').innerHTML = updatedHTML.match(/<ul id="liked-websites-list">([\s\S]*?)<\/ul>/)[1];
+        
+                            // Reinitialize the counters after HTML is updated
+                            initializeCounters(); 
+                        } else {
+                            console.error('Failed to toggle website');
+                        }
+                    } catch (error) {
+                        console.error('Error toggling website:', error);
+                    }
+                });
+            });
+        }
+        
         // Clear LocalStorage for debugging purposes
         function clearLocalStorage() {
             localStorage.clear();
             alert('Local Storage cleared!');
         }
-    </script>
+        
+            </script>
 
 
     <!-- Footer -->

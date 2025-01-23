@@ -430,7 +430,7 @@
 form {
     margin-right: 180px; /* Adjust this value to control the distance between the search and nav */
 }
-.username {
+#username {
     margin-right: 250px;  /* Space between logo and username */
     font-size: 16px;
     font-weight: bold;
@@ -497,17 +497,18 @@ form {
 /* For responsiveness */
 @media (max-width: 768px) {
     .audio-player {
-        width: 220px; /* Adjust for smaller screens */
+        display: none; /* Adjust for smaller screens */
     }
-}
 
-@media (max-width: 480px) {
-    .audio-player {
-        width: 100%; /* Take full width on mobile */
+    .timeline-sidebar{
+        display:none;
     }
-}
-        @media(max-width:800px){
-            body {
+
+    #musicMessage{
+        display: none;
+    }
+
+    body {
                 padding-top: 6em; /* Ensure there's enough space below the header */
             }
             
@@ -531,65 +532,13 @@ form {
                 height: 40px; /* Adjust logo size for smaller screens */
             }
 
-            .timeline-sidebar{
-                top: 20%;
+            h1{
+                margin-top: 150px;
             }
-        }
 
-
-        @media (max-width: 1024px) {
-    .timeline-sidebar {
-        width: 25%;
-        max-width: 180px;
-        padding: 8px;
-    }
-
-    .timeline-sidebar ul li {
-        margin: 10px 0;
-        font-size: 0.9rem;
-    }
-
-    .timeline-sidebar ul li a {
-        font-size: 0.9rem;
-    }
 }
 
-@media (max-width: 768px) {
-    .timeline-sidebar {
-        width: 30%;
-        max-width: 150px;
-        padding: 6px;
-        max-height: 80vh; /* Reduce height for smaller screens */
-    }
 
-    .timeline-sidebar ul li {
-        margin: 8px 0;
-        font-size: 0.85rem;
-    }
-
-    .timeline-sidebar ul li a {
-        font-size: 0.85rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .timeline-sidebar {
-        width: 100%; /* Take full width on mobile */
-        right: 0;
-        max-height: 50vh; /* Reduce height further */
-        border-radius: 0; /* Remove rounded edges */
-    }
-
-    .timeline-sidebar h3 {
-        font-size: 1.2rem;
-    }
-
-    .timeline-sidebar ul {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-}
     </style>
     <script>
         document.getElementById('search').addEventListener('keydown', function(event) {
@@ -695,6 +644,7 @@ form {
     <header>
         <nav>
             <ul>
+                <li><a href="{{ url_for('test') }}">SiteFinder</a></li>
                 <li><a href="{{ url_for('profile') }}">Profile</a></li>
                 <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
                 <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
@@ -706,7 +656,7 @@ form {
             <input type="text" name="query" id="search" placeholder="Search for anything..." value="{{ query or '' }}" />
         </form>
         {% if session.get('username') %}
-        <span class="username">Welcome: {{ session['username'] }}!</span>
+        <span id="username">Welcome: {{ session['username'] }}!</span>
     {% else %}
         <span>Welcome: Guest!</span>
     {% endif %}
@@ -733,7 +683,7 @@ form {
         <div class="timeline-item">
             <div class="timeline-item-content">
                 <button>
-                    <a href="https://www.youtube.com/watch?v=6PG2mdU_i8k" target="_blank" style="text-decoration: none; color: inherit;">
+                    <a href="https://www.youtube.com/watch?v=7bzWnaH-0sg" target="_blank" style="text-decoration: none; color: inherit;">
                         <h2>1961</h2>
                         <h3>Space War Is Created:</h3>
                         <img src="https://www.thoughtco.com/thmb/5uGKwK8kCAcLL4JJyWBowdzJzaU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Spacewar_screenshot-5954c1c35f9b5815d91a10ec.jpg" alt="Space War" class="timeline-image">
@@ -748,7 +698,7 @@ form {
         <div class="timeline-item">
             <div class="timeline-item-content">
                 <button>
-                    <a href="https://www.youtube.com/watch?v=eePWlLKm_Bg" target="_blank" style="text-decoration: none; color: inherit;">
+                    <a href="https://www.youtube.com/watch?v=4iOInwYmWRg" target="_blank" style="text-decoration: none; color: inherit;">
                         <h2>1961</h2>
                         <h3>Computer Space (Based On Space War) Releases:</h3>
                         <img src="https://m.media-amazon.com/images/M/MV5BMTEzMTQzNDUtNjk1NC00MjE1LWIzMjktOWYxNjZlZjE5YWQxXkEyXkFqcGc@._V1_.jpg" alt="Computer Space" class="timeline-image">
@@ -811,12 +761,12 @@ form {
         <div class="timeline-item">
             <div class="timeline-item-content">
                 <button>
-                    <a href="https://www.youtube.com/watch?v=FvT8jG1OVdI" target="_blank" style="text-decoration: none; color: inherit;">
+                    <a href="https://www.youtube.com/watch?v=xYa0G6KGayk" target="_blank" style="text-decoration: none; color: inherit;">
                         <h2>1974</h2>
                         <h3>Gun Fight Releases:</h3>
                         <img src="https://arcadeologia.es/img/catalogo/gunfight/gunfight-3.png" alt="Gun Fight" class="timeline-image">
                         <ul>
-                            <li> The FIrst Multiplayer Game</li>
+                            <li> The Firrst Multiplayer Game</li>
                             <li> First Game To Use A Joystick & Buttons</li>
                         </ul>
                     </a>
@@ -859,7 +809,7 @@ form {
         <div class="timeline-item">
             <div class="timeline-item-content">
                 <button>
-                    <a href="https://www.youtube.com/watch?v=AMUv8KvVt08" target="_blank" style="text-decoration: none; color: inherit;">
+                    <a href="https://www.youtube.com/watch?v=1Bv689ClpNY" target="_blank" style="text-decoration: none; color: inherit;">
                         <h2>1976</h2>
                         <h3>Breakout Release As An Arcade Game:</h3>
                         <img src="https://upload.wikimedia.org/wikipedia/en/7/7a/BreakOut_arcadeflyer.png" alt="Break Out" class="timeline-image">
@@ -895,7 +845,7 @@ form {
         <div class="timeline-item">
             <div class="timeline-item-content">
                 <button>
-                    <a href="https://www.youtube.com/watch?v=2LxPEdUZOkE" target="_blank" style="text-decoration: none; color: inherit;">
+                    <a href="https://www.youtube.com/watch?v=uz2wkhJS2II" target="_blank" style="text-decoration: none; color: inherit;">
                         <h2>1977</h2>
                         <h3>Combat Releases As The First Original Game On The Atari:</h3>
                         <img src="https://upload.wikimedia.org/wikipedia/en/d/d0/Combatatarigamepack.jpg" alt="Combat" class="timeline-image">
@@ -912,7 +862,7 @@ form {
         <div class="timeline-item">
             <div class="timeline-item-content">
                 <button>
-                    <a href="https://www.youtube.com/watch?v=LQZDRELOqoI" target="_blank" style="text-decoration: none; color: inherit;">
+                    <a href="https://www.youtube.com/watch?v=MxIRVzVPIwo" target="_blank" style="text-decoration: none; color: inherit;">
                         <h2>1977</h2>
                         <h3>Adventure Releases On The Atari As The Frst Ever Adventure Game</h3>
                         <img src="https://upload.wikimedia.org/wikipedia/en/6/60/Adventure_Box_Front.jpg" alt="Adventure" class="timeline-image">
@@ -969,7 +919,7 @@ form {
                     <a href="https://www.youtube.com/watch?v=aVeUr7cfmvI" target="_blank" style="text-decoration: none; color: inherit;">
                         <h2>1978</h2>
                         <h3>The Arcade Boom Has Now Started:</h3>
-                        <img src="https://schifferbooks.com/cdn/shop/files/9780764319259_grande.jpg?v=1691518906" alt="Arcade Boom" class="timeline-image">
+                        <img src="https://cdn.prod.website-files.com/6148b818aea71e57e59428cf/664232af3f3e54774b130598_1gg5s46l8xp81.webp" alt="Arcade Boom" class="timeline-image">
                          <ul>
                             <li> Created A Culutre Around Gaming</li>
                             <li>Introduced The Most Popular Games Of All Time</li>
@@ -984,7 +934,7 @@ form {
         <div class="timeline-item">
             <div class="timeline-item-content">
                 <button>
-                    <a href="https://www.youtube.com/watch?v=w60sfReTsRA" target="_blank" style="text-decoration: none; color: inherit;">
+                    <a href="https://www.youtube.com/watch?v=AhWlNB264q8" target="_blank" style="text-decoration: none; color: inherit;">
                         <h2>1979</h2>
                         <h3>Asteroids Releases As An Arcade Machine:</h3>
                         <img src="https://i.pinimg.com/736x/a0/00/ac/a000ac013b6e8c4e0f2ad406505a9f33.jpg" alt="Asteroids" class="timeline-image">
@@ -1023,11 +973,12 @@ form {
             <div class="timeline-item">
                 <div class="timeline-item-content">
                     <button>
-                        <a href="https://www.youtube.com/watch?v=wAKxa5C9jHY" target="_blank" style="text-decoration: none; color: inherit;">
+                        <a href="https://www.youtube.com/watch?v=hm5Wm1xl88M" target="_blank" style="text-decoration: none; color: inherit;">
                             <h2>1980</h2>
                             <h3>Defender Releases As An Arcade Game:</h3>
                             <img src="https://i.pinimg.com/564x/77/a8/fd/77a8fd94c106a92d6378d2b4959230c7.jpg" alt="Defender" class="timeline-image">
                              <ul>
+                                <li>Introduced Particle Effects </li>
                                 <li>The First Game To Have Bombs</li>
                                 <li>Introduced Muti-Objective Gameplay </li>
                                 <li> Introduced A Screen That Scrolled/Expanded</li>
@@ -1061,7 +1012,7 @@ form {
             <div class="timeline-item">
                 <div class="timeline-item-content">
                     <button>
-                        <a href="https://www.youtube.com/watch?v=tJagEKVJ8x4" target="_blank" style="text-decoration: none; color: inherit;">
+                        <a href="https://www.youtube.com/watch?v=NzFCXfjuNjI" target="_blank" style="text-decoration: none; color: inherit;">
                             <h2>1981</h2>
                             <h3>Donkey Kong Releases As An Arcade Game:</h3>
                             <img src="https://i.ibb.co/FBgVzQz/dk1-5.png" alt="Defender" class="timeline-image">
@@ -1104,7 +1055,7 @@ form {
             <div class="timeline-item">
                 <div class="timeline-item-content">
                     <button>
-                        <a href="https://www.youtube.com/watch?v=ZPnmewxetNA" target="_blank" style="text-decoration: none; color: inherit;">
+                        <a href="https://www.youtube.com/watch?v=VakiwDmJ-lI" target="_blank" style="text-decoration: none; color: inherit;">
                             <h2>1981</h2>
                             <h3>ET Releases On The Atari 2600:</h3>
                             <img src="https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/1972/production/_88241560_976_etposter.jpg" alt="Et: Extra Terrestial" class="timeline-image">
@@ -1193,7 +1144,7 @@ form {
             <div class="timeline-item">
                 <div class="timeline-item-content">
                     <button>
-                        <a href="https://www.youtube.com/watch?v=ZDvr8WrpjoE" target="_blank" style="text-decoration: none; color: inherit;">
+                        <a href="https://www.youtube.com/watch?v=WvjCQqnMmbA" target="_blank" style="text-decoration: none; color: inherit;">
                             <h2>1983</h2>
                             <h3>Tetris Releases As An Arcade Machine</h3>
                             <img src="https://retro-video-gaming.com/wp-content/uploads/2015/04/atari-tetris-arcade-1988.jpg" alt="Tetris" class="timeline-image">
@@ -1213,7 +1164,7 @@ form {
             <div class="timeline-item">
                 <div class="timeline-item-content">
                     <button>
-                        <a href="https://www.youtube.com/watch?v=O0gAgQQHFcQ" target="_blank" style="text-decoration: none; color: inherit;">
+                        <a href="https://www.youtube.com/watch?v=p5dNilyHzjc target="_blank" style="text-decoration: none; color: inherit;">
                             <h2>1984</h2>
                             <h3>Game/Electronic Conventions & Shows Start Too Emerge Like The Consumer Electrincs Show</h3>
                             <img src="https://bunewsservice.com/wp-content/uploads/2016/12/SCES-1990-1.jpg" alt="Consumer Electronics Show" class="timeline-image">
@@ -1244,7 +1195,7 @@ form {
             <div class="timeline-item">
                 <div class="timeline-item-content">
                     <button>
-                        <a href="https://www.youtube.com/watch?v=9B6LHvR6Sxc" target="_blank" style="text-decoration: none; color: inherit;">
+                        <a href="https://www.youtube.com/watch?v=T2hDAUwfQKQ" target="_blank" style="text-decoration: none; color: inherit;">
                             <h2>1984</h2>
                             <h3>Excitebike Releases On The SNES:</h3>
                             <img src="https://i0.wp.com/www.arcadeattack.co.uk/wp-content/uploads/2017/01/Excitebike-Banner.png?fit=600%2C375&ssl=1" alt="Excitebike" class="timeline-image">
@@ -1260,7 +1211,7 @@ form {
     <div class="timeline-item">
         <div class="timeline-item-content">
             <button>
-                <a href="https://www.youtube.com/watch?v=rLl9XBg7wSs" target="_blank" style="text-decoration: none; color: inherit;">
+                <a href="https://www.youtube.com/watch?v=dduvx-dEySY" target="_blank" style="text-decoration: none; color: inherit;">
                     <h2>1985</h2>
                     <h3>Super Mario Bros. Releases As An Arcade Game:</h3>
                     <img src="https://i.ebayimg.com/images/g/InUAAOSwoipkhTcP/s-l1200.jpg" alt="Super Mario Bros." class="timeline-image">
@@ -1316,7 +1267,7 @@ form {
     <div class="timeline-item">
         <div class="timeline-item-content">
             <button>
-                <a href="https://www.youtube.com/watch?v=xMsHeEOAIGk" target="_blank" style="text-decoration: none; color: inherit;">
+                <a href="https://www.youtube.com/watch?v=YNwtyCdxuIs" target="_blank" style="text-decoration: none; color: inherit;">
                     <h2>1986</h2>
                     <h3>Kid Icarus Releases On The Famicom:</h3>
                     <img src="https://i.ebayimg.com/images/g/FsAAAOSw5QZhbqj9/s-l400.jpg" alt="Kid Icarus" class="timeline-image">
@@ -1332,7 +1283,7 @@ form {
     <div class="timeline-item">
         <div class="timeline-item-content">
             <button>
-                <a href="https://www.youtube.com/watch?v=EhnWKcO1byU" target="_blank" style="text-decoration: none; color: inherit;">
+                <a href="https://www.youtube.com/watch?v=unF6tSrcprk" target="_blank" style="text-decoration: none; color: inherit;">
                     <h2>1986</h2>
                     <h3>Metroid Releases On The NES</h3>
                     <img src="https://www.dkoldies.com/product_images/uploaded_images/blacknyellowmetroid.jpg" alt="Metroid" class="timeline-image">
@@ -1351,7 +1302,7 @@ form {
     <div class="timeline-item">
         <div class="timeline-item-content">
             <button>
-                <a href="https://www.youtube.com/watch?v=A6sdvTUh9II" target="_blank" style="text-decoration: none; color: inherit;">
+                <a href="https://www.youtube.com/watch?v=Je1P0mX4ZYY" target="_blank" style="text-decoration: none; color: inherit;">
                     <h2>1986</h2>
                     <h3>Final Fantasy Releases On The NES</h3>
                     <img src="https://i.ytimg.com/vi/LOBIxrSf2L4/maxresdefault.jpg" alt="Final Fantasy" class="timeline-image">
@@ -1400,7 +1351,7 @@ form {
     <div class="timeline-item">
         <div class="timeline-item-content" id="event-1988">
             <button>
-                <a href="https://www.youtube.com/watch?v=hkD3lEANa_4" target="_blank" style="text-decoration: none; color: inherit;">
+                <a href="https://www.youtube.com/watch?v=bun8tA_ksZw" target="_blank" style="text-decoration: none; color: inherit;">
                     <h2>1988</h2>
                     <h3>Sega Enters The Cosole Market With The Sega Genesis (AKA The Sega Megadrive):</h3>
                     <img src="https://m.media-amazon.com/images/I/61xCz5kHGUL._AC_UF894,1000_QL80_.jpg" alt="Street Fighter" class="timeline-image">
@@ -1418,7 +1369,7 @@ form {
     <div class="timeline-item">
         <div class="timeline-item-content">
             <button>
-                <a href="https://www.youtube.com/watch?v=QPJw4CfkhMU" target="_blank" style="text-decoration: none; color: inherit;">
+                <a href="https://www.youtube.com/watch?v=k7nsBoqJ6s8" target="_blank" style="text-decoration: none; color: inherit;">
                     <h2>1989</h2>
                     <h3>The Console Wars Begin:</h3>
                     <img src="https://i.kinja-img.com/image/upload/c_fill,h_675,pg_1,q_80,w_1200/romm8ts8u72vhr9ifjm5.jpg" alt="Console Wars" class="timeline-image">
@@ -1449,7 +1400,7 @@ form {
     <div class="timeline-item">
         <div class="timeline-item-content">
             <button>
-                <a href="https://www.youtube.com/watch?v=l0XtXB0fEaA" target="_blank" style="text-decoration: none; color: inherit;">
+                <a href="https://www.youtube.com/watch?v=oWyMk-2aH9E" target="_blank" style="text-decoration: none; color: inherit;">
                     <h2>1989</h2>
                     <h3>Super Mario World Releases On The Super Nintendo Entertainment System (SNES):</h3>
                     <img src="https://i.ebayimg.com/images/g/CicAAOSwZ8RhPh-T/s-l1200.jpg" alt="Super Mario World" class="timeline-image">
@@ -1464,7 +1415,7 @@ form {
     <div class="timeline-item">
         <div class="timeline-item-content">
             <button>
-                <a href="https://www.youtube.com/watch?v=GPP_RcMdqW4" target="_blank" style="text-decoration: none; color: inherit;">
+                <a href="https://www.youtube.com/watch?v=Xnm38BWYcpU" target="_blank" style="text-decoration: none; color: inherit;">
                     <h2>1990</h2>
                     <h3>Street Fighter II Releases For The SNES</h3>
                     <img src="https://www.lukiegames.com/assets/images/SNES/snes_street_fighter_ii_2_p_zov0x5.jpg" alt="Street Fighter II" class="timeline-image">
@@ -1498,7 +1449,7 @@ form {
     <div class="timeline-item">
         <div class="timeline-item-content">
             <button>
-                <a href="https://www.youtube.com/watch?v=hGt_c2w7C_E" target="_blank" style="text-decoration: none; color: inherit;">
+                <a href="https://www.youtube.com/watch?v=BP5pb7hGelM" target="_blank" style="text-decoration: none; color: inherit;">
                     <h2>1992</h2>
                     <h3>Kirby Dream Land Releases For The Gameboy:</h3>
                     <img src="https://i.etsystatic.com/16695346/r/il/028056/4403491475/il_fullxfull.4403491475_pph9.jpg" alt="Kirby Dreamland" class="timeline-image">
@@ -1536,7 +1487,7 @@ form {
         <div class="timeline-item">
             <div class="timeline-item-content">
                 <button>
-                    <a href="https://www.youtube.com/watch?v=a0edFbcH1VM" target="_blank" style="text-decoration: none; color: inherit;">
+                    <a href="https://www.youtube.com/watch?v=8FTZD-lljaU" target="_blank" style="text-decoration: none; color: inherit;">
                         <h2>1993</h2>
                         <h3>Star Fox Releases On The SNES:</h3>
                         <img src="https://www.gamingrelics.com/image/thumbs/1280x800/catalog/snes-cases/StarFox.jpg" alt="Star Fox" class="timeline-image">
@@ -1555,7 +1506,7 @@ form {
     <div class="timeline-item">
         <div class="timeline-item-content">
             <button>
-                <a href="https://www.youtube.com/watch?v=wbSghQRlb-k&list=PLdxmChRD2epeU0iA56B0VHBGrlZY2hMh-" target="_blank" style="text-decoration: none; color: inherit;">
+                <a href="https://www.youtube.com/watch?v=VDmUX9Jn8h0" target="_blank" style="text-decoration: none; color: inherit;">
                     <h2>1994</h2>
                     <h3>Elder Scrolls Arena Releases On PC:</h3>
                     <img src="https://i.ebayimg.com/00/s/MTYwMFgxMzcw/z/tewAAOSwropmIMdw/$_57.JPG?set_id=880000500F" alt="Doom" class="timeline-image">
@@ -1595,7 +1546,7 @@ form {
     <div class="timeline-item">
         <div class="timeline-item-content">
             <button>
-                <a href="https://www.youtube.com/watch?v=649Nf8mWUHY" target="_blank" style="text-decoration: none; color: inherit;">
+                <a href="https://www.youtube.com/watch?v=2fl-AylaHY8" target="_blank" style="text-decoration: none; color: inherit;">
                     <h2>1995</h2>
                     <h3>Chrono Trigger Releases On The SNES:</h3>
                     <img src="https://i.ebayimg.com/images/g/ZbgAAOSwDk1mghiR/s-l1200.jpg" alt="Chrono Trigger" class="timeline-image">
@@ -1618,7 +1569,7 @@ form {
     <div class="timeline-item">
         <div class="timeline-item-content">
             <button>
-                <a href="https://www.youtube.com/watch?v=ZGEqkYWFSfg" target="_blank" style="text-decoration: none; color: inherit;">
+                <a href="https://www.youtube.com/watch?v=DV2vhmtGBqM" target="_blank" style="text-decoration: none; color: inherit;">
                     <h2>1995</h2>
                     <h3>Quake Releases For PC:</h3>
                     <img src="https://upload.wikimedia.org/wikipedia/en/4/4c/Quake1cover.jpg" alt="Quake" class="timeline-image">
@@ -1667,7 +1618,7 @@ form {
     <div class="timeline-item">
         <div class="timeline-item-content">
             <button>
-                <a href="https://www.youtube.com/watch?v=Z5oTkVsTZdI" target="_blank" style="text-decoration: none; color: inherit;">
+                <a href="https://www.youtube.com/watch?v=MFmQFGhc-cU" target="_blank" style="text-decoration: none; color: inherit;">
                     <h2>1997</h2>
                     <h3>Golden Eye 007 Releases On The Nintendo 64:</h3>
                     <img src="https://www.gamecash.be/thumbnail-600/goldeneye-64-e8447.jpg" alt="Golden Eye" class="timeline-image">
@@ -1681,7 +1632,7 @@ form {
     <div class="timeline-item">
         <div class="timeline-item-content">
             <button>
-                <a href="https://www.youtube.com/watch?v=JoV9o6b91Sc" target="_blank" style="text-decoration: none; color: inherit;">
+                <a href="https://www.youtube.com/watch?v=5Wavn29LMrs" target="_blank" style="text-decoration: none; color: inherit;">
                     <h2>1998</h2>
                     <h3>Half-Life Releases For PC:</h3>
                     <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/70/capsule_616x353.jpg?t=1732327059" alt="Half Life" class="timeline-image">
@@ -1697,7 +1648,7 @@ form {
     <div class="timeline-item">
         <div class="timeline-item-content">
             <button>
-                <a href="https://www.youtube.com/watch?v=hYcotDHI0dg" target="_blank" style="text-decoration: none; color: inherit;">
+                <a href="https://www.youtube.com/watch?v=5tTc8__lXkM" target="_blank" style="text-decoration: none; color: inherit;">
                     <h2>1998</h2>
                     <h3>Pokemon Red & Blue Releases On The Gameboy:</h3>
                     <img src="https://static1.thegamerimages.com/wordpress/wp-content/uploads/2022/06/Featured-Image-Things-Pokemon-Red-And-Blue-Does-Better-Than-The-Newer-Games.jpg" alt="Pokemon" class="timeline-image">
@@ -1728,7 +1679,7 @@ form {
     <div class="timeline-item">
         <div class="timeline-item-content">
             <button>
-                <a href="https://www.youtube.com/watch?v=aD2tgui1ZJc" target="_blank" style="text-decoration: none; color: inherit;">
+                <a href="https://www.youtube.com/watch?v=kUjLG8ZxuHQ" target="_blank" style="text-decoration: none; color: inherit;">
                     <h2>1998</h2>
                     <h3>Resident EVil 2 Releases:</h3>
                     <img src="https://upload.wikimedia.org/wikipedia/en/4/40/NTSC_Resident_Evil_2_Cover.png" alt="Steam" class="timeline-image">
@@ -1752,7 +1703,7 @@ form {
                         <li>Paved The Way For Modern Franchises-Halo, Assassin's Creed, GTA, Minecraft, Fortnite, etc.</li>
                         <li>Microtransactions & Dlc's Become A Core Aspect To Gaming</li>
                         <li> The Genres Of The Modern Market Become-Indie, Survival, Horror, Metroidvania, Soulsbourn/Soulslike, RPG, Adventure, & Shooters</li>
-                        <li> The Console Wars Transer To Nintendo, Sony, & Microsoft However It Starts To End WIth Halo Releasing On Playstation And Nintendo Focusing On Themselves</li>
+                        <li> The Console Wars Transer To Nintendo, Sony, & Microsoft However It Starts To End With Halo Releasing On Playstation, Nintendo Focusing On Themselves, & Microsoft Focusing On Other Fields Of Research For The Tech Industry</li>
                      </ul>
                 </a>
             </button>

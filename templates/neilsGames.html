@@ -159,7 +159,7 @@
             display: flex;
             justify-content: center;
             gap: 3%;
-            margin-top: 13%; /* Add spacing between rows */
+            margin-top: 7%; /* Add spacing between rows */
         }
 
         .gameImgs {
@@ -175,14 +175,22 @@
         }
 
         .row1 img, .row2 img, .row3 img, .row4 img, .row5 img, .row6 img, .row7 img, .row8 img{
-            width: 90%;
-            border: .5em solid #437c94;
+            display: flex;
+            justify-content: center; /* Center align the items */
+            gap: 1%; /* Adjust gap between images */
+            margin-top: 3%; /* Provide space above the row */
+            flex-wrap: wrap; /* Allow wrapping of images if the screen width is narrow */
+            width: 100%; /* Fixed width for consistent size */
+            max-width: 270px; /* Optional: Set a maximum width for large screens */
+            height: auto; /* Maintain aspect ratio */
+            object-fit: contain; /* Fit image within bounds without cropping */
+            border: .5em solid #53487c;            
             border-radius: 1em;
             transition: transform 0.3s, border-color 0.3s;
         }
 
         .gameImgs img:hover {
-            border-color: #38464c;
+            border-color: #4a3333;
             transform: scale(1.1);
         }
 
@@ -336,6 +344,72 @@ form {
         margin-top: -7vh;
     }
 }
+
+      /* Style the button */
+      .add-to-category-btn {
+    background-color: #3498db;
+    color: white;
+    font-size: 16px;
+    padding: 5px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 60px;
+}
+
+.add-to-category-btn:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+}
+
+/* Style the select dropdown */
+.category-select {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding inside */
+    font-size: 16px; /* Font size */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background */
+    appearance: none; /* Remove default dropdown arrow */
+    cursor: pointer; /* Pointer cursor */
+    display: block; /* Ensure the select takes up full width */
+    margin-top: 10px; /* Space above */
+    opacity: 0; /* Initially hide the select element */
+    transition: opacity 0.3s ease; /* Smooth transition for visibility */
+}
+
+/* When the select is visible */
+.category-select.show {
+    opacity: 1; /* Make the select visible */
+}
+
+.gameItem {
+    position: relative;
+}
+
+.tooltip {
+    visibility: hidden;
+    width: 200px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.gameItem:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+
+}
     </style>
     <script>
         document.getElementById('search').addEventListener('keydown', function(event) {
@@ -350,6 +424,7 @@ form {
     <header>
         <nav>
             <ul>
+                <li><a href="{{ url_for('test') }}">SiteFinder</a></li>
                 <li><a href="{{ url_for('profile') }}">Profile</a></li>
                 <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
                 <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
@@ -386,8 +461,9 @@ form {
             <!-- Row 1 -->
             <div class="row1">
                 <div class="gameItem">
+                    <div class="tooltip">Combine Stuff To Create More Stuff</div>
                 <a href="https://neal.fun/infinite-craft/" target="_blank" data-name="Infinite Craft">
-                    <img class="infiniteCraftImg" title="Combine Stuff To Create More Stuff" src="https://neal.fun/link-images/infinite-craft.svg" alt="Infinite Craft">
+                    <img class="infiniteCraftImg" src="https://neal.fun/link-images/infinite-craft.svg" alt="Infinite Craft">
                 </a>
                 <div class="emoji" data-link="infiniteCraftt">
                     <span class="emoji-icon">👍</span> 
@@ -395,10 +471,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Your Password Must Contain All Of The Below</div>
                 <a href="https://neal.fun/password-game/" target="_blank" data-name="The Password Game">
-                    <img class="passwordGameImg" title="Your Password Must Contain All Of The Below" src="https://neal.fun/link-images/password-game.svg" alt="The Password Game">
+                    <img class="passwordGameImg" src="https://neal.fun/link-images/password-game.svg" alt="The Password Game">
                 </a>
                 <div class="emoji" data-link="password">
                     <span class="emoji-icon">👍</span> 
@@ -406,10 +487,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Can You Draw A Perfect Circle</div>
                 <a href="https://neal.fun/perfect-circle/" target="_blank" data-name="Draw A Perfect Circle">
-                    <img class="perfectCircleImg" title="Can You Draw A Perfect Circle?" src="https://neal.fun/link-images/perfect-circle.svg" alt="Draw A Perfect Circle">
+                    <img class="perfectCircleImg" src="https://neal.fun/link-images/perfect-circle.svg" alt="Draw A Perfect Circle">
                 </a>
                 <div class="emoji" data-link="perfect">
                     <span class="emoji-icon">👍</span> 
@@ -417,10 +503,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Kill 5 People Or Pull The Lever</div>
                 <a href="https://neal.fun/absurd-trolley-problems/" target="_blank" data-name="Absurd trolley problems">
-                    <img class="trolleyProblemImg" title="Kill 5 People Or Pull The Lever?" src="https://neal.fun/link-images/absurd-trolley-problems.svg" alt="Absurd Trolley Problem">
+                    <img class="trolleyProblemImg" src="https://neal.fun/link-images/absurd-trolley-problems.svg" alt="Absurd Trolley Problem">
                 </a>
                 <div class="emoji" data-link="trolley">
                     <span class="emoji-icon">👍</span> 
@@ -428,25 +519,35 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             </div>
 
             <!-- Row 2 -->
             <div class="row2">
                 <div class="gameItem">
-                <a href="https://neal.fun/space-elevator/" target="_blank" data-name="Space Elevator">
-                    <img class="spaceElevatorImg" title="Too Infinity And Beyond" src="https://neal.fun/link-images/space-elevator.svg" alt="Space Elevator">
+                    <div class="tooltip">The Reason For Your Decline In Attention Span</div>
+                <a href="https://neal.fun/stimulation-clicker/" target="_blank" data-name="Simulation Clicker">
+                    <img class="simulation" src="https://neal.fun/link-images/stimulation-clicker.svg" alt="Simulation Clicker">
                 </a>
-                <div class="emoji" data-link="space">
+                <div class="emoji" data-link="simulation">
                     <span class="emoji-icon">👍</span> 
                     <span class="counter">0</span> <!-- Thumbs up counter -->
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Explore The Effects Of Asteroids</div>
                 <a href="https://neal.fun/asteroid-launcher/" target="_blank" data-name="Asteroid Launcher">
-                    <img class="asteroidLauncherImg" title="Explore The Effects Of Asteroids" src="https://neal.fun/link-images/asteroid-launcher.svg" alt="Asteroid Launcher">
+                    <img class="asteroidLauncherImg" src="https://neal.fun/link-images/asteroid-launcher.svg" alt="Asteroid Launcher">
                 </a>
                 <div class="emoji" data-link="asteroid">
                     <span class="emoji-icon">👍</span> 
@@ -454,8 +555,13 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Gotta Complete Them All</div>
                 <a href="https://neal.fun/life-checklist/" target="_blank" data-name="Life Checklist">
                     <img class="checklistImg" title="Gotta Complete Them All" src="https://neal.fun/link-images/life-checklist.svg" alt="Life Checklist">
                 </a>
@@ -465,10 +571,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Self Explanatory</div>
                 <a href="https://neal.fun/rocks/" target="_blank" data-name="Rocks">
-                    <img class="rocksImg" title="Self Explanatory" src="https://neal.fun/link-images/rocks.svg" alt="Rocks">
+                    <img class="rocksImg" src="https://neal.fun/link-images/rocks.svg" alt="Rocks">
                 </a>
                 <div class="emoji" data-link="rocks">
                     <span class="emoji-icon">👍</span> 
@@ -476,14 +587,19 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             </div>
 
             <!-- Row 3 -->
             <div class="row3">
                 <div class="gameItem">
+                    <div class="tooltip">Well Would Ya Look At That</div>
                 <a href="https://neal.fun/wonders-of-street-view/" target="_blank" data-name="Wonders Of Street View">
-                    <img class="streetViewImg" title="Well Would Ya Look At That" src="https://neal.fun/link-images/wonders-of-street-view.svg" alt="Wonders Of Street Views">
+                    <img class="streetViewImg" src="https://neal.fun/link-images/wonders-of-street-view.svg" alt="Wonders Of Street Views">
                 </a>
                 <div class="emoji" data-link="street">
                     <span class="emoji-icon">👍</span> 
@@ -491,8 +607,13 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Guess Who?</div>
                 <a href="https://neal.fun/who-was-alive/" target="_blank" data-name="Who Was Alive">
                     <img class="whoWasAliveImg" title="Guess Who" src="https://neal.fun/link-images/who-was-alive.svg" alt="Who Was Alive">
                 </a>
@@ -502,10 +623,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Take It One Billionth Year At A Time</div>
                 <a href="https://neal.fun/progress/" target="_blank" data-name="Progress">
-                    <img class="progressImg" title="One Billionth Year At A Time" src="https://neal.fun/link-images/progress.svg" alt="Progress">
+                    <img class="progressImg" src="https://neal.fun/link-images/progress.svg" alt="Progress">
                 </a>
                 <div class="emoji" data-link="progress">
                     <span class="emoji-icon">👍</span> 
@@ -513,10 +639,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">UH OH!</div>
                 <a href="https://neal.fun/days-since-incident/" target="_blank" data-name="Days Since Incident">
-                    <img class="daysSinceImg" title="UH OH!" src="https://neal.fun/link-images/days-since-incident.svg" alt="Days Since Incident">
+                    <img class="daysSinceImg" src="https://neal.fun/link-images/days-since-incident.svg" alt="Days Since Incident">
                 </a>
                 <div class="emoji" data-link="incident">
                     <span class="emoji-icon">👍</span> 
@@ -524,14 +655,19 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             </div>
 
             <!-- Row 4 -->
             <div class="row4">
                 <div class="gameItem">
+                    <div class="tooltip">Life's Important Questions</div>
                 <a href="https://neal.fun/lets-settle-this/" target="_blank" data-name="Let's Settle This">
-                    <img class="settleThisImg" title="Life's Important Questions" src="https://neal.fun/link-images/lets-settle-this.svg" alt="Let's Settle This">
+                    <img class="settleThisImg" src="https://neal.fun/link-images/lets-settle-this.svg" alt="Let's Settle This">
                 </a>
                 <div class="emoji" data-link="chat">
                     <span class="emoji-icon">👍</span> 
@@ -539,10 +675,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">The Wonders Of The Deep</div>
                 <a href="https://neal.fun/deep-sea/" target="_blank" data-name="The Deep Sea">
-                    <img class="deepSeaImg" title="The Wonders Of The Deep" src="https://neal.fun/link-images/deep-sea.svg" alt="The Deep Sea">
+                    <img class="deepSeaImg" src="https://neal.fun/link-images/deep-sea.svg" alt="The Deep Sea">
                 </a>
                 <div class="emoji" data-link="sea">
                     <span class="emoji-icon">👍</span> 
@@ -550,10 +691,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Explore The Ancient History Of The Internet</div>
                 <a href="https://neal.fun/internet-artifacts/" target="_blank" data-name="Internet Artifacts">
-                    <img class="internetArchivesImg" title="Explore The Ancient History of The Internet" src="https://neal.fun/link-images/internet-artifacts.svg" alt="Internet Artifacts">
+                    <img class="internetArchivesImg" src="https://neal.fun/link-images/internet-artifacts.svg" alt="Internet Artifacts">
                 </a>
                 <div class="emoji" data-link="internet">
                     <span class="emoji-icon">👍</span> 
@@ -561,10 +707,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Lofi But Now It's Chaos</div>
                 <a href="https://neal.fun/ambient-chaos/" target="_blank" data-name="Ambient Chaso">
-                    <img class="lofiChaosImg" title="Lofi But Now It's Chaos" src="https://neal.fun/link-images/ambient-chaos.svg" alt="Ambient Chaos">
+                    <img class="lofiChaosImg" src="https://neal.fun/link-images/ambient-chaos.svg" alt="Ambient Chaos">
                 </a>
                 <div class="emoji" data-link="chaos">
                     <span class="emoji-icon">👍</span> 
@@ -572,14 +723,19 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             </div>
 
             <!-- Row 5 -->
             <div class="row5">
                 <div class="gameItem">
+                    <div class="tooltip">See Whats Going On In Your Day</div>
                 <a href="https://neal.fun/where-does-the-day-go/" target="_blank" data-name="Where Does The Day Go">
-                    <img class="dayImg" title="See What Your Day Looks Like" src="https://neal.fun/link-images/where-does-the-day-go.svg" alt="Where Does The Day Go">
+                    <img class="dayImg" src="https://neal.fun/link-images/where-does-the-day-go.svg" alt="Where Does The Day Go">
                 </a>
                 <div class="emoji" data-link="day">
                     <span class="emoji-icon">👍</span> 
@@ -587,10 +743,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">SHHH...If Anyone Asks This Wasn't Here</div>
                 <a href="https://neal.fun/dark-patterns/" target="_blank" data-name="Dark Patterns">
-                    <img class="darkPatternsImg" title="SHHH...If Anyone Asks This Wasn't Here" src="https://neal.fun/link-images/dark-patterns.svg" alt="Dark Patterns">
+                    <img class="darkPatternsImg" src="https://neal.fun/link-images/dark-patterns.svg" alt="Dark Patterns">
                 </a>
                 <div class="emoji" data-link="patterns">
                     <span class="emoji-icon">👍</span> 
@@ -598,8 +759,13 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">For The Extraterrestials Why Not Leave A Review</div>
                 <a href="https://neal.fun/earth-reviews/movie-theaters/" target="_blank" data-name="Earthly Reviews">
                     <img class="reviewImg" title="For The Extraterrestrials: Why Not Leave A Review" src="https://neal.fun/link-images/earth-reviews.svg" alt="Earthly Reviews">
                 </a>
@@ -609,10 +775,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Find Out Whats Been Going On In Your Life</div>
                 <a href="https://neal.fun/life-stats/" target="_blank" data-name="Life Stats">
-                    <img class="statsImg" title="Find Out What's Been Going On In Your Life" src="https://neal.fun/link-images/life-stats.svg" alt="Life Stats">
+                    <img class="statsImg" src="https://neal.fun/link-images/life-stats.svg" alt="Life Stats">
                 </a>
                 <div class="emoji" data-link="stats">
                     <span class="emoji-icon">👍</span> 
@@ -620,14 +791,19 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             </div>
 
             <!-- Row 6 -->
             <div class="row6">
                 <div class="gameItem">
+                    <div class="tooltip">Don't Support The Sun One Day Its Going To Wal Out On Us</div>
                 <a href="https://neal.fun/sun-vs-moon/" target="_blank" data-name="Sun Vs. Moon">
-                    <img class="sunImg" title="Don't Support The Sun One Of These Days It's Going To Walk Out On Us" src="https://neal.fun/link-images/sun-vs-moon.svg" alt="Sun Vs. Moon">
+                    <img class="sunImg" src="https://neal.fun/link-images/sun-vs-moon.svg" alt="Sun Vs. Moon">
                 </a>
                 <div class="emoji" data-link="sun">
                     <span class="emoji-icon">👍</span> 
@@ -635,10 +811,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">I Wonder If Apple Uses This</div>
                 <a href="https://neal.fun/design-the-next-iphone/" target="_blank" data-name="Design The Next iphone">
-                    <img class="designImg" title="I Wonder If Apple Uses This" src="https://neal.fun/link-images/design-the-next-iphone.svg" alt="Design The Next iPhone">
+                    <img class="designImg" src="https://neal.fun/link-images/design-the-next-iphone.svg" alt="Design The Next iPhone">
                 </a>
                 <div class="emoji" data-link="iphone">
                     <span class="emoji-icon">👍</span> 
@@ -646,10 +827,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Capatalism By The Minute</div>
                 <a href="https://neal.fun/sell-sell-sell/" target="_blank" data-name="Sell Sell Sell">
-                    <img class="sellImg" title="Capitalism By The Minute" src="https://neal.fun/link-images/sell-sell-sell.svg" alt="Sell Sell Sell">
+                    <img class="sellImg" src="https://neal.fun/link-images/sell-sell-sell.svg" alt="Sell Sell Sell">
                 </a>
                 <div class="emoji" data-link="sell">
                     <span class="emoji-icon">👍</span> 
@@ -657,10 +843,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">The Universe Is Just A Phase</div>
                 <a href="https://neal.fun/universe-forecast/" target="_blank" data-name="The Future Of The Universe">
-                    <img class="universeImg" title="The Universe Is Just A Phase" src="https://neal.fun/link-images/universe-forecast.svg" alt="The Future Of The Universe">
+                    <img class="universeImg" src="https://neal.fun/link-images/universe-forecast.svg" alt="The Future Of The Universe">
                 </a>
                 <div class="emoji" data-link="universe">
                     <span class="emoji-icon">👍</span> 
@@ -668,14 +859,19 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             </div>
 
             <!-- Row 7 -->
             <div class="row7">
                 <div class="gameItem">
+                    <div class="tooltip">Why Your Life Is Insignificant</div>
                 <a href="https://neal.fun/size-of-space/" target="_blank" data-name="The Size Of The Universe">
-                    <img class="sizeImg" title="Why Your Life is Insignificant" src="https://neal.fun/link-images/size-of-space.svg" alt="The Size Of The Universe">
+                    <img class="sizeImg" src="https://neal.fun/link-images/size-of-space.svg" alt="The Size Of The Universe">
                 </a>
                 <div class="emoji" data-link="size">
                     <span class="emoji-icon">👍</span> 
@@ -683,10 +879,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Printing Money Is Now Legal I Guess</div>
                 <a href="https://neal.fun/printing-money/" target="_blank" data-name="Prinitng Money">
-                    <img class="moneyImg" title="Printing Money Is Now Legal I Guess" src="https://neal.fun/link-images/printing-money.svg" alt="Printing Money">
+                    <img class="moneyImg" src="https://neal.fun/link-images/printing-money.svg" alt="Printing Money">
                 </a>
                 <div class="emoji" data-link="money">
                     <span class="emoji-icon">👍</span> 
@@ -694,10 +895,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Your Always Moving Even When Your Not</div>
                 <a href="https://neal.fun/speed/" target="_blank" data-name="Speed">
-                    <img class="movingImg" title="You Are Always Moving Even When You're Not" src="https://neal.fun/link-images/speed.svg" alt="Speed">
+                    <img class="movingImg" src="https://neal.fun/link-images/speed.svg" alt="Speed">
                 </a>
                 <div class="emoji" data-link="speed">
                     <span class="emoji-icon">👍</span> 
@@ -705,10 +911,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">You Can Go To The Moon With Paper</div>
                 <a href="https://neal.fun/paper/" target="_blank" data-name="Paper">
-                    <img class="paperImg" title="You Can Go To The Moon With Paper" src="https://neal.fun/link-images/paper.svg" alt="Paper">
+                    <img class="paperImg" src="https://neal.fun/link-images/paper.svg" alt="Paper">
                 </a>
                 <div class="emoji" data-link="paper">
                     <span class="emoji-icon">👍</span> 
@@ -716,14 +927,19 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             </div>
 
             <!-- Row 8 -->
             <div class="row8">
                 <div class="gameItem">
+                    <div class="tooltip">Good Luck Your Gonna Need It</div>
                 <a href="https://neal.fun/logos-from-memory/" target="_blank" data-name="Draw The Logo From Memory">
-                    <img class="logoImg" title="Good Luck You're Gonna Need It" src="https://neal.fun/link-images/logos-from-memory.svg" alt="Draw The Logo From Memory">
+                    <img class="logoImg" src="https://neal.fun/link-images/logos-from-memory.svg" alt="Draw The Logo From Memory">
                 </a>
                 <div class="emoji" data-link="logo">
                     <span class="emoji-icon">👍</span> 
@@ -731,10 +947,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Where All Gonna Die</div>
                 <a href="https://neal.fun/progress/" target="_blank" data-name="Progress">
-                    <img class="progressImg" title="Where All Gonna Die" src="https://neal.fun/link-images/progress.svg" alt="Progress">
+                    <img class="progressImg" src="https://neal.fun/link-images/progress.svg" alt="Progress">
                 </a>
                 <div class="emoji" data-link="progress">
                     <span class="emoji-icon">👍</span> 
@@ -742,10 +963,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Discover What Its Like To Be Bill Gates</div>
                 <a href="https://neal.fun/spend/" target="_blank" data-name="Spend Bill Gates Money">
-                    <img class="billGatesImg" title="What It's Like To Be Bill Gates" src="https://neal.fun/link-images/spend.svg" alt="Spend Bill Gates Money">
+                    <img class="billGatesImg" src="https://neal.fun/link-images/spend.svg" alt="Spend Bill Gates Money">
                 </a>
                 <div class="emoji" data-link="bill">
                     <span class="emoji-icon">👍</span> 
@@ -753,10 +979,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Two Babys Are Born Every Second</div>
                 <a href="https://neal.fun/baby-map/" target="_blank" data-name="Baby Map">
-                    <img class="babyImg" title="A Baby Is Born Every Second" src="https://neal.fun/link-images/baby-map.svg" alt="Baby Map">
+                    <img class="babyImg" src="https://neal.fun/link-images/baby-map.svg" alt="Baby Map">
                 </a>
                 <div class="emoji" data-link="baby">
                     <span class="emoji-icon">👍</span> 
@@ -764,98 +995,205 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
+            </div>
+            </div>
+            <div class="row2">
+                <div class="gameItem">
+                    <div class="tooltip">To Infinity & Beyond</div>
+                    <a href="https://neal.fun/space-elevator/" target="_blank" data-name="Space Elevator">
+                        <img class="spaceElevatorImg" src="https://neal.fun/link-images/space-elevator.svg" alt="Space Elevator">
+                    </a>
+                    <div class="emoji" data-link="space">
+                        <span class="emoji-icon">👍</span> 
+                        <span class="counter">0</span> <!-- Thumbs up counter -->
+                        <span class="emoji-icon">❤️</span> 
+                        <span class="counter">0</span> <!-- Heart counter -->
+                    </div>
+                    <button class="add-to-category-btn">Add to Category</button>
+                    <select class="category-select" style="display:none;">
+                        <!-- Categories will be populated dynamically from /get_categories -->
+                    </select>
             </div>
             </div>
         </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            loadCategories(); // Load categories when page is ready
             initializeCounters(); // Initialize counters from localStorage
             setupEmojiClickListeners(); // Add listeners to emoji groups
+            setupCategoryButtonListeners(); // Set up "Add to Category" button listeners
         });
-    
-        // Function to initialize counters from localStorage
-        function initializeCounters() {
-    document.querySelectorAll('.emoji').forEach(emojiGroup => {
-        const websiteKey = emojiGroup.dataset.link;
-        emojiGroup.querySelectorAll('.emoji-icon').forEach((emoji, index) => {
-            const counter = emoji.nextElementSibling;
-            const emojiKey = `${websiteKey}-${emoji.textContent.trim()}`; // Use the emoji text content as part of the key
-            const savedCount = localStorage.getItem(emojiKey);
-
-            if (savedCount !== null) {
-                counter.textContent = savedCount; // Set the counter to the saved value
-            } else {
-                counter.textContent = '0'; // Default to 0 if no saved count
-            }
-        });
-    });
-}
-
-// Function to set up emoji click listeners
-async function setupEmojiClickListeners() {
-    document.querySelectorAll('.emoji-icon').forEach(emoji => {
-        emoji.addEventListener('click', async event => {
-            event.stopPropagation(); // Prevent click from propagating to parent elements
-            const emoji = event.target;
-            const counter = emoji.nextElementSibling;
-            const emojiGroup = emoji.closest('.emoji');
-            const websiteLink = emoji.closest('.gameItem').querySelector('a');
-            const websiteName = websiteLink.dataset.name;
-            const websiteType = emoji.textContent.trim() === '❤️' ? 'favorite' : emoji.textContent.trim() === '👍' ? 'liked' : ''; // Determine the type of the emoji (❤️ = favorite, 👍 = liked)
-
-            if (!websiteType) return; // Exit if it's an invalid emoji type
-
-            let currentCount = parseInt(counter.textContent, 10) || 0;
-            if (currentCount > 0) {
-                // Decrement if the counter is greater than 0
-                currentCount--;
-            } else {
-                // Increment if the counter is 0
-                currentCount++;
-            }
-            counter.textContent = currentCount; // Update the counter on the page
-
-            // Use emoji text (❤️ or 👍) as part of the unique key
-            const emojiKey = `${emojiGroup.dataset.link}-${emoji.textContent.trim()}`;
-            localStorage.setItem(emojiKey, currentCount.toString()); // Store the count in localStorage
-
-            const payload = {
-                url: websiteLink.href,
-                name: websiteName,
-                type: websiteType
-            };
-
+        
+        async function loadCategories() {
             try {
-                const response = await fetch('/toggle_website', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (response.ok) {
-                    const updatedHTML = await response.text(); // Get the HTML response
-                    document.getElementById('favorite-websites-list').innerHTML = updatedHTML.match(/<ul id="favorite-websites-list">([\s\S]*?)<\/ul>/)[1];
-                    document.getElementById('liked-websites-list').innerHTML = updatedHTML.match(/<ul id="liked-websites-list">([\s\S]*?)<\/ul>/)[1];
-
-                    // Reinitialize the counters after HTML is updated
-                    initializeCounters(); 
+                const response = await fetch('/get_categories');
+                const data = await response.json();
+                
+                console.log(data);  // Log the response data for debugging
+        
+                if (data.success) {
+                    document.querySelectorAll('.category-select').forEach(select => {
+                        // Clear existing options (in case of page updates)
+                        select.innerHTML = '<option value="">Select a category</option>';
+        
+                        // Add categories to the select dropdown
+                        data.categories.forEach(category => {
+                            const option = document.createElement('option');
+                            option.value = category.id;  // Ensure category.id is properly set
+                            option.textContent = category.name;
+                            select.appendChild(option);
+                        });
+        
+                        // Make the category select dropdown visible
+                        select.style.display = 'block';  // Show the dropdown
+                    });
                 } else {
-                    console.error('Failed to toggle website');
+                    console.error('Failed to load categories:', data.message);
                 }
             } catch (error) {
-                console.error('Error toggling website:', error);
+                console.error('Error fetching categories:', error);
             }
-        });
-    });
-}
-    
+        }
+        
+        async function setupCategoryButtonListeners() {
+            document.querySelectorAll('.add-to-category-btn').forEach(button => {
+                button.addEventListener('click', async event => {
+                    const websiteElement = button.closest('.gameItem');
+                    const categorySelect = websiteElement.querySelector('.category-select');
+                    const websiteLink = websiteElement.querySelector('a');
+                    const websiteName = websiteLink ? websiteLink.dataset.name : ''; // Use dataset name if available
+                    categorySelect.classList.toggle('show');
+                    
+                    // Check if the website link is valid
+                    if (!websiteLink || !websiteLink.href) {
+                        console.error('Website link is not defined.');
+                        alert('Invalid website link.');
+                        return;
+                    }
+        
+                    const categoryId = categorySelect.value; // Get the selected category ID
+        
+        
+        
+                    // Log payload to debug category ID
+                    const payload = {
+                        url: websiteLink.href, // Ensure this is properly retrieved
+                        name: websiteName,
+                        category_id: categoryId
+                    };
+        
+                    console.log('Payload:', payload);  // Log for debugging
+        
+                    try {
+                        const response = await fetch('/add_to_category', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+        
+                        const data = await response.json();
+        
+                        if (data.success) {
+                            alert('Website added to category!');
+                        } else {
+                            console.error('Failed to add website:', data.message);
+                        }
+                    } catch (error) {
+                        console.error('Error adding website to category:', error);
+                    }
+                });
+            });
+        }
+        
+        
+        // Function to initialize counters from localStorage
+        function initializeCounters() {
+            document.querySelectorAll('.emoji').forEach(emojiGroup => {
+                const websiteKey = emojiGroup.dataset.link;
+                emojiGroup.querySelectorAll('.emoji-icon').forEach((emoji, index) => {
+                    const counter = emoji.nextElementSibling;
+                    const emojiKey = `${websiteKey}-${emoji.textContent.trim()}`; // Use the emoji text content as part of the key
+                    const savedCount = localStorage.getItem(emojiKey);
+        
+                    if (savedCount !== null) {
+                        counter.textContent = savedCount; // Set the counter to the saved value
+                    } else {
+                        counter.textContent = '0'; // Default to 0 if no saved count
+                    }
+                });
+            });
+        }
+        
+        // Function to set up emoji click listeners
+        async function setupEmojiClickListeners() {
+            document.querySelectorAll('.emoji-icon').forEach(emoji => {
+                emoji.addEventListener('click', async event => {
+                    event.stopPropagation(); // Prevent click from propagating to parent elements
+                    const emoji = event.target;
+                    const counter = emoji.nextElementSibling;
+                    const emojiGroup = emoji.closest('.emoji');
+                    const websiteLink = emoji.closest('.gameItem').querySelector('a');
+                    const websiteName = websiteLink.dataset.name;
+                    const websiteType = emoji.textContent.trim() === '❤️' ? 'favorite' : emoji.textContent.trim() === '👍' ? 'liked' : ''; // Determine the type of the emoji (❤️ = favorite, 👍 = liked)
+        
+                    if (!websiteType) return; // Exit if it's an invalid emoji type
+        
+                    let currentCount = parseInt(counter.textContent, 10) || 0;
+                    if (currentCount > 0) {
+                        // Decrement if the counter is greater than 0
+                        currentCount--;
+                    } else {
+                        // Increment if the counter is 0
+                        currentCount++;
+                    }
+                    counter.textContent = currentCount; // Update the counter on the page
+        
+                    // Use emoji text (❤️ or 👍) as part of the unique key
+                    const emojiKey = `${emojiGroup.dataset.link}-${emoji.textContent.trim()}`;
+                    localStorage.setItem(emojiKey, currentCount.toString()); // Store the count in localStorage
+        
+                    const payload = {
+                        url: websiteLink.href,
+                        name: websiteName,
+                        type: websiteType
+                    };
+        
+                    try {
+                        const response = await fetch('/toggle_website', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+        
+                        if (response.ok) {
+                            const updatedHTML = await response.text(); // Get the HTML response
+                            document.getElementById('favorite-websites-list').innerHTML = updatedHTML.match(/<ul id="favorite-websites-list">([\s\S]*?)<\/ul>/)[1];
+                            document.getElementById('liked-websites-list').innerHTML = updatedHTML.match(/<ul id="liked-websites-list">([\s\S]*?)<\/ul>/)[1];
+        
+                            // Reinitialize the counters after HTML is updated
+                            initializeCounters(); 
+                        } else {
+                            console.error('Failed to toggle website');
+                        }
+                    } catch (error) {
+                        console.error('Error toggling website:', error);
+                    }
+                });
+            });
+        }
+        
         // Clear LocalStorage for debugging purposes
         function clearLocalStorage() {
             localStorage.clear();
             alert('Local Storage cleared!');
         }
-    </script>
+        
+            </script>
 
     <!-- Footer -->
     <footer>

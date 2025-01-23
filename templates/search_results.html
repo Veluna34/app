@@ -181,6 +181,9 @@
     font-size: 16px;
     font-weight: bold;
 }
+.gameItem {
+    position: relative;
+}
 
 
         @media (max-width: 768px) {
@@ -242,6 +245,7 @@
     <header>
         <nav>
             <ul>
+                <li><a href="{{ url_for('test') }}">SiteFinder</a></li>
                 <li><a href="{{ url_for('profile') }}">Profile</a></li>
                 <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
                 <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>

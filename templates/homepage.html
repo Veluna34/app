@@ -776,6 +776,47 @@ footer {
             margin-left: 28%;
         }
 
+              /* Style the button */
+              .add-to-category-btn {
+    background-color: #3498db;
+    color: white;
+    font-size: 16px;
+    padding: 5px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 60px;
+}
+
+.add-to-category-btn:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+}
+
+/* Style the select dropdown */
+.category-select {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding inside */
+    font-size: 16px; /* Font size */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background */
+    appearance: none; /* Remove default dropdown arrow */
+    cursor: pointer; /* Pointer cursor */
+    display: block; /* Ensure the select takes up full width */
+    margin-top: 10px; /* Space above */
+    opacity: 0; /* Initially hide the select element */
+    transition: opacity 0.3s ease; /* Smooth transition for visibility */
+}
+
+/* When the select is visible */
+.category-select.show {
+    opacity: 1; /* Make the select visible */
+}
+
+.gameItem {
+    position: relative;
+}
 
 </style>
 <script>
@@ -853,6 +894,7 @@ footer {
 
         <nav>
             <ul>
+                <li><a href="{{ url_for('test') }}">SiteFinder</a></li>
                 <li><a href="{{ url_for('profile') }}">Profile</a></li>
                 <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
                 <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
@@ -1067,7 +1109,7 @@ footer {
                             <div class="footer-column">
                                 <h3>Quick Links</h3>
                                 <div class="column1">
-                                    <a href="{{ url_for('donate') }}">Dpnate</a>
+                                    <a href="{{ url_for('donate') }}">Donate</a>
                                     <a href="{{ url_for('contact') }}">Contact</a>
                                     <a href="{{ url_for('share') }}">Share</a>
                                     <a href="{{ url_for('socialMedia') }}">My Socials</a>

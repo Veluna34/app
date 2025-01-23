@@ -182,7 +182,7 @@
         }
 
         .gameImgs img:hover {
-            border-color: #38464c;
+            border-color: #4a3333;
             transform: scale(1.1);
         }
 
@@ -267,12 +267,11 @@
             gap: 1%; /* Adjust gap between images */
             margin-top: 3%; /* Provide space above the row */
             flex-wrap: wrap; /* Allow wrapping of images if the screen width is narrow */
-            width: 150%; /* Fixed width for consistent size */
-            max-width: 298px; /* Optional: Set a maximum width for large screens */
+            width: 100%; /* Fixed width for consistent size */
+            max-width: 270px; /* Optional: Set a maximum width for large screens */
             height: auto; /* Maintain aspect ratio */
-            padding: 0 2%; /* Add padding to ensure spacing from the edges */
             object-fit: contain; /* Fit image within bounds without cropping */
-            border: .5em solid #437c94;
+            border: .5em solid #53487c;           
             border-radius: 1em;
             transition: transform 0.3s, border-color 0.3s;
         }
@@ -312,6 +311,34 @@
             margin-top: .5%;
             font-size: 1.1em;
         }
+
+        .gameItem {
+            position: relative;
+        }
+
+        .tooltip {
+    visibility: hidden;
+    width: 200px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px;
+    position: absolute;
+    margin-top: -85%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+    z-index: 1;
+}
+
+.gameItem:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+
+}
 
 
 
@@ -377,6 +404,7 @@
         </div>
         <nav>
             <ul>
+                <li><a href="{{ url_for('test') }}">SiteFinder</a></li>
                 <li><a href="{{ url_for('profile') }}">Profile</a></li>
                 <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
                 <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>

@@ -181,7 +181,7 @@
         }
 
         .gameImgs img:hover {
-            border-color: #38464c;
+            border-color: #4a3333;
             transform: scale(1.1);
         }
 
@@ -266,12 +266,11 @@
             gap: 1%; /* Adjust gap between images */
             margin-top: 3%; /* Provide space above the row */
             flex-wrap: wrap; /* Allow wrapping of images if the screen width is narrow */
-            width: 150%; /* Fixed width for consistent size */
-            max-width: 298px; /* Optional: Set a maximum width for large screens */
+            width: 100%; /* Fixed width for consistent size */
+            max-width: 270px; /* Optional: Set a maximum width for large screens */
             height: auto; /* Maintain aspect ratio */
-            padding: 0 2%; /* Add padding to ensure spacing from the edges */
             object-fit: contain; /* Fit image within bounds without cropping */
-            border: .5em solid #437c94;
+            border: .5em solid #53487c;            
             border-radius: 1em;
             transition: transform 0.3s, border-color 0.3s;
         }
@@ -288,7 +287,7 @@
             display: flex;
             justify-content: center;
             gap: 6%; /* Increase the gap between images */
-            margin-top: 10%; /* Adjust spacing above the row */
+            margin-top: 2%; /* Adjust spacing above the row */
             flex-wrap: wrap;
         }
 
@@ -401,6 +400,72 @@ form {
             padding: 1.2em; /* Reduce padding to fit */
         }
     }
+
+          /* Style the button */
+          .add-to-category-btn {
+    background-color: #3498db;
+    color: white;
+    font-size: 16px;
+    padding: 5px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 60px;
+}
+
+.add-to-category-btn:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+}
+
+/* Style the select dropdown */
+.category-select {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding inside */
+    font-size: 16px; /* Font size */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background */
+    appearance: none; /* Remove default dropdown arrow */
+    cursor: pointer; /* Pointer cursor */
+    display: block; /* Ensure the select takes up full width */
+    margin-top: 10px; /* Space above */
+    opacity: 0; /* Initially hide the select element */
+    transition: opacity 0.3s ease; /* Smooth transition for visibility */
+}
+
+/* When the select is visible */
+.category-select.show {
+    opacity: 1; /* Make the select visible */
+}
+
+.gameItem {
+    position: relative;
+}
+
+.tooltip {
+    visibility: hidden;
+    width: 200px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.gameItem:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+
+}
     </style>
     <script>
         document.getElementById('search').addEventListener('keydown', function(event) {
@@ -415,6 +480,7 @@ form {
     <header>
         <nav>
             <ul>
+                <li><a href="{{ url_for('test') }}">SiteFinder</a></li>
                 <li><a href="{{ url_for('profile') }}">Profile</a></li>
                 <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
                 <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
@@ -444,18 +510,24 @@ form {
             <!-- Row 1 -->
             <div class="row1">
                 <div class="gameItem">
+                <div class="tooltip">One Of The Biggest Internet Providers</div>
                 <a href="https://www.optimum.com/cf/?vn=dealreveal&ckmid=103259&a=144&ocid=1024040&agid=174947776484&subid=2028199670.2028199670.1767615186&s1=2028199670.2028199670.1767615186&cpid=118039&cookiereset=1&gclid=Cj0KCQiA1p28BhCBARIsADP9HrPu9LkByoJ24peHFeCtnPhlp5PHRCFxLz1WqM9DdORJcfUUAuXxFOYaAhmvEALw_wcB&device=c&leadid=&c=112381&s3=e.g.728688887895&s4=c&s6=9003590&ls=g&s20=118039&gad_source=1" target="_blank" data-name="Optimum">
-                    <img class="optimum" title="One Of The Biggest Internet Providers" src="https://www.optimum.com/sites/default/files/2023-06/optimum_logo_dark_900x471.png"  alt="Optimum"></a>
+                    <img class="optimum" src="https://www.optimum.com/sites/default/files/2023-06/optimum_logo_dark_900x471.png"  alt="Optimum"></a>
                     <div class="emoji" data-link="optimum">
                         <span class="emoji-icon">👍</span> 
                         <span class="counter">0</span> <!-- Thumbs up counter -->
                         <span class="emoji-icon">❤️</span> 
                         <span class="counter">0</span> <!-- Heart counter -->
                     </div>
+                    <button class="add-to-category-btn">Add to Category</button>
+                    <select class="category-select" style="display:none;">
+                        <!-- Categories will be populated dynamically from /get_categories -->
+                    </select>
                 </div>
                 <div class="gameItem">
+                    <div class="tooltip">The Best Of Wireless Internet</div>
                 <a href="https://www.verizon.com/business/products/mobile/deals/trade-in/?cmp=knc:ggl:ac:wls:dpr:8773990957_ds_cid_71700000080129998_ds_agid_58700006732089778&utm_term=verizon&utm_medium=cpc&utm_source=google&utm_campaign=GGL_BND_Wireless+General_Audience_Exact&utm_content=SuperPromo&gad_source=1&gclid=Cj0KCQiA1p28BhCBARIsADP9HrMSoa5Lko2kWDOjUtF3MyoOZkTZykdy9pLHITyC2QNiceNuPneviAgaAkW3EALw_wcB&gclsrc=aw.ds" target="_blank" data-name="Verizon">
-                    <img class="verizon" title="The Best Of Wireless Internet" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMcZlAjuKh7Kmin9Ue621lnkZpA11XUvAJiw&s" alt="Verizon">
+                    <img class="verizon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMcZlAjuKh7Kmin9Ue621lnkZpA11XUvAJiw&s" alt="Verizon">
                 </a>
                 <div class="emoji" data-link="verizon">
                     <span class="emoji-icon">👍</span> 
@@ -463,10 +535,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">One Of The Biggest & Best Internet Providers</div>
                 <a href="https://www.att.com/?source=EC1NTmmlp0000000P&tfn=homesolutions&WT.srch=1&wtExtndSource=att&ds_eid=700000002453638&ds_cid=71700000089758987&ds_agid=58700007591081816&ds_kids=p68533646538&gclsrc=aw.ds&gad_source=1&gclid=Cj0KCQiA1p28BhCBARIsADP9HrNh_SqmHUDOd5RpsKONrCEP7JrzdmCaVKdO9neLKif1ZM_Kv9ySm28aAhmlEALw_wcB&gclsrc=aw.ds" target="_blank" data-name="AT&T">
-                    <img class="at" title="One Of The Biggest & Best Internet Providers" src="https://www.bleepstatic.com/content/hl-images/2021/08/23/ATT.jpg" alt="AT&T">
+                    <img class="at" src="https://www.bleepstatic.com/content/hl-images/2021/08/23/ATT.jpg" alt="AT&T">
                 </a>
                 <div class="emoji" data-link="AT&T">
                     <span class="emoji-icon">👍</span> 
@@ -474,22 +551,32 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">The Best Deals For Internet & Devices</div>
                 <a href="https://www.t-mobile.com/?&cmpid=MGPO_PB_P_EVGRNPSTPD_43700071606574149_708137424881&gad_source=1&gclid=Cj0KCQiA1p28BhCBARIsADP9HrN8H-B8W70dADWq9jmKYAXZgwSvRC4YP-kbResUMA8pQW4CkQgJOPYaAtO_EALw_wcB&gclsrc=aw.ds" target="_blank" data-name="TMobile">
-                    <img class="Tmobile" title="The Best Deals For Internet & Devices" src="https://www.thetechedvocate.org/wp-content/uploads/2023/05/t-mobile.png" alt="TMobile T mobile">                </a>
+                    <img class="Tmobile" src="https://www.thetechedvocate.org/wp-content/uploads/2023/05/t-mobile.png" alt="TMobile T mobile">                </a>
                     <div class="emoji" data-link="Tmobile">
                         <span class="emoji-icon">👍</span> 
                         <span class="counter">0</span> <!-- Thumbs up counter -->
                         <span class="emoji-icon">❤️</span> 
                         <span class="counter">0</span> <!-- Heart counter -->
                     </div>
+                    <button class="add-to-category-btn">Add to Category</button>
+                    <select class="category-select" style="display:none;">
+                        <!-- Categories will be populated dynamically from /get_categories -->
+                    </select>
                 </div>
             </div>
 
             <!-- Row 2 -->
             <div class="row2">
                 <div class="gameItem">
+                    <div class="tooltip">Unlimited & Premium Wireless Internet</div>
                 <a href="https://www.mintmobile.com/" target="_blank" data-name="Mintmobile">
                     <img class="mint" title="Unlimited & Premium Wireless Internet" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThWl9kepZ_cfFrbvsL2AL0b8Pp8mNd71zBxw&s" alt="Mintmobile mint mobile">                </a>
                     <div class="emoji" data-link="mint">
@@ -498,107 +585,201 @@ form {
                         <span class="emoji-icon">❤️</span> 
                         <span class="counter">0</span> <!-- Heart counter -->
                     </div>
+                    <button class="add-to-category-btn">Add to Category</button>
+                    <select class="category-select" style="display:none;">
+                        <!-- Categories will be populated dynamically from /get_categories -->
+                    </select>
                 </div>
                 <div class="gameItem">
+                    <div class="tooltip">The Best Of Affordable Internet</div>
                 <a href="https://www.cricketwireless.com/" target="_blank" data-name="Cricket Wireless">
-                    <img class="cricket" title="The Best Of Affordable Internet" src="https://www.seniorliving.org/app/uploads/2019/05/Cricket-Wireless-Logo.png" alt="Cricket Wireless">                </a>
+                    <img class="cricket" src="https://www.seniorliving.org/app/uploads/2019/05/Cricket-Wireless-Logo.png" alt="Cricket Wireless">                </a>
                     <div class="emoji" data-link="cricket">
                         <span class="emoji-icon">👍</span> 
                         <span class="counter">0</span> <!-- Thumbs up counter -->
                         <span class="emoji-icon">❤️</span> 
                         <span class="counter">0</span> <!-- Heart counter -->
                     </div>
+                    <button class="add-to-category-btn">Add to Category</button>
+                    <select class="category-select" style="display:none;">
+                        <!-- Categories will be populated dynamically from /get_categories -->
+                    </select>
                 </div>
             </div>
         </div>
         <script>
             document.addEventListener('DOMContentLoaded', () => {
+                loadCategories(); // Load categories when page is ready
                 initializeCounters(); // Initialize counters from localStorage
                 setupEmojiClickListeners(); // Add listeners to emoji groups
+                setupCategoryButtonListeners(); // Set up "Add to Category" button listeners
             });
-        
-            // Function to initialize counters from localStorage
-            function initializeCounters() {
-        document.querySelectorAll('.emoji').forEach(emojiGroup => {
-            const websiteKey = emojiGroup.dataset.link;
-            emojiGroup.querySelectorAll('.emoji-icon').forEach((emoji, index) => {
-                const counter = emoji.nextElementSibling;
-                const emojiKey = `${websiteKey}-${emoji.textContent.trim()}`; // Use the emoji text content as part of the key
-                const savedCount = localStorage.getItem(emojiKey);
-    
-                if (savedCount !== null) {
-                    counter.textContent = savedCount; // Set the counter to the saved value
-                } else {
-                    counter.textContent = '0'; // Default to 0 if no saved count
-                }
-            });
-        });
-    }
-    
-    // Function to set up emoji click listeners
-    async function setupEmojiClickListeners() {
-        document.querySelectorAll('.emoji-icon').forEach(emoji => {
-            emoji.addEventListener('click', async event => {
-                event.stopPropagation(); // Prevent click from propagating to parent elements
-                const emoji = event.target;
-                const counter = emoji.nextElementSibling;
-                const emojiGroup = emoji.closest('.emoji');
-                const websiteLink = emoji.closest('.gameItem').querySelector('a');
-                const websiteName = websiteLink.dataset.name;
-                const websiteType = emoji.textContent.trim() === '❤️' ? 'favorite' : emoji.textContent.trim() === '👍' ? 'liked' : ''; // Determine the type of the emoji (❤️ = favorite, 👍 = liked)
-    
-                if (!websiteType) return; // Exit if it's an invalid emoji type
-    
-                let currentCount = parseInt(counter.textContent, 10) || 0;
-                if (currentCount > 0) {
-                    // Decrement if the counter is greater than 0
-                    currentCount--;
-                } else {
-                    // Increment if the counter is 0
-                    currentCount++;
-                }
-                counter.textContent = currentCount; // Update the counter on the page
-    
-                // Use emoji text (❤️ or 👍) as part of the unique key
-                const emojiKey = `${emojiGroup.dataset.link}-${emoji.textContent.trim()}`;
-                localStorage.setItem(emojiKey, currentCount.toString()); // Store the count in localStorage
-    
-                const payload = {
-                    url: websiteLink.href,
-                    name: websiteName,
-                    type: websiteType
-                };
-    
+            
+            async function loadCategories() {
                 try {
-                    const response = await fetch('/toggle_website', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-    
-                    if (response.ok) {
-                        const updatedHTML = await response.text(); // Get the HTML response
-                        document.getElementById('favorite-websites-list').innerHTML = updatedHTML.match(/<ul id="favorite-websites-list">([\s\S]*?)<\/ul>/)[1];
-                        document.getElementById('liked-websites-list').innerHTML = updatedHTML.match(/<ul id="liked-websites-list">([\s\S]*?)<\/ul>/)[1];
-    
-                        // Reinitialize the counters after HTML is updated
-                        initializeCounters(); 
+                    const response = await fetch('/get_categories');
+                    const data = await response.json();
+                    
+                    console.log(data);  // Log the response data for debugging
+            
+                    if (data.success) {
+                        document.querySelectorAll('.category-select').forEach(select => {
+                            // Clear existing options (in case of page updates)
+                            select.innerHTML = '<option value="">Select a category</option>';
+            
+                            // Add categories to the select dropdown
+                            data.categories.forEach(category => {
+                                const option = document.createElement('option');
+                                option.value = category.id;  // Ensure category.id is properly set
+                                option.textContent = category.name;
+                                select.appendChild(option);
+                            });
+            
+                            // Make the category select dropdown visible
+                            select.style.display = 'block';  // Show the dropdown
+                        });
                     } else {
-                        console.error('Failed to toggle website');
+                        console.error('Failed to load categories:', data.message);
                     }
                 } catch (error) {
-                    console.error('Error toggling website:', error);
+                    console.error('Error fetching categories:', error);
                 }
-            });
-        });
-    }
-        
+            }
+            
+            async function setupCategoryButtonListeners() {
+                document.querySelectorAll('.add-to-category-btn').forEach(button => {
+                    button.addEventListener('click', async event => {
+                        const websiteElement = button.closest('.gameItem');
+                        const categorySelect = websiteElement.querySelector('.category-select');
+                        const websiteLink = websiteElement.querySelector('a');
+                        const websiteName = websiteLink ? websiteLink.dataset.name : ''; // Use dataset name if available
+                        categorySelect.classList.toggle('show');
+                        
+                        // Check if the website link is valid
+                        if (!websiteLink || !websiteLink.href) {
+                            console.error('Website link is not defined.');
+                            alert('Invalid website link.');
+                            return;
+                        }
+            
+                        const categoryId = categorySelect.value; // Get the selected category ID
+            
+            
+            
+                        // Log payload to debug category ID
+                        const payload = {
+                            url: websiteLink.href, // Ensure this is properly retrieved
+                            name: websiteName,
+                            category_id: categoryId
+                        };
+            
+                        console.log('Payload:', payload);  // Log for debugging
+            
+                        try {
+                            const response = await fetch('/add_to_category', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(payload)
+                            });
+            
+                            const data = await response.json();
+            
+                            if (data.success) {
+                                alert('Website added to category!');
+                            } else {
+                                console.error('Failed to add website:', data.message);
+                            }
+                        } catch (error) {
+                            console.error('Error adding website to category:', error);
+                        }
+                    });
+                });
+            }
+            
+            
+            // Function to initialize counters from localStorage
+            function initializeCounters() {
+                document.querySelectorAll('.emoji').forEach(emojiGroup => {
+                    const websiteKey = emojiGroup.dataset.link;
+                    emojiGroup.querySelectorAll('.emoji-icon').forEach((emoji, index) => {
+                        const counter = emoji.nextElementSibling;
+                        const emojiKey = `${websiteKey}-${emoji.textContent.trim()}`; // Use the emoji text content as part of the key
+                        const savedCount = localStorage.getItem(emojiKey);
+            
+                        if (savedCount !== null) {
+                            counter.textContent = savedCount; // Set the counter to the saved value
+                        } else {
+                            counter.textContent = '0'; // Default to 0 if no saved count
+                        }
+                    });
+                });
+            }
+            
+            // Function to set up emoji click listeners
+            async function setupEmojiClickListeners() {
+                document.querySelectorAll('.emoji-icon').forEach(emoji => {
+                    emoji.addEventListener('click', async event => {
+                        event.stopPropagation(); // Prevent click from propagating to parent elements
+                        const emoji = event.target;
+                        const counter = emoji.nextElementSibling;
+                        const emojiGroup = emoji.closest('.emoji');
+                        const websiteLink = emoji.closest('.gameItem').querySelector('a');
+                        const websiteName = websiteLink.dataset.name;
+                        const websiteType = emoji.textContent.trim() === '❤️' ? 'favorite' : emoji.textContent.trim() === '👍' ? 'liked' : ''; // Determine the type of the emoji (❤️ = favorite, 👍 = liked)
+            
+                        if (!websiteType) return; // Exit if it's an invalid emoji type
+            
+                        let currentCount = parseInt(counter.textContent, 10) || 0;
+                        if (currentCount > 0) {
+                            // Decrement if the counter is greater than 0
+                            currentCount--;
+                        } else {
+                            // Increment if the counter is 0
+                            currentCount++;
+                        }
+                        counter.textContent = currentCount; // Update the counter on the page
+            
+                        // Use emoji text (❤️ or 👍) as part of the unique key
+                        const emojiKey = `${emojiGroup.dataset.link}-${emoji.textContent.trim()}`;
+                        localStorage.setItem(emojiKey, currentCount.toString()); // Store the count in localStorage
+            
+                        const payload = {
+                            url: websiteLink.href,
+                            name: websiteName,
+                            type: websiteType
+                        };
+            
+                        try {
+                            const response = await fetch('/toggle_website', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(payload)
+                            });
+            
+                            if (response.ok) {
+                                const updatedHTML = await response.text(); // Get the HTML response
+                                document.getElementById('favorite-websites-list').innerHTML = updatedHTML.match(/<ul id="favorite-websites-list">([\s\S]*?)<\/ul>/)[1];
+                                document.getElementById('liked-websites-list').innerHTML = updatedHTML.match(/<ul id="liked-websites-list">([\s\S]*?)<\/ul>/)[1];
+            
+                                // Reinitialize the counters after HTML is updated
+                                initializeCounters(); 
+                            } else {
+                                console.error('Failed to toggle website');
+                            }
+                        } catch (error) {
+                            console.error('Error toggling website:', error);
+                        }
+                    });
+                });
+            }
+            
             // Clear LocalStorage for debugging purposes
             function clearLocalStorage() {
                 localStorage.clear();
                 alert('Local Storage cleared!');
             }
-        </script>
+            
+                </script>
 
     <!-- Footer -->
     <footer>

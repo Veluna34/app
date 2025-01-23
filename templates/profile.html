@@ -59,9 +59,9 @@
 }
         .profile-container h2 {
             font-size: 1.8rem;
-            color: #BF3030;
+            color: #235c70;
             margin-bottom: 20px;
-            margin-top: -20px;
+            margin-top: -10px;
         }
 
         .profile-image {
@@ -258,7 +258,7 @@
     }
 
     #clearAllButton {
-    background-color: #BF3030; /* Bold red for prominence */
+    background-color: #248e8f; /* Bold red for prominence */
     color: #ffffff; /* White text for high contrast */
     border: none; /* Remove default borders */
     border-radius: 8px; /* Rounded corners for a modern feel */
@@ -268,10 +268,12 @@
     cursor: pointer; /* Pointer cursor to indicate actionability */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+    margin-top: 10px;
+    margin-left: 40%;
 }
 
 #clearAllButton:hover {
-    background-color: #d15656; /* Slightly lighter red for hover effect */
+    background-color: #5687d1; /* Slightly lighter red for hover effect */
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Enhanced shadow for hover */
     transform: translateY(-2px); /* Slight lift on hover */
 }
@@ -318,6 +320,168 @@
         color: brown;
     }
 
+    .categories-list {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #ffabab;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.categories-list h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+
+
+
+
+/* Categories List */
+#categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.category {
+    background-color: #ccf5ff8f;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 10px;
+}
+
+.category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.category-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.website-list {
+    list-style: none;
+}
+
+.website-item {
+    margin-bottom: 10px;
+}
+
+.website-link {
+    font-size: 1rem;
+    color: #3b8bfe;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.website-link:hover {
+    color: #2b6cc3;
+}
+
+.no-websites {
+    font-size: 1rem;
+    color: #888;
+}
+
+.no-categories {
+    font-size: 1rem;
+    color: #888;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Create New Category Button */
+.btn-create-category {
+    display: inline-block;
+    background-color: #248e8f; /* Green color for a modern look */
+    color: white;
+    padding: 10px 24px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.btn-create-category:hover {
+    background-color: #4572a0; /* Slightly darker green on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Increased shadow on hover */
+    transform: translateY(-3px); /* Lift effect on hover */
+}
+
+.btn-create-category:active {
+    background-color: #8e3e3e; /* Even darker green for active state */
+    transform: translateY(1px); /* Push down on click */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Softer shadow */
+}
+
+.btn-delete-category {
+    background-color: #3a00ff9c; /* Red for delete */
+    color: white;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-delete-category:hover {
+    background-color: #3f2fd3; /* Darker red on hover */
+    transform: translateY(-2px); /* Button lift effect on hover */
+}
+.gameItem {
+    position: relative;
+}
+
+.btn-delete-category:focus {
+    outline: none; /* Remove focus outline */
+}
+
+/* Specific styling for delete website button */
+
+
+/* Specific styling for delete website button */
+.btn-delete-website {
+    background-color: #ff5722;
+    color: white;
+    padding: 8px 12px;
+    font-size: 15px !important;
+    font-weight: 600;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    width: 25px;
+}
+
+
+.btn-delete-website:hover {
+    background-color: #e64a19; /* Darker orange on hover */
+    transform: translateY(-2px); /* Button lift effect on hover */
+}
+
+.btn-delete-website:focus {
+    outline: none; /* Remove focus outline */
+}
 
     </style>
 <script>
@@ -414,6 +578,8 @@ window.onload = function() {
                 <input type="file" id="profileImageInput" name="profileImage" accept="image/*" style="display:none;" onchange="this.form.submit()">
             </form>
         </div>
+
+        
     
         <!-- Favorite Websites Section -->
         <div class="hearted-websites">
@@ -465,51 +631,163 @@ window.onload = function() {
                 {% endif %}
 
             </ul>
-        </div>
+            <div class="categories-list">
+                <h2>Manage Categories</h2>
+                <button class="btn-create-category" onclick="createCategory()">Create New Category</button>
+                {% if categories_with_websites %}
+                    <div id="categories">
+                        {% for category in categories_with_websites %}
+                            <div class="category">
+                                <h2>{{ category.name }}</h2>
+                                <button class="btn-delete-category" onclick="deleteCategory({{ category.id }})">Delete Category</button>
+                                <ul>
+                                    {% if category.websites %}
+                                        {% for website in category.websites %}
+                                            <li id="website-{{ website.url }}">
+                                                <a href="{{ website.url }}" target="_blank">{{ website.name }}</a>
+                                                <button class="btn-delete-website" onclick="deleteWebsite('{{ website.url }}')">
+                                                    <i class="fas fa-trash-alt"></i> <!-- Font Awesome Trash Icon -->
+                                                </button>                                            
+                                            </li>
+                                        {% endfor %}
+                                    {% else %}
+                                        <li>No websites in this category.</li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>No categories Created</p>
+                {% endif %}
+            </div>
+
+
     
-        <!--
-        <button id="clearAllButton">Clear All Websites</button>
-    -->
+        
+        <button id="clearAllButton">Clear All</button>
 
     </div>
     <script>
-    function removeWebsite(button) {
-        const url = button.getAttribute('data-url');
-        const name = button.getAttribute('data-name');
-        const type = button.getAttribute('data-type');
-        const websiteItem = button.closest('li');  // The <li> containing the website
-    
-        // Confirm before removal
-        if (!confirm(`Are you sure you want to remove "${name}" from your ${type} list?`)) {
-            return;
-        }
-    
-        // Remove the website from the DOM immediately
-        websiteItem.remove();
-    
-        // Send a request to remove the website from the database
-        fetch('/toggle_website', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                url: url,
-                name: name,
-                type: type
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Reload the page after successful removal
-            location.reload();
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Failed to remove the website. Please try again.');
-            document.getElementById('favorite-websites-list').appendChild(websiteItem);
-        });
+async function deleteWebsite(url) {
+    if (!confirm('Are you sure you want to delete this website?')) return;
+
+    const response = await fetch('/delete_website', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: url })
+    });
+
+    const result = await response.json();
+    if (result.success) {
+        alert(result.message);
+        loadCategories();
+        location.reload();
+        // Refresh categories list
+    } else {
+        alert(result.message);
     }
+}
+
+
+
+    async function createCategory() {
+    const categoryName = prompt('Enter a name for the new category:');
+    if (!categoryName) return;
+
+    const response = await fetch('/create_category', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: categoryName })
+    });
+    const result = await response.json();
+    if (result.success) {
+        alert(result.message);
+        loadCategories(); // Refresh categories list
+    } else {
+        alert(result.message);
+    }
+
+    location.reload();
+}
+
+async function deleteCategory(category_id) {
+    if (!confirm('Are you sure you want to delete this category?')) return;
+
+    const response = await fetch('/delete_category', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: category_id })
+    });
+    const result = await response.json();
+    if (result.success) {
+        alert(result.message);
+        loadCategories(); // Refresh categories list
+        location.reload();
+    } else {
+        alert(result.message);
+    }
+}
+
+async function loadCategories() {
+    try {
+        const response = await fetch('/get_categories');
+        const data = await response.json();
+
+        if (data.success) {
+            const categoriesList = document.getElementById('categories-list');
+            categoriesList.innerHTML = '';
+
+            data.categories.forEach(category => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'category';
+                categoryDiv.innerHTML = `
+                    <h3>${category.name}</h3>
+                    <ul>
+                        ${category.websites.map(website => `
+                            <li>
+                                <a href="${website.url}" target="_blank">${website.name}</a>
+                            </li>`).join('')}
+                    </ul>
+                `;
+                categoriesList.appendChild(categoryDiv);
+            });
+        } else {
+            console.error('Failed to load categories:', data.message);
+        }
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+    }
+}
+
+document.getElementById('clearAllButton').addEventListener('click', async () => {
+    if (confirm('Are you sure you want to clear all websites from liked/favorites and categories?')) {
+        try {
+            // Send a request to clear all websites from liked/favorites and categories
+            const response = await fetch('/clear_all_websites', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                alert('All websites have been cleared!');
+                location.reload(); // Reload the page to update the UI
+            } else {
+                console.error('Failed to clear all websites:', data.message);
+                alert('Failed to clear all websites. Please try again later.');
+            }
+        } catch (error) {
+            console.error('Error clearing all websites:', error);
+            alert('An error occurred while clearing websites.');
+        }
+    }
+});
+
+// Initialize categories on page load
+document.addEventListener('DOMContentLoaded', loadCategories);
+
 </script>
 
 </body>

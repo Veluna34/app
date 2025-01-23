@@ -345,6 +345,7 @@ form {
     <header>
         <nav>
             <ul>
+                <li><a href="{{ url_for('test') }}">SiteFinder</a></li>
                 <li><a href="{{ url_for('profile') }}">Profile</a></li>
                 <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
                 <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
@@ -436,9 +437,10 @@ form {
             <div class="footer-column">
                 <h3>Quick Links</h3>
                 <div class="column1">
-                    <a href="{{ url_for('homepage') }}">Home Page</a>
-                    <a href="{{ url_for('originalgames') }}">Original Games</a>
-                    <a href="{{ url_for('timeline') }}">The Timeline</a>
+                    <a href="{{ url_for('donate') }}">Donate</a>
+                    <a href="{{ url_for('contact') }}">Contact</a>
+                    <a href="{{ url_for('share') }}">Share</a>
+                    <a href="{{ url_for('socialMedia') }}">My Socials</a>
                     <a href="{{ url_for('settings') }}">Account Settings</a>
                 </div>
             </div>
@@ -447,20 +449,21 @@ form {
                 <div class="column2">
                     <p>Email: redratgames1@gmail.com</p>
                     <p>Support Number: +1 (973) 934-0804</p>
-                    <a href="https://www.fiverr.com/red_rat_gaming?up_rollout=true">Fiverr</a>
-                    <a href="https://linkedin.com/in/aiden-figueroa-b5bab32a7/">LinkedIn</a>
                  </div>
             </div>
             <div class="footer-column">
-                <h3>Follow Us</h3>
-                <a href="https://www.patreon.com/c/redratgaming/membership">Patreon</a>
-                <a href="https://x.com/home" target="_blank">Twitter</a>
-                <a href="https://www.instagram.com/redratgaming/" target="_blank">Instagram</a>
-                <a href="https://www.facebook.com/media/set/?set=a.101837654803613&type=3" target="_blank">Facebook</a>
+                <h3>Pages</h3>
+                <a href="{{ url_for('games') }}">Games</a>
+                <a href="{{ url_for('media') }}">Streaming</a>
+                <a href="{{ url_for('shopping') }}">Shopping</a>
+                <a href="{{ url_for('social') }}">Social Platforms</a>
+                <a href="{{ url_for('work') }}">Productivity</a>
+                <a href="{{ url_for('design') }}">Design</a>
+                <a href="{{ url_for('information') }}">Information</a>
             </div>
         </div>
         <div class="footer-bottom">
-            &copy; 2024 Red Rat Gaming. All rights reserved.
+            &copy; 2025 Red Rat Games. All rights reserved.
         </div>
     </footer>
 

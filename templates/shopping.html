@@ -588,12 +588,9 @@ footer {
 <body>
 
     <header class="default">
-
-
-
-
         <nav>
             <ul>
+                <li><a href="{{ url_for('test') }}">SiteFinder</a></li>
                 <li><a href="{{ url_for('profile') }}">Profile</a></li>
                 <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
                 <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
@@ -645,12 +642,20 @@ footer {
                     </nav>
                 </section>
                 <section class="sewer-chamber">
-                    <h2>Marketplaces</h2>
+                    <h2>Marketplaces & Groceries</h2>
                     <nav>
                         <img src="https://leadquizzes.com/wp-content/uploads/2018/11/New-blog-graphic-19.jpg" alt="Browser Games" class="sewer-icon">
                         <a href="{{ url_for('marketplace') }}" class="sewer-link" target="_blank" data-title="Apps, Products, & Services Created By Everyone">Marketplaces</a>
                         <a href="{{ url_for('groceries') }}" class="sewer-link" target="_blank" data-title="Shop For Your Groceries Online & Even Get Them Delivered">Grocery Stores</a>
                         <img src="https://www.littlehouseliving.com/wp-content/uploads/2024/01/groceries-1200x1600.jpg" alt="Browser Games" class="sewer-icon">
+                    </nav>
+                </section>
+                <section class="sewer-chamber">
+                    <h2>Live Events</h2>
+                    <nav>
+                        <img src="https://img.freepik.com/free-vector/people-crowd-night-park-near-music-festival-stage-outdoor-public-party-performance-summer-city-street-with-musician-dancing-group-audience-spotlight-garland-bulb-light-outside-fest_107791-24204.jpg" alt="Browser Games" class="sewer-icon">
+                        <a href="{{ url_for('events') }}" class="sewer-link" target="_blank" data-title="Tickets, Coupons, & Deals For Events">Tickets & Events</a>
+                        <img src="https://img.freepik.com/free-vector/people-crowd-night-park-near-music-festival-stage-outdoor-public-party-performance-summer-city-street-with-musician-dancing-group-audience-spotlight-garland-bulb-light-outside-fest_107791-24204.jpg" alt="Browser Games" class="sewer-icon">
                     </nav>
                 </section>
                     <nav>

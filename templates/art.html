@@ -175,13 +175,12 @@
         }
 
         .row1 img, .row2 img, .row3 img, .row4 img, .row5 img, .row6 img, .row7 img, .row8 img{
-            border: .5em solid #437c94;
             border-radius: 1em;
             transition: transform 0.3s, border-color 0.3s;
         }
 
         .gameImgs img:hover {
-            border-color: #38464c;
+            border-color: #4a3333;
             transform: scale(1.1);
         }
 
@@ -269,9 +268,8 @@
             width: 100%; /* Fixed width for consistent size */
             max-width: 270px; /* Optional: Set a maximum width for large screens */
             height: auto; /* Maintain aspect ratio */
-            padding: 0 2%; /* Add padding to ensure spacing from the edges */
             object-fit: contain; /* Fit image within bounds without cropping */
-            border: .5em solid #437c94;
+            border: .5em solid #53487c;            
             border-radius: 1em;
             transition: transform 0.3s, border-color 0.3s;
         }
@@ -284,11 +282,39 @@
             flex-wrap: wrap;
         }
 
+        .gameItem {
+            position: relative;
+        }
+
+        .tooltip {
+    visibility: hidden;
+    width: 200px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.gameItem:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+
+}
+
         .row2, .row3{
             display: flex;
             justify-content: center;
             gap: 6%; /* Increase the gap between images */
-            margin-top: 10%; /* Adjust spacing above the row */
+            margin-top: 5%; /* Adjust spacing above the row */
             flex-wrap: wrap;
         }
 
@@ -346,6 +372,45 @@ form {
             margin-left: 5px;
             color: #ced4da;
         }
+
+        /* Style the button */
+        .add-to-category-btn {
+    background-color: #3498db;
+    color: white;
+    font-size: 16px;
+    padding: 5px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 60px;
+}
+
+.add-to-category-btn:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+}
+
+/* Style the select dropdown */
+.category-select {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding inside */
+    font-size: 16px; /* Font size */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background */
+    appearance: none; /* Remove default dropdown arrow */
+    cursor: pointer; /* Pointer cursor */
+    display: block; /* Ensure the select takes up full width */
+    margin-top: 10px; /* Space above */
+    opacity: 0; /* Initially hide the select element */
+    transition: opacity 0.3s ease; /* Smooth transition for visibility */
+}
+
+/* When the select is visible */
+.category-select.show {
+    opacity: 1; /* Make the select visible */
+}
+
         /* Responsive Styling */
         @media (max-width: 800px) { /* Added px unit */
     h1 {
@@ -412,6 +477,7 @@ form {
     <header>
         <nav>
             <ul>
+                <li><a href="{{ url_for('test') }}">SiteFinder</a></li>
                 <li><a href="{{ url_for('profile') }}">Profile</a></li>
                 <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
                 <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
@@ -433,7 +499,7 @@ form {
     <div class="content">
         <canvas></canvas>
 
-        <h1>The Best Art & Animation Tools</h1>
+        <h1>Art & Animation Tools</h1>
         <p class="click">Make Your Ideas A Live</p>
 
 
@@ -441,8 +507,9 @@ form {
             <!-- Row 1 -->
             <div class="row1">
                 <div class="gameItem">
+                    <div class="tooltip">Edit Your Graphics In Every Way Possible</div>
                 <a href="R6v6Nzx1iaRjEQGJhVvcFrdlk45LJ" target="_blank" data-name="Adbobe Photoshop">
-                    <img class="photo" title="Edit Your Graphics In Every Way Possible" src="https://cc-prod.scene7.com/is/image/CCProdAuthor/ps_kaizen_header_2x?$pjpeg$&jpegSize=100&wid=430"  alt="Adobe Photoshop">
+                    <img class="photo" src="https://cc-prod.scene7.com/is/image/CCProdAuthor/ps_kaizen_header_2x?$pjpeg$&jpegSize=100&wid=430"  alt="Adobe Photoshop">
                 </a>
                 <div class="emoji" data-link="photoshop">
                     <span class="emoji-icon">👍</span> 
@@ -450,10 +517,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none !important;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Professional Apps Made For Aspiring Artists</div>
                 <a href="https://procreate.com/" target="_blank" data-name="Procreate">
-                    <img class="pro" title="Professional Apps Made For Aspiring Artists" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd4hgOQHb8eQuDIeafCK2pfoUWS8pyxW0fFQ&s"  alt="Procreate">
+                    <img class="pro" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd4hgOQHb8eQuDIeafCK2pfoUWS8pyxW0fFQ&s"  alt="Procreate">
                 </a>
                 <div class="emoji" data-link="procreate">
                     <span class="emoji-icon">👍</span> 
@@ -461,34 +533,49 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">Create & Edit Vector Graphics</div>
                 <a href="https://inkscape.org/" target="_blank" data-name="Inkscape">
-                    <img class="ink" title="Create & Edit Vector Graphics" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGnwElq6pQoHmAxv8pqMmjbqXr1obIok7eyA&s"  alt="Inkscape">                </a>
+                    <img class="ink" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGnwElq6pQoHmAxv8pqMmjbqXr1obIok7eyA&s"  alt="Inkscape">                </a>
                     <div class="emoji" data-link="ink">
                         <span class="emoji-icon">👍</span> 
                         <span class="counter">0</span> <!-- Thumbs up counter -->
                         <span class="emoji-icon">❤️</span> 
                         <span class="counter">0</span> <!-- Heart counter -->
                     </div>
+                    <button class="add-to-category-btn">Add to Category</button>
+                    <select class="category-select" style="display:none;">
+                        <!-- Categories will be populated dynamically from /get_categories -->
+                    </select>
                 </div>
                 <div class="gameItem">
+                    <div class="tooltip">A Professional Vector Graphics Editor</div>
                     <a href="https://www.paintshoppro.com/en/products/paintshop-pro/standard/?sourceid=psp2023-xx-ppc_nbkws&x-vehicle=ppc_nbkws&trial=big&utm_medium=cpc&utm_source=google&utm_campaign=&utm_term=paintshop%20pro&utm_content=&utm_id=1696212657&extensionid=&matchtype=e&device=c&devicemodel=&creative=673396080638&network=g&placement=&x-source=ppc&x-target=ppc&promo=ppc&gad_source=1&gclid=CjwKCAiAg8S7BhATEiwAO2-R6meCxacxKazDpKRF2p-jx1la62Tdt3rDHqbUOkNACAI7PmGX4F3WFxoC8l8QAvD_BwE" target="_blank" data-name="Paint Shop Pro">
-                        <img class="paint" title="A Professional Vector Graphics Editor" src="https://logowik.com/content/uploads/images/paintshop-pro8303.logowik.com.webp"  alt="Paint Shop Pro">                </a>
+                        <img class="paint" src="https://logowik.com/content/uploads/images/paintshop-pro8303.logowik.com.webp"  alt="Paint Shop Pro">                </a>
                         <div class="emoji" data-link="paint shop">
                             <span class="emoji-icon">👍</span> 
                             <span class="counter">0</span> <!-- Thumbs up counter -->
                             <span class="emoji-icon">❤️</span> 
                             <span class="counter">0</span> <!-- Heart counter -->
                         </div>
+                        <button class="add-to-category-btn">Add to Category</button>
+                        <select class="category-select" style="display:none;">
+                            <!-- Categories will be populated dynamically from /get_categories -->
+                        </select>
                     </div>
             </div>
 
             <!-- Row 2 -->
             <div class="row2">
                 <div class="gameItem">
+                <div class="tooltip">3D Animation In Real Time</div>
                 <a href="https://www.blender.org/" target="_blank" data-name="Blender">
-                    <img class="blender" title="3D Animation In Real Time" src="https://www.kindpng.com/picc/m/286-2864921_blender-logo-blender-3d-logo-hd-png-download.png"  alt="Blender">
+                    <img class="blender" src="https://www.kindpng.com/picc/m/286-2864921_blender-logo-blender-3d-logo-hd-png-download.png"  alt="Blender">
                 </a>
                 <div class="emoji" data-link="blender">
                     <span class="emoji-icon">👍</span> 
@@ -496,10 +583,15 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">A Professional 2D Animation Software</div>
                 <a href="https://opentoonz.github.io/e/" target="_blank" data-name="OpenToonz">
-                    <img class="toonz" title="A Professional 2D Animation Software" src="https://ia802202.us.archive.org/21/items/opentoonzwinbuilds/optnz.jpg"  alt="OpenToonz open toonz">
+                    <img class="toonz" src="https://ia802202.us.archive.org/21/items/opentoonzwinbuilds/optnz.jpg"  alt="OpenToonz open toonz">
                 </a>
                 <div class="emoji" data-link="toonz">
                     <span class="emoji-icon">👍</span> 
@@ -507,20 +599,30 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">The Best Place For Hand-Drawn 2D Animation</div>
                 <a href="https://www.pencil2d.org/" target="_blank" data-name="Pencil 2D">
-                    <img class="pencil" title="the Best Place For Handrawn 2D Animations" src="https://i.ytimg.com/vi/ma52j9B1kEM/maxresdefault.jpg"  alt="Pencil 2D pencil2d">                </a>
+                    <img class="pencil" src="https://i.ytimg.com/vi/ma52j9B1kEM/maxresdefault.jpg"  alt="Pencil 2D pencil2d">                </a>
                     <div class="emoji" data-link="pencil">
                         <span class="emoji-icon">👍</span> 
                         <span class="counter">0</span> <!-- Thumbs up counter -->
                         <span class="emoji-icon">❤️</span> 
                         <span class="counter">0</span> <!-- Heart counter -->
                     </div>
+                    <button class="add-to-category-btn">Add to Category</button>
+                    <select class="category-select" style="display:none;">
+                        <!-- Categories will be populated dynamically from /get_categories -->
+                    </select>
                 </div>
                 <div class="gameItem">
+                    <div class="tooltip">A Vector Based 2D Animation Software</div>
                     <a href="https://www.synfig.org/" target="_blank" data-name="Synfig Studio">
-                        <img class="synfig" title="Vector Based 2D Animation Software" src="https://i0.wp.com/www.synfig.org/wp-content/uploads/2018/05/screenshot_001-4.png?fit=785%2C442&ssl=1"  alt="Synfig">
+                        <img class="synfig" src="https://i0.wp.com/www.synfig.org/wp-content/uploads/2018/05/screenshot_001-4.png?fit=785%2C442&ssl=1"  alt="Synfig">
                     </a>
                     <div class="emoji" data-link="synfig">
                         <span class="emoji-icon">👍</span> 
@@ -528,24 +630,34 @@ form {
                         <span class="emoji-icon">❤️</span> 
                         <span class="counter">0</span> <!-- Heart counter -->
                     </div>
+                    <button class="add-to-category-btn">Add to Category</button>
+                    <select class="category-select" style="display:none;">
+                        <!-- Categories will be populated dynamically from /get_categories -->
+                    </select>
                 </div>
-            </div>
+                </div>
 
             <!-- Row 3 -->
             <div class="row3">
                 <div class="gameItem">
+                    <div class="tooltip">Add Effects To Your Animations Before Production</div>
                 <a href="https://www.adobe.com/creativecloud/business/teams.html?gclid=CjwKCAiAg8S7BhATEiwAO2-R6sNofDw3gR6LDQmXEp--vcLjhOk71__GmFpZOvd9TsJJCz7ScRXzmxoC7uoQAvD_BwE&sdid=HVQ7WWTG&mv=search&mv2=paidsearch&ef_id=CjwKCAiAg8S7BhATEiwAO2-R6sNofDw3gR6LDQmXEp--vcLjhOk71__GmFpZOvd9TsJJCz7ScRXzmxoC7uoQAvD_BwE:G:s&s_kwcid=AL!3085!3!692372719362!e!!g!!adobe%20after%20effects!21067199189!160254733195&gad_source=1" target="_blank" data-name="Adbobe After Effects">
-                    <img class="after" title="Add Effects To Your Animations Before Production" src="https://5.imimg.com/data5/SELLER/Default/2023/9/347786755/QW/OA/FV/197867024/adobe-after-effect-cc-for-1-year-subscription-license.png"  alt="Adobe After Effects">                </a>
+                    <img class="after" src="https://5.imimg.com/data5/SELLER/Default/2023/9/347786755/QW/OA/FV/197867024/adobe-after-effect-cc-for-1-year-subscription-license.png"  alt="Adobe After Effects">                </a>
                     <div class="emoji" data-link="effects">
                         <span class="emoji-icon">👍</span> 
                         <span class="counter">0</span> <!-- Thumbs up counter -->
                         <span class="emoji-icon">❤️</span> 
                         <span class="counter">0</span> <!-- Heart counter -->
                     </div>
+                    <button class="add-to-category-btn">Add to Category</button>
+                    <select class="category-select" style="display:none;">
+                        <!-- Categories will be populated dynamically from /get_categories -->
+                    </select>
                 </div>
                 <div class="gameItem">
+                    <div class="tooltip">An Industry Standard & Professional Animation Tool</div>
                 <a href="https://www.adobe.com/products/animate.html" target="_blank" data-name="Adbobe Animate">
-                    <img class="animate" title="A Mutimedia Animation Software" src="https://cc-prod.scene7.com/is/image/CCProdAuthor/an_kaizen_header_2x?$pjpeg$&jpegSize=100&wid=430"  alt="Adobe Animate">
+                    <img class="animate" src="https://cc-prod.scene7.com/is/image/CCProdAuthor/an_kaizen_header_2x?$pjpeg$&jpegSize=100&wid=430"  alt="Adobe Animate">
                 </a>
                 <div class="emoji" data-link="animate">
                     <span class="emoji-icon">👍</span> 
@@ -553,71 +665,184 @@ form {
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
+                <div class="tooltip">An All In One Industry Standard Software</div>
                 <a href="https://www.toonboom.com/" target="_blank" data-name="Toon Boom">
-                    <img class="toon" title="An All In One Industry Standard Software" src="https://cdn3.toonboom.com/wp-content/uploads/2023/07/13093807/Toon-Boom-Logo-Banner.jpg"  alt="Toon Boom">                </a>
+                    <img class="toon" src="https://cdn3.toonboom.com/wp-content/uploads/2023/07/13093807/Toon-Boom-Logo-Banner.jpg"  alt="Toon Boom">                </a>
                     <div class="emoji" data-link="boom">
                         <span class="emoji-icon">👍</span> 
                         <span class="counter">0</span> <!-- Thumbs up counter -->
                         <span class="emoji-icon">❤️</span> 
                         <span class="counter">0</span> <!-- Heart counter -->
                     </div>
+                    <button class="add-to-category-btn">Add to Category</button>
+                    <select class="category-select" style="display:none;">
+                        <!-- Categories will be populated dynamically from /get_categories -->
+                    </select>
                 </div>
                 <div class="gameItem">
+                    <div class="tooltip">A 3D Computer Graphics Application</div>
                 <a href="https://www.autodesk.com/products/maya/overview?term=1-YEAR&tab=subscription" target="_blank" data-name="Autodesk Maya">
-                        <img class="maya" title="A 3D Computer Graphics Application" src="https://i.ytimg.com/vi/wo7EFaPw314/sddefault.jpg"  alt="Autodesk maya">                </a>
+                        <img class="maya" src="https://i.ytimg.com/vi/wo7EFaPw314/sddefault.jpg"  alt="Autodesk maya">                </a>
                         <div class="emoji" data-link="maya">
                             <span class="emoji-icon">👍</span> 
                             <span class="counter">0</span> <!-- Thumbs up counter -->
                             <span class="emoji-icon">❤️</span> 
                             <span class="counter">0</span> <!-- Heart counter -->
                         </div>
+                        <button class="add-to-category-btn">Add to Category</button>
+                        <select class="category-select" style="display:none;">
+                            <!-- Categories will be populated dynamically from /get_categories -->
+                        </select>
                     </div>
-            </div>
+                    </div>
             <div class="row3">
                 <div class="gameItem">
+                    <div class="tooltip">A Highly Versatile Animation Tool</div>
                 <a href="https://www.reallusion.com/cartoon-animator/default.html?gad_source=1&gclid=CjwKCAiAg8S7BhATEiwAO2-R6ta21FwLQDJynIDkvxD_CdodYoX2MH_kHpsKBAqr1wj6rKOwL4eNURoC0xsQAvD_BwE" target="_blank" data-name="Cartoon Animator">
-                    <img class="cartoon" title="A Highly Versatile Animation Tool" src="https://i.ytimg.com/vi/dKvNZQCZvo0/maxresdefault.jpg"  alt="Cartoon Animator">                </a>
+                    <img class="cartoon" src="https://i.ytimg.com/vi/dKvNZQCZvo0/maxresdefault.jpg"  alt="Cartoon Animator">                </a>
                     <div class="emoji" data-link="cartoon">
                         <span class="emoji-icon">👍</span> 
                         <span class="counter">0</span> <!-- Thumbs up counter -->
                         <span class="emoji-icon">❤️</span> 
                         <span class="counter">0</span> <!-- Heart counter -->
                     </div>
+                    <button class="add-to-category-btn">Add to Category</button>
+                    <select class="category-select" style="display:none;">
+                        <!-- Categories will be populated dynamically from /get_categories -->
+                    </select>
                 </div>
                 <div class="gameItem">
+                    <div class="tooltip">A Tool For Pixel Art & Character Sprites</div>
                 <a href="https://www.piskelapp.com/" target="_blank" data-name="Piskel">
-                        <img class="piskel" title="A Tool For Pixel Art & Character Sprites" src="https://wrdsbedtech.wordpress.com/wp-content/uploads/2016/09/piskel-logo.png?w=474"  alt="Piskel">                </a>
+                        <img class="piskel" src="https://wrdsbedtech.wordpress.com/wp-content/uploads/2016/09/piskel-logo.png?w=474"  alt="Piskel">                </a>
                         <div class="emoji" data-link="piskel">
                             <span class="emoji-icon">👍</span> 
                             <span class="counter">0</span> <!-- Thumbs up counter -->
                             <span class="emoji-icon">❤️</span> 
                             <span class="counter">0</span> <!-- Heart counter -->
                         </div>
+                        <button class="add-to-category-btn">Add to Category</button>
+                        <select class="category-select" style="display:none;">
+                            <!-- Categories will be populated dynamically from /get_categories -->
+                        </select>
                     </div>
                 <div class="gameItem">
+                    <div class="tooltip">A 2D Animation Software For Games</div>
                 <a href="https://esotericsoftware.com/" target="_blank" data-name="Spine">
-                    <img class="spine" title="A 2D Animation Software For Games" src="https://i.ytimg.com/vi/62hN3uyRQc4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCnoc2YGpWdQDdNXaa5lM90wvKOOQ"  alt="Spine">                </a>
+                    <img class="spine" src="https://i.ytimg.com/vi/62hN3uyRQc4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCnoc2YGpWdQDdNXaa5lM90wvKOOQ"  alt="Spine">                </a>
                     <div class="emoji" data-link="spine">
                         <span class="emoji-icon">👍</span>
                         <span class="counter">0</span> <!-- Thumbs up counter -->
                         <span class="emoji-icon">❤️</span> 
                         <span class="counter">0</span> <!-- Heart counter -->
                     </div>
+                    <button class="add-to-category-btn">Add to Category</button>
+                    <select class="category-select" style="display:none;">
+                        <!-- Categories will be populated dynamically from /get_categories -->
+                    </select>
+                </div>
                 </div>
             </div>
         </div>
-    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            initializeCounters(); // Initialize counters from localStorage
-            setupEmojiClickListeners(); // Add listeners to emoji groups
+document.addEventListener('DOMContentLoaded', () => {
+    loadCategories(); // Load categories when page is ready
+    initializeCounters(); // Initialize counters from localStorage
+    setupEmojiClickListeners(); // Add listeners to emoji groups
+    setupCategoryButtonListeners(); // Set up "Add to Category" button listeners
+});
+
+async function loadCategories() {
+    try {
+        const response = await fetch('/get_categories');
+        const data = await response.json();
+        
+        console.log(data);  // Log the response data for debugging
+
+        if (data.success) {
+            document.querySelectorAll('.category-select').forEach(select => {
+                // Clear existing options (in case of page updates)
+                select.innerHTML = '<option value="">Select a category</option>';
+
+                // Add categories to the select dropdown
+                data.categories.forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category.id;  // Ensure category.id is properly set
+                    option.textContent = category.name;
+                    select.appendChild(option);
+                });
+
+                // Make the category select dropdown visible
+                select.style.display = 'block';  // Show the dropdown
+            });
+        } else {
+            console.error('Failed to load categories:', data.message);
+        }
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+    }
+}
+
+async function setupCategoryButtonListeners() {
+    document.querySelectorAll('.add-to-category-btn').forEach(button => {
+        button.addEventListener('click', async event => {
+            const websiteElement = button.closest('.gameItem');
+            const categorySelect = websiteElement.querySelector('.category-select');
+            const websiteLink = websiteElement.querySelector('a');
+            const websiteName = websiteLink ? websiteLink.dataset.name : ''; // Use dataset name if available
+            categorySelect.classList.toggle('show');
+            
+            // Check if the website link is valid
+            if (!websiteLink || !websiteLink.href) {
+                console.error('Website link is not defined.');
+                alert('Invalid website link.');
+                return;
+            }
+
+            const categoryId = categorySelect.value; // Get the selected category ID
+
+
+
+            // Log payload to debug category ID
+            const payload = {
+                url: websiteLink.href, // Ensure this is properly retrieved
+                name: websiteName,
+                category_id: categoryId
+            };
+
+            console.log('Payload:', payload);  // Log for debugging
+
+            try {
+                const response = await fetch('/add_to_category', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('Website added to category!');
+                } else {
+                    console.error('Failed to add website:', data.message);
+                }
+            } catch (error) {
+                console.error('Error adding website to category:', error);
+            }
         });
-    
-        // Function to initialize counters from localStorage
-        function initializeCounters() {
+    });
+}
+
+
+// Function to initialize counters from localStorage
+function initializeCounters() {
     document.querySelectorAll('.emoji').forEach(emojiGroup => {
         const websiteKey = emojiGroup.dataset.link;
         emojiGroup.querySelectorAll('.emoji-icon').forEach((emoji, index) => {
@@ -691,13 +916,15 @@ async function setupEmojiClickListeners() {
         });
     });
 }
-    
-        // Clear LocalStorage for debugging purposes
-        function clearLocalStorage() {
-            localStorage.clear();
-            alert('Local Storage cleared!');
-        }
+
+// Clear LocalStorage for debugging purposes
+function clearLocalStorage() {
+    localStorage.clear();
+    alert('Local Storage cleared!');
+}
+
     </script>
+
     <!-- Footer -->
     <footer>
         <div class="footer-container">

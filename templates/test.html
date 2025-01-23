@@ -3,214 +3,564 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Bot - Top 5 Relevant Links</title>
+    <title>Website Relevance Finder</title>
     <style>
-        /* styles.css */
+        /* Global Styles */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ffdd6c, #9aff56); /* Soft gradient from light blue to pale blue */
             margin: 0;
             padding: 0;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
         }
 
         h1 {
+            color: #524901;
+            font-size: 2.5rem;
             text-align: center;
-            font-size: 24px;
             margin-bottom: 20px;
         }
 
-        .input-section {
+        #search {
+    position: relative;
+    width: 80%;
+    padding: 5px;
+    font-size: 1.2rem;
+    border: 2px solid #742a2a;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    left: 25vh;
+}
+
+        /* Input and Button */
+        .input-container {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
         }
 
-        #userPrompt {
-            width: 80%;
-            padding: 10px;
+        input[type="text"] {
+            padding: 12px;
+            width: 300px;
             font-size: 16px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        input[type="text"]:focus {
+            border-color: #4e73df;
         }
 
         button {
-            padding: 10px 20px;
+            padding: 12px 20px;
             font-size: 16px;
-            background-color: #4CAF50;
+            cursor: pointer;
+            background-color: #4e73df;
             color: white;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease-in-out;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #2e59d9;
         }
 
-        .results-section {
+        /* Loading and Error Messages */
+        #loading, #error-message {
+            display: none;
+            font-size: 18px;
+            text-align: center;
             margin-top: 20px;
         }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
+        #loading {
+            color: #4e73df;
+            font-weight: bold;
         }
 
-        li {
+        #error-message {
+            color: #e74a3b;
+            font-weight: bold;
+        }
+
+        /* Results */
+        #results {
+            width: 100%;
+            max-width: 700px;
+            margin-top: 30px;
+        }
+
+        #results ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #results li {
+            padding: 12px;
+            background-color: #fff7bc;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        #results li:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #results a {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 16px;
+            word-wrap: break-word;
+        }
+
+        #results a:hover {
+            text-decoration: underline;
+        }
+
+        input {
             padding: 8px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
+            width: 100%;
             margin-bottom: 10px;
             border: 1px solid #ddd;
         }
 
-        li a {
-            text-decoration: none;
-            color: #4CAF50;
+        p{
+            text-align: center;
             font-weight: bold;
         }
 
-        li a:hover {
+        header{
+    position: fixed; /* Keep it at the top of the screen */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #191d1e;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    padding: 1em 1em;
+    z-index: 10;
+    justify-content: space-between;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+nav {
+    display: flex;
+    justify-content: flex-start;
+    flex-grow: 1;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    font-size: 1.1em;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    margin-left: 10vw;
+}
+
+nav ul li {
+    margin-left: 1vw;
+}
+
+nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #a3a3a3;
+}
+
+.logo {
+    position: absolute;
+    right: 1em;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.username {
+    margin-right: 250px;  /* Space between logo and username */
+    font-size: 16px;
+    font-weight: bold;
+}
+
+footer{
+background-color: #1e374f;
+    color: #ffffff;
+    padding: 3em 2em;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    transform: translate(0vw, 10vh);
+}
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            transform: translate(5vw, -7vh);
+        }
+
+        .column1{
+            transform: translate(.25vw, -.25vh);
+        }
+
+        .column2{
+            transform: translate(-7vw, -.4vh);
+        }
+
+        .footer-column h3 {
+            color: #c192ff;
+            font-size: 1.5em;
+            margin-bottom: 1.5vh;
+        }
+
+        .footer-column p, 
+        .footer-column a {
+            color: #ced4da;
+            font-size: 1em;
+            text-decoration: none;
+            margin-bottom: 0.2vw;
+            display: block;
+        }
+
+        .footer-column a:hover {
+            color: #ffffff;
             text-decoration: underline;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5em;
+            font-size: 1em;
+            color: #ced4da;
+            border-top: .5vh solid #ced4da;
+        }
+
+        .about{
+            text-align: center;
+            transform: translate(-7vw, 0vw);
+        }
+
+        h1{
+            margin-top: 300px;
+        }
+
+        
+
+        /* Responsive Styling */
+        @media (max-width: 768px) {
+            h1 {
+                margin-top: 300px;
+            }
+
+            header{
+                position: static;
+                margin-top: 200px;
+            }
+
+            .input-container {
+                flex-direction: column;
+            }
+
+            input[type="text"] {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            button {
+                width: 100%;
+                max-width: 320px;
+            }
+
+            #results li {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+
+            @media (max-width: 768px) {
+            
+            /* Add margin to the body or .hello element to prevent overlap with the header */
+            body {
+                padding-top: 6em; /* Ensure there's enough space below the header */
+            }
+
+            
+            /* Stacking navigation items and adjusting other elements in the header */
+            nav ul {
+                flex-direction: column; /* Stack nav items on smaller screens */
+                align-items: flex-start;
+            }
+
+            nav ul li {
+                margin-left: 0;
+                margin-bottom: 0.5em;
+            }
+
+
+            .content-container {
+            flex-direction: column; /* Stack items on smaller screens */
+            }
+
+
+            .about{
+                text-align: left;
+            }
+
+            #search{
+                left: 0vw;
+                width: 30% !important;;
+            }
+
+
+        }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>AI Bot for Relevant Links</h1>
-        <div class="input-section">
-            <input type="text" id="userPrompt" placeholder="Enter a topic (e.g., 3D art websites)" />
-            <button onclick="getRelevantLinks()">Get Relevant Links</button>
-        </div>
-        <div id="resultsSection" class="results-section" style="display: none;">
-            <ul id="resultsList"></ul>
-        </div>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('test') }}">SiteFinder</a></li>
+                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
+                <li><a href="{{ url_for('signInPage') }}">Sign In</a></li>
+    
+            </ul>
+
+            <form action="{{ url_for('search') }}" method="get">
+                <input type="text" name="query" id="search" placeholder="Search for anything..." value="{{ query or '' }}" />
+            </form>
+        </nav>
+        {% if session.get('username') %}
+        <span class="username">Welcome: {{ session['username'] }}!</span>
+    {% else %}
+        <span>Welcome: Guest!</span>
+    {% endif %}
+    
+    </header>
+    <h1>SiteFinder A.I.</h1>
+    <p>Welcome To The First Artificial Web Intelligence: <br> Get A Website For Anything You Need <br><br> Example Prompt: Give Me Websites For Art</p>
+
+    <div class="input-container">
+        <input type="text" id="userPrompt" placeholder="Find A Website..." />
+        <button onclick="getRelevantLinks()">Search</button>
     </div>
 
+    <div id="loading">Loading, please wait...</div>
+    <div id="error-message"></div>
+    <div id="results"></div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                    <h3>About Me</h3>
+                    <p class="about">I am An Aspiring Game Designer Hoping <br> To Inrodce The World To My Imagination <br> And Bring People Together With Entertainment</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <div class="column1">
+                        <a href="{{ url_for('donate') }}">Donate</a>
+                        <a href="{{ url_for('contact') }}">Contact</a>
+                        <a href="{{ url_for('share') }}">Share</a>
+                        <a href="{{ url_for('socialMedia') }}">My Socials</a>
+                        <a href="{{ url_for('settings') }}">Account Settings</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <div class="column2">
+                        <p>Email: redratgames1@gmail.com</p>
+                        <p>Support Number: +1 (973) 934-0804</p>
+                     </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Pages</h3>
+                    <a href="{{ url_for('games') }}">Games</a>
+                    <a href="{{ url_for('media') }}">Streaming</a>
+                    <a href="{{ url_for('shopping') }}">Shopping</a>
+                    <a href="{{ url_for('social') }}">Social Platforms</a>
+                    <a href="{{ url_for('work') }}">Productivity</a>
+                    <a href="{{ url_for('design') }}">Design</a>
+                    <a href="{{ url_for('information') }}">Information</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2025 Red Rat Games. All rights reserved.
+            </div>
+        </footer>
+
     <script>
-        // app.js
+        const categories = {
+            "art": ["animation", "3d", "2d", "sketch", "drawing", "digital art", "painting", "illustration", "art", "animating"],
+            "business": ["entrepreneur", "startup", "corporate", "finance"],
+            "technology": ["tech", "technology", "gadget", "coding", "programming", "ai", "software", "development"],
+            "education": ["education", "learn", "courses", "study", "online courses", "university", "colle", "homework"],
+            "health": ["health", "wellness", "medicine", "nutrition", "medical", "aging"],
+            "science": ["science", "physics", "biology", "chemistry", "research", "space"],
+            "finance": ["finance", "investment", "stock", "cryptocurrency", "economy", "invest", "ivesting", "money"],
+            "gaming": ["gaming news", "game news", "ign", "gamespot", "game reviews", "game news", "gaming news", "gaming reviews"],
+            "travel": ["travel", "vacation", "trip", "hotel", "flights", "destination", "flying", "travelling", "hotels", "places to stay"],
+            "news": ["news", "journalism", "headlines", "updates", "breaking news", "current events", "politics"],
+            "sports": ["sports", "football", "soccer", "basketball", "baseball", "athletes", "hockey", "WWE", 'wrestling', "golf", "boxing", "nba", "nfl", "espn"],
+            "shopping": ["shopping", "buy", "store", "online store", "products", "marketplace", "marketplaces", "stores", "shops", "online shops", "retail stores", "retail", "goods", "grocery", "groceries", "grocery stores"], 
+            "programming": ["programming", "coding", "developer", "git", "github", "javascript", "python", "development", "code", "program"],
+            "movies": ["movie", "film", "cinema", "tv shows", "reviews", "hollywood", "movies", "films", "show", "shows"],
+            "food": ["food", "foods", "meals", "meal", "treats", "treat", "recipy", "recipies"],
+            "music": ["music", "song", "songs"],
+            "music": ["music", "song", "songs"],
+            "fashion": ["fashion", "clothing", "clothes", "shirts", "pants"],
+            "books": ["book", "books", "read", "reading", "novel", "novels", "comics", "comic", "graphic novel", "graphic novels"],
+            "fitness": ["workouts", "working out", "exercise", "exefcising", "fit", "fitness"],
+            "workout": ["working out", "crossfit", "strength training", "calistenics", "workout"],
+            "history": ["history", "historical", "history events", "historical events", "history events"],
+            "automative": ["cars", "car", "dealership", "dealerships"],
+            "automative": ["cars", "car", "dealership", "dealerships"],
+            "nature": ["nature", "ocean", "oceans", "trees", "tree", "hikes", "hike", "hiking", "forest", "forest", "park", "parks"],
+            "nature": ["nature", "ocean", "oceans", "trees", "tree", "hikes", "hike", "hiking", "forest", "forest", "park", "parks"],
+            "mental": ["mind", "mental", "mentallity", "mental health", "stress", "mental disease", "sleep", "help"],
+            "personalMedia": ["social media", "social", "socailize", "friends", "family", "friend", "family", "socializing"],
+            "professionalMedia": ["profesional", "social media", "work", "advertise", "advertising", "advertisement", "advertisements"],
+            "video": ["video", "videos", "video editing", "video creation", "stream", "streaming", "streamers", "youtubers"],
+            "manage": ["manage", "management", "business", "business management", "work", "working"],
+            "internet": ["internet", "wireless", "PROVIDER", "providers"],
+            "games": ["games", "game", "video game", "video games", "gaming"],
+            "electronics": ["electronics", "devices", "device", "computer", "computers", "engineer", "engineering", "circuit", "circuitry", "circuits"]
+            
+        };
 
-        // Function to call the Flask backend
+        function boldKeywords(text) {
+    categories.forEach(keyword => {
+        // Create a regular expression that matches the whole word (case insensitive)
+        const regex = new RegExp(`\\b${keyword}\\b`, 'gi');
+        
+        // Replace the matched keyword with its bolded version
+        text = text.replace(regex, `<b>${keyword}</b>`);
+    });
+    return text;
+}
         function getRelevantLinks() {
-            const userPrompt = document.getElementById("userPrompt").value;
-            const resultsList = document.getElementById("resultsList");
-            const resultsSection = document.getElementById("resultsSection");
+            const prompt = document.getElementById('userPrompt').value.toLowerCase();
+            const loadingMessage = document.getElementById('loading');
+            const errorMessage = document.getElementById('error-message');
+            const resultsDiv = document.getElementById('results');
 
-            // Clear previous results
-            resultsList.innerHTML = '';
-            resultsSection.style.display = 'none';
+            // Reset previous results and messages
+            errorMessage.style.display = 'none';
+            resultsDiv.innerHTML = '';
+            loadingMessage.style.display = 'block'; // Show loading message
 
-            if (userPrompt.trim() === "") {
-                alert("Please enter a topic.");
+            console.log("User prompt:", prompt); // Debugging: Log the prompt to the console.
+
+            // Detect the category based on the user's input
+            let selectedCategory = null;
+            for (const category in categories) {
+                console.log("Checking category:", category); // Debugging: Log category being checked.
+
+                for (const keyword of categories[category]) {
+                    console.log("Checking keyword:", keyword); // Debugging: Log keyword being checked.
+
+                    if (prompt.includes(keyword)) {
+                        selectedCategory = category;
+                        console.log("Category found:", selectedCategory); // Debugging: Log when a match is found.
+                        break;
+                    }
+                }
+                if (selectedCategory) break; // Exit the loop once a category is found.
+            }
+
+            // If no category is detected, show an error message
+            if (!selectedCategory) {
+                loadingMessage.style.display = 'none';
+                errorMessage.innerHTML = 'No websites found: try a more general search term and check for typos <br> Other promps to try: shopping, science, movies, news';
+                errorMessage.style.display = 'block';
                 return;
             }
 
-            // Display loading indicator (optional)
-            resultsList.innerHTML = '<li>Loading...</li>';
+            // Debugging: Log the selected category.
+            console.log("Selected category:", selectedCategory);
 
-            // Send the user prompt to the backend (Python server)
+            // Fetch the relevant websites for the detected category
             fetch('/get_relevant_links', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ prompt: userPrompt })
+                body: JSON.stringify({ prompt: selectedCategory }), // Send the detected category to the backend
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`); // Handle non-2xx responses
+                }
+                return response.json();
+            })
             .then(data => {
-                if (data && data.links && data.links.length > 0) {
-                    resultsList.innerHTML = '';  // Clear the loading text
+                loadingMessage.style.display = 'none'; // Hide loading message
 
-                    // Display the top 5 relevant links
-                    data.links.forEach((link, index) => {
-                        const listItem = document.createElement("li");
-                        const linkElement = document.createElement("a");
-                        linkElement.href = link;
-                        linkElement.target = "_blank";
-                        linkElement.textContent = `Link ${index + 1}: ${link}`;
-                        listItem.appendChild(linkElement);
-                        resultsList.appendChild(listItem);
+                if (data.error) {
+                    errorMessage.textContent = data.error;
+                    errorMessage.style.display = 'block';
+                } else if (data.links && data.links.length > 0) {
+                    const ul = document.createElement('ul');
+                    data.links.forEach(link => {
+                        const li = document.createElement('li');
+                        const a = document.createElement('a');
+                        a.href = link;
+                        a.textContent = link;
+                        li.appendChild(a);
+                        ul.appendChild(li);
                     });
-
-                    resultsSection.style.display = 'block';
+                    resultsDiv.appendChild(ul);
                 } else {
-                    resultsList.innerHTML = '<li>No relevant links found. Please try a different query.</li>';
+                    errorMessage.textContent = 'No relevant websites found.';
+                    errorMessage.style.display = 'block';
                 }
             })
             .catch(error => {
-                resultsList.innerHTML = '<li>Error fetching results. Please try again later.</li>';
-                console.error("Error fetching data:", error);
+                loadingMessage.style.display = 'none'; // Hide loading message
+                errorMessage.textContent = `An error occurred: ${error.message}`;
+                errorMessage.style.display = 'block';
             });
         }
+
+        function handleInput() {
+    const userInput = document.getElementById('user-input').value; // Get the value from the input field
+    
+    // Get the bolded version of the user input
+    const boldedText = boldKeywords(userInput);
+
+    // Display the bolded text in the result container
+    document.getElementById('result').innerHTML = boldedText;
+}
+
+// Event listener for the input field to trigger when the user types
+document.getElementById('user-input').addEventListener('input', handleInput);
     </script>
-
-    <!-- Flask Backend Code -->
-    <script>
-    // app.js
-
-    // Function to call the Flask backend
-    function getRelevantLinks() {
-        const userPrompt = document.getElementById("userPrompt").value;
-        const resultsList = document.getElementById("resultsList");
-        const resultsSection = document.getElementById("resultsSection");
-
-        // Clear previous results
-        resultsList.innerHTML = '';
-        resultsSection.style.display = 'none';
-
-        if (userPrompt.trim() === "") {
-            alert("Please enter a topic.");
-            return;
-        }
-
-        // Display loading indicator (optional)
-        resultsList.innerHTML = '<li>Loading...</li>';
-
-        // Send the user prompt to the backend (Python server)
-        fetch('/get_relevant_links', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ prompt: userPrompt })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data && data.links && data.links.length > 0) {
-                resultsList.innerHTML = '';  // Clear the loading text
-
-                // Display the top 5 relevant links
-                data.links.forEach((link, index) => {
-                    const listItem = document.createElement("li");
-                    const linkElement = document.createElement("a");
-                    linkElement.href = link;
-                    linkElement.target = "_blank";
-                    linkElement.textContent = `Link ${index + 1}: ${link}`;
-                    listItem.appendChild(linkElement);
-                    resultsList.appendChild(listItem);
-                });
-
-                resultsSection.style.display = 'block';
-            } else {
-                resultsList.innerHTML = '<li>No relevant links found. Please try a different query.</li>';
-            }
-        })
-        .catch(error => {
-            resultsList.innerHTML = '<li>Error fetching results. Please try again later.</li>';
-            console.error("Error fetching data:", error);
-        });
-    }
-</script>
 </body>
 </html>

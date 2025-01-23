@@ -510,6 +510,10 @@ footer {
     border-radius: 8px;
 }
 
+
+
+
+
 @media (max-width: 765px) {
             
             /* Add margin to the body or .hello element to prevent overlap with the header */
@@ -588,12 +592,9 @@ footer {
 <body>
 
     <header class="default">
-
-
-
-
         <nav>
             <ul>
+                <li><a href="{{ url_for('test') }}">SiteFinder</a></li>
                 <li><a href="{{ url_for('profile') }}">Profile</a></li>
                 <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
                 <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>

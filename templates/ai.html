@@ -162,10 +162,36 @@
         }
 
         .gameItem {
+            position: relative;
     display: flex;
     flex-direction: column; /* Stack image and emoji */
     align-items: center; /* Center align content */
     gap: 10px; /* Add space between image and emoji */
+}
+
+
+.tooltip {
+    visibility: hidden;
+    width: 200px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px;
+    position: absolute;
+    margin-top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.gameItem:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease;
 }
 
 
@@ -188,7 +214,7 @@
         }
 
         .gameImgs img:hover {
-            border-color: #38464c;
+            border-color: #4a3333;
             transform: scale(1.1);
         }
 
@@ -276,9 +302,8 @@
             width: 100%; /* Fixed width for consistent size */
             max-width: 270px; /* Optional: Set a maximum width for large screens */
             height: auto; /* Maintain aspect ratio */
-            padding: 0 2%; /* Add padding to ensure spacing from the edges */
             object-fit: contain; /* Fit image within bounds without cropping */
-            border: .5em solid #437c94;
+            border: .5em solid #53487c;
             border-radius: 1em;
             transition: transform 0.3s, border-color 0.3s;
         }
@@ -295,7 +320,7 @@
             display: flex;
             justify-content: center;
             gap: 6%; /* Increase the gap between images */
-            margin-top: 10%; /* Adjust spacing above the row */
+            margin-top: 2%; /* Adjust spacing above the row */
             flex-wrap: wrap;
         }
 
@@ -404,6 +429,158 @@ form {
         padding: 1.5em; /* Add more padding for touch devices */
     }
 }
+
+      /* Style the button */
+      .add-to-category-btn {
+    background-color: #3498db;
+    color: white;
+    font-size: 16px;
+    padding: 5px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-category-btn:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+}
+
+.gameItem .tooltip {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+.gameItem:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.3s ease, visibility 0s 0s;
+}
+
+.gameItem:hover .tooltip::after {
+  content: attr(data-title);
+}
+
+
+
+/* Style the select dropdown */
+.category-select {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding inside */
+    font-size: 16px; /* Font size */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background */
+    appearance: none; /* Remove default dropdown arrow */
+    cursor: pointer; /* Pointer cursor */
+    display: block; /* Ensure the select takes up full width */
+    margin-top: 10px; /* Space above */
+    opacity: 0; /* Initially hide the select element */
+    transition: opacity 0.3s ease; /* Smooth transition for visibility */
+}
+
+/* Container for the tooltip */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tooltip text style */
+.tooltip::after {
+    content: "Unlock the power of ChatGPT to simplify your tasks!";
+    position: absolute;
+    bottom: 125%;  /* Position the tooltip above the image */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 4px;
+    visibility: hidden;  /* Initially hidden */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    font-size: 14px;
+    z-index: 1;
+}
+
+/* Show the tooltip when hovering over the image */
+.tooltip:hover::after {
+    visibility: visible;
+    opacity: 1;
+}
+
+.gameItem img[title]::before {
+    content: attr(title); /* Use the value of the title attribute */
+    position: absolute;
+    top: -30px;  /* Adjust position above the image */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border-radius: 5px;
+    font-size: 14px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+/* Tooltip visibility on hover */
+.gameItem img[title]:hover::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* When the select is visible */
+.category-select.show {
+    opacity: 1; /* Make the select visible */
+}
+
+/* Add styles for the a tag's title attribute */
+/* Add basic styles for the link and the image */
+a[title] {
+    position: relative;
+    display: inline-block;
+}
+
+.sewer-link::after { 
+    content: attr(data-title);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+    background-color: #4d4343; /* Deep, muted purple-grey background */
+    color: #ffadad; /* Light off-white for text */
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 3px solid #000000; /* Darker purple-grey border */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4); /* Subtle shadow for depth */
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 10; /* Ensure tooltip is above other elements */
+}
+.sewer-link:hover::after {
+    opacity: 1;
+    transform: translate(-50%, -70px);
+}
+
+
     </style>
     <script>
         document.getElementById('search').addEventListener('keydown', function(event) {
@@ -421,6 +598,7 @@ form {
         <nav>
             <nav>
                 <ul>
+                    <li><a href="{{ url_for('test') }}">SiteFinder</a></li>
                     <li><a href="{{ url_for('profile') }}">Profile</a></li>
                     <li><a href="{{ url_for('homepage') }}">Home Page</a></li>
                     <li><a href="{{ url_for('signInPage') }}">Create Account</a></li>
@@ -451,8 +629,9 @@ form {
                 <!-- Row 1 -->
                 <div class="row1">
                     <div class="gameItem">
+                        <div class="tooltip">Let Chat GPT Do The Work For You</div>
                         <a href="https://chatgpt.com/auth/login" target="_blank" data-name="Chat GPT">
-                            <img class="chat" title="Let Chat GPT Do The Work For You" src="https://blog.routinehub.co/content/images/2023/02/openAI-chat-gpt-1.jpg" alt="Chat GPT">
+                            <img class="chat" src="https://blog.routinehub.co/content/images/2023/02/openAI-chat-gpt-1.jpg" alt="Chat GPT">
                         </a>
                         <div class="emoji" data-link="chat">
                             <span class="emoji-icon">👍</span> 
@@ -460,156 +639,290 @@ form {
                             <span class="emoji-icon">❤️</span> 
                             <span class="counter">0</span> <!-- Heart counter -->
                         </div>
+
+     <!-- Add to category dropdown -->
+                        <button class="add-to-category-btn">Add to Category</button>
+                        <select class="category-select" style="display:none;">
+                            <!-- Categories will be populated dynamically from /get_categories -->
+                        </select>
                     </div>
             
                     <div class="gameItem">
                         <a href="https://www.grammarly.com/" target="_blank" data-name="Grammerly">
-                            <img class="grammerly" title="Let A.I. Enhance Your Writing" src="https://cdn.mos.cms.futurecdn.net/36PfXX8gsKtwtxuCVp4ebm-1200-80.png" alt="Grammerly">
+                            <img class="grammerly" src="https://cdn.mos.cms.futurecdn.net/36PfXX8gsKtwtxuCVp4ebm-1200-80.png" alt="Grammerly">
                         </a>
+                        <div class="tooltip">Let A.I. Enhance Your Writing</div>
                         <div class="emoji" data-link="grammerly">
                             <span class="emoji-icon">👍</span> 
                             <span class="counter">0</span> <!-- Thumbs up counter -->
                             <span class="emoji-icon">❤️</span> 
                             <span class="counter">0</span> <!-- Heart counter -->
                         </div>
+                        <button class="add-to-category-btn">Add to Category</button>
+                        <select class="category-select" style="display:none;">
+                            <!-- Categories will be populated dynamically from /get_categories -->
+                        </select>
                     </div>
             <div class="gameItem">
                 <a href="https://www.midjourney.com/explore?tab=top" target="_blank" data-name="Midjourney">
-                    <img class="midjourney" title="Explore & Create Images Made From A.I." src="https://miro.medium.com/v2/resize:fit:1400/1*tj5Fgl_HTikHW_uTJmE2qg.jpeg"  alt="Midjourney mid journey">
+                    <img class="midjourney" src="https://miro.medium.com/v2/resize:fit:1400/1*tj5Fgl_HTikHW_uTJmE2qg.jpeg"  alt="Midjourney mid journey">
                 </a>
+                <div class="tooltip">Explore & Create Images From A.I.</div>
                 <div class="emoji" data-link="midjourney">
                     <span class="emoji-icon">👍</span> 
                     <span class="counter">0</span> <!-- Thumbs up counter -->
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
 
             <div class="gameItem">
                 <a href="https://aitubo.ai/ai-video-generator/?utm_source=google&utm_medium=cpc&utm_campaign=video&gad_source=1&gclid=CjwKCAiAg8S7BhATEiwAO2-R6uXjEp5N-qcg5ee4fxMy0e8vPg9L6vS5aUrPaU7u7d6OP1XP7RaBWRoCXAgQAvD_BwE" target="_blank" data-name="Aitubo">
-                    <img class="Aitubo" title="Let A.I. Generate A video For You" src="https://invadeai.com/uploads/img/posticons/2024/09/aitubo9.webp"  alt="Aitubo ai tubo">
+                    <img class="Aitubo" src="https://invadeai.com/uploads/img/posticons/2024/09/aitubo9.webp"  alt="Aitubo ai tubo">
                 </a>
+                <div class="tooltip">Let A.I. Generate A Video For You</div>
                 <div class="emoji" data-link="aitubo">
                     <span class="emoji-icon">👍</span> 
                     <span class="counter">0</span> <!-- Thumbs up counter -->
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
+            
             </div>
-            <div class="row1">
+            <div class="row2">
                 <div class="gameItem">
                 <a href="https://www.renderforest.com/#Videos" target="_blank" data-name="Renderforest">
-                    <img class="render" title="Animated Videos Created WIth A.I." src="https://static.rfstat.com/renderforest/images/v2/logos/renderforest-logo2.jpg"  alt="Renderforest render forest">
+                    <img class="render" src="https://static.rfstat.com/renderforest/images/v2/logos/renderforest-logo2.jpg"  alt="Renderforest render forest">
                 </a>
+                <div class="tooltip">Animated Videos Created From A.I</div>
                 <div class="emoji" data-link="renderforest">
                     <span class="emoji-icon">👍</span> 
                     <span class="counter">0</span> <!-- Thumbs up counter -->
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
             <div class="gameItem">
                 <a href="https://gemini.google.com/app" target="_blank" data-name="Gemini">
-                    <img class="gemini" title="Work Smarter With Gemini" src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg"  alt="Gemini">
+                    <img class="gemini" src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SS.width-1300.jpg"  alt="Gemini">
                 </a>
+                <div class="tooltip">Work Smarter With Gemini</div>
                 <div class="emoji" data-link="gemini">
                     <span class="emoji-icon">👍</span> 
                     <span class="counter">0</span> <!-- Thumbs up counter -->
                     <span class="emoji-icon">❤️</span> 
                     <span class="counter">0</span> <!-- Heart counter -->
                 </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
+            </div>
+            <div class="gameItem">
+                <a href="https://copilot.microsoft.com/onboarding" target="_blank" data-name="Copilot">
+                    <img class="pilot" src="https://blogs.microsoft.com/wp-content/uploads/prod/2023/09/Press-Image_FINAL_16x9-4.jpg"  alt="Microsoft Copiolot">
+                </a>
+                <div class="tooltip">Welcome To Microsoft's A.I. Companion</div>
+                <div class="emoji" data-link="gemini">
+                    <span class="emoji-icon">👍</span> 
+                    <span class="counter">0</span> <!-- Thumbs up counter -->
+                    <span class="emoji-icon">❤️</span> 
+                    <span class="counter">0</span> <!-- Heart counter -->
+                </div>
+                <button class="add-to-category-btn">Add to Category</button>
+                <select class="category-select" style="display:none;">
+                    <!-- Categories will be populated dynamically from /get_categories -->
+                </select>
             </div>
         </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            loadCategories(); // Load categories when page is ready
             initializeCounters(); // Initialize counters from localStorage
             setupEmojiClickListeners(); // Add listeners to emoji groups
+            setupCategoryButtonListeners(); // Set up "Add to Category" button listeners
         });
-    
-        // Function to initialize counters from localStorage
-        function initializeCounters() {
-    document.querySelectorAll('.emoji').forEach(emojiGroup => {
-        const websiteKey = emojiGroup.dataset.link;
-        emojiGroup.querySelectorAll('.emoji-icon').forEach((emoji, index) => {
-            const counter = emoji.nextElementSibling;
-            const emojiKey = `${websiteKey}-${emoji.textContent.trim()}`; // Use the emoji text content as part of the key
-            const savedCount = localStorage.getItem(emojiKey);
-
-            if (savedCount !== null) {
-                counter.textContent = savedCount; // Set the counter to the saved value
-            } else {
-                counter.textContent = '0'; // Default to 0 if no saved count
-            }
-        });
-    });
-}
-
-// Function to set up emoji click listeners
-async function setupEmojiClickListeners() {
-    document.querySelectorAll('.emoji-icon').forEach(emoji => {
-        emoji.addEventListener('click', async event => {
-            event.stopPropagation(); // Prevent click from propagating to parent elements
-            const emoji = event.target;
-            const counter = emoji.nextElementSibling;
-            const emojiGroup = emoji.closest('.emoji');
-            const websiteLink = emoji.closest('.gameItem').querySelector('a');
-            const websiteName = websiteLink.dataset.name;
-            const websiteType = emoji.textContent.trim() === '❤️' ? 'favorite' : emoji.textContent.trim() === '👍' ? 'liked' : ''; // Determine the type of the emoji (❤️ = favorite, 👍 = liked)
-
-            if (!websiteType) return; // Exit if it's an invalid emoji type
-
-            let currentCount = parseInt(counter.textContent, 10) || 0;
-            if (currentCount > 0) {
-                // Decrement if the counter is greater than 0
-                currentCount--;
-            } else {
-                // Increment if the counter is 0
-                currentCount++;
-            }
-            counter.textContent = currentCount; // Update the counter on the page
-
-            // Use emoji text (❤️ or 👍) as part of the unique key
-            const emojiKey = `${emojiGroup.dataset.link}-${emoji.textContent.trim()}`;
-            localStorage.setItem(emojiKey, currentCount.toString()); // Store the count in localStorage
-
-            const payload = {
-                url: websiteLink.href,
-                name: websiteName,
-                type: websiteType
-            };
-
+        
+        async function loadCategories() {
             try {
-                const response = await fetch('/toggle_website', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (response.ok) {
-                    const updatedHTML = await response.text(); // Get the HTML response
-                    document.getElementById('favorite-websites-list').innerHTML = updatedHTML.match(/<ul id="favorite-websites-list">([\s\S]*?)<\/ul>/)[1];
-                    document.getElementById('liked-websites-list').innerHTML = updatedHTML.match(/<ul id="liked-websites-list">([\s\S]*?)<\/ul>/)[1];
-
-                    // Reinitialize the counters after HTML is updated
-                    initializeCounters(); 
+                const response = await fetch('/get_categories');
+                const data = await response.json();
+                
+                console.log(data);  // Log the response data for debugging
+        
+                if (data.success) {
+                    document.querySelectorAll('.category-select').forEach(select => {
+                        // Clear existing options (in case of page updates)
+                        select.innerHTML = '<option value="">Select a category</option>';
+        
+                        // Add categories to the select dropdown
+                        data.categories.forEach(category => {
+                            const option = document.createElement('option');
+                            option.value = category.id;  // Ensure category.id is properly set
+                            option.textContent = category.name;
+                            select.appendChild(option);
+                        });
+        
+                        // Make the category select dropdown visible
+                        select.style.display = 'block';  // Show the dropdown
+                    });
                 } else {
-                    console.error('Failed to toggle website');
+                    console.error('Failed to load categories:', data.message);
                 }
             } catch (error) {
-                console.error('Error toggling website:', error);
+                console.error('Error fetching categories:', error);
             }
-        });
-    });
-}
-    
+        }
+        
+        async function setupCategoryButtonListeners() {
+            document.querySelectorAll('.add-to-category-btn').forEach(button => {
+                button.addEventListener('click', async event => {
+                    const websiteElement = button.closest('.gameItem');
+                    const categorySelect = websiteElement.querySelector('.category-select');
+                    const websiteLink = websiteElement.querySelector('a');
+                    const websiteName = websiteLink ? websiteLink.dataset.name : ''; // Use dataset name if available
+                    categorySelect.classList.toggle('show');
+                    
+                    // Check if the website link is valid
+                    if (!websiteLink || !websiteLink.href) {
+                        console.error('Website link is not defined.');
+                        alert('Invalid website link.');
+                        return;
+                    }
+        
+                    const categoryId = categorySelect.value; // Get the selected category ID
+        
+        
+        
+                    // Log payload to debug category ID
+                    const payload = {
+                        url: websiteLink.href, // Ensure this is properly retrieved
+                        name: websiteName,
+                        category_id: categoryId
+                    };
+        
+                    console.log('Payload:', payload);  // Log for debugging
+        
+                    try {
+                        const response = await fetch('/add_to_category', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+        
+                        const data = await response.json();
+        
+                        if (data.success) {
+                            alert('Website added to category!');
+                        } else {
+                            console.error('Failed to add website:', data.message);
+                        }
+                    } catch (error) {
+                        console.error('Error adding website to category:', error);
+                    }
+                });
+            });
+        }
+        
+        
+        // Function to initialize counters from localStorage
+        function initializeCounters() {
+            document.querySelectorAll('.emoji').forEach(emojiGroup => {
+                const websiteKey = emojiGroup.dataset.link;
+                emojiGroup.querySelectorAll('.emoji-icon').forEach((emoji, index) => {
+                    const counter = emoji.nextElementSibling;
+                    const emojiKey = `${websiteKey}-${emoji.textContent.trim()}`; // Use the emoji text content as part of the key
+                    const savedCount = localStorage.getItem(emojiKey);
+        
+                    if (savedCount !== null) {
+                        counter.textContent = savedCount; // Set the counter to the saved value
+                    } else {
+                        counter.textContent = '0'; // Default to 0 if no saved count
+                    }
+                });
+            });
+        }
+
+        
+        // Function to set up emoji click listeners
+        async function setupEmojiClickListeners() {
+            document.querySelectorAll('.emoji-icon').forEach(emoji => {
+                emoji.addEventListener('click', async event => {
+                    event.stopPropagation(); // Prevent click from propagating to parent elements
+                    const emoji = event.target;
+                    const counter = emoji.nextElementSibling;
+                    const emojiGroup = emoji.closest('.emoji');
+                    const websiteLink = emoji.closest('.gameItem').querySelector('a');
+                    const websiteName = websiteLink.dataset.name;
+                    const websiteType = emoji.textContent.trim() === '❤️' ? 'favorite' : emoji.textContent.trim() === '👍' ? 'liked' : ''; // Determine the type of the emoji (❤️ = favorite, 👍 = liked)
+        
+                    if (!websiteType) return; // Exit if it's an invalid emoji type
+        
+                    let currentCount = parseInt(counter.textContent, 10) || 0;
+                    if (currentCount > 0) {
+                        // Decrement if the counter is greater than 0
+                        currentCount--;
+                    } else {
+                        // Increment if the counter is 0
+                        currentCount++;
+                    }
+                    counter.textContent = currentCount; // Update the counter on the page
+        
+                    // Use emoji text (❤️ or 👍) as part of the unique key
+                    const emojiKey = `${emojiGroup.dataset.link}-${emoji.textContent.trim()}`;
+                    localStorage.setItem(emojiKey, currentCount.toString()); // Store the count in localStorage
+        
+                    const payload = {
+                        url: websiteLink.href,
+                        name: websiteName,
+                        type: websiteType
+                    };
+        
+                    try {
+                        const response = await fetch('/toggle_website', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+        
+                        if (response.ok) {
+                            const updatedHTML = await response.text(); // Get the HTML response
+                            document.getElementById('favorite-websites-list').innerHTML = updatedHTML.match(/<ul id="favorite-websites-list">([\s\S]*?)<\/ul>/)[1];
+                            document.getElementById('liked-websites-list').innerHTML = updatedHTML.match(/<ul id="liked-websites-list">([\s\S]*?)<\/ul>/)[1];
+        
+                            // Reinitialize the counters after HTML is updated
+                            initializeCounters(); 
+                        } else {
+                            console.error('Failed to toggle website');
+                        }
+                    } catch (error) {
+                        console.error('Error toggling website:', error);
+                    }
+                });
+            });
+        }
+        
         // Clear LocalStorage for debugging purposes
         function clearLocalStorage() {
             localStorage.clear();
             alert('Local Storage cleared!');
         }
-    </script>
+        
+            </script>
 
 
     <!-- Footer -->
