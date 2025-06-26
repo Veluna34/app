@@ -27,24 +27,28 @@
         }
 
     
-        .redRat {
-    font-size: 4rem; /* Increase font size for better visibility */
-    color: #d40000; /* Use a more modern and consistent red shade */
-    font-style: italic; /* Standardize italic styling */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* More modern font family */
-    transform: translateX(0) translateY(10vh); /* Smooth vertical movement with translateY */
-    position: relative; /* Allow movement relative to its current position */
-    top: 1vh; /* Slightly adjusted to balance the positioning */
-    font-weight: bold; /* Make text bold for better emphasis */
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Subtle shadow for depth and modern look */
-    letter-spacing: 1px; /* Slight spacing between letters for improved readability */
-    transition: transform 0.3s ease, color 0.3s ease; /* Smooth transitions for interactivity */
+.redRat {
+    font-size: 3.5rem;
+    color: #ffe0e0; /* Soft homepage pink */
+    font-style: italic;
+    font-family: 'Roboto', sans-serif; /* Unified with homepage */
+    font-weight: bold;
+    letter-spacing: 1.2px;
+    position: relative;
+    top: 1vh;
+    transform: translateY(10vh);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); /* Deep glow like h1 */
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
+
+
+
 .redRat:hover {
-    color: #ff6347; /* Add hover effect to change the color to a more vibrant tone */
-    transform: translateY(8vh); /* Slightly animate the movement on hover */
+    color: #ffc4c4; /* Gentle highlight */
+    transform: translateY(9vh);
 }
+
     
         .hello {
             display: flex;
@@ -55,22 +59,26 @@
             font-weight: bolder;
         }
     
-        .welcome {
-    font-size: 3.5rem; /* Slightly larger font size for better readability */
-    color: #ffffff; /* Keep the white text for clean contrast */
-    font-style: italic; /* Use standard italic instead of oblique for consistency */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* More modern and web-safe font stack */
-    text-align: center; /* Center the text for better positioning */
-    line-height: 1.5; /* Better line height for improved readability */
-    letter-spacing: 0.5px; /* Add slight letter spacing for a more polished look */
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* Subtle shadow for a more modern effect */
-    margin-top: 2vh; /* Slight margin for spacing */
-    transition: color 0.3s ease; /* Smooth transition for color changes on hover */
+.welcome {
+    font-size: 3rem;
+    color: #ebffc8;
+    font-style: italic;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    line-height: 1.6;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    margin-top: 2vh;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
+
+
 .welcome:hover {
-    color: #ff7f50; /* Add a hover effect for interactivity */
+    color: #ffc4c4; /* Slight glow */
+    transform: scale(1.02);
 }
+
     
         header {
             position: fixed; /* Keep it at the top of the screen */
@@ -137,23 +145,26 @@
             height: auto; /* Maintain aspect ratio */
         }
 
-        .createAccountMessage {
-    color: #ff4e4e; /* Softer, modern red for a more appealing tone */
-    font-size: 1.5rem; /* Increase font size for better visibility */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font stack for cleaner look */
-    font-weight: bold; /* Make the text stand out */
-    text-align: center; /* Ensure text is centered */
-    margin-top: 12vh; /* Add more space above */
-    letter-spacing: 1px; /* Slight letter spacing for improved readability */
-    line-height: 1.4; /* Ensure comfortable line spacing */
-    text-transform: uppercase; /* Uppercase for emphasis */
-    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition for interactive feel */
+.createAccountMessage {
+    color: #ffe0e0; /* Homepage-soft pink */
+    font-size: 1.7rem;
+    font-family: 'Roboto', sans-serif; /* Matches homepage font */
+    font-weight: bold;
+    text-align: center;
+    margin-top: 12vh;
+    letter-spacing: 1px;
+    line-height: 1.5;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Soft depth for readability */
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
+
 .createAccountMessage:hover {
-    color: #ff0000; /* Darker red color on hover */
-    transform: scale(1.05); /* Slight zoom effect for interaction */
+    color: #ffc4c4;
+    transform: scale(1.03);
 }
+
 .buttons {
     display: flex;
     justify-content: center; /* Center buttons horizontally */
@@ -235,8 +246,8 @@
             box-sizing: border-box; /* Include padding in width calculation */
             transform: translate(0vw, -163.1vh);
             flex: 2;
-            background-color: #bd99b6;
-        }
+background-color: #ffe5fa;        
+}
 
             #carouselExampleCaptions {
                 max-width: 50%; /* Maintain the carousel's width */
@@ -268,21 +279,22 @@
 
 
 .description {
-    display: flex;
+    display: flex
+;
     justify-content: center;
-    font-size: 1.4em; /* Slightly smaller for a more modern feel */
+    font-size: 1.4em;
     text-align: center;
-    font-family: 'Poppins', sans-serif; /* Modern and clean sans-serif font */
-    font-weight: 500; /* Medium weight for clarity */
-    color: #6A0572; /* A muted purple for balance against creamy pink */
-    text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2); /* Light shadow for a subtle depth */
-    padding: 1rem 2rem; /* Spacious padding for better legibility */
-    border: 1px solid rgba(106, 5, 114, 0.2); /* Soft border to frame the text */
-    background-color: rgb(255 41 134 / 52%); /* Semi-transparent white for a layered effect */
-    border-radius: 10px; /* Rounded corners for a modern look */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Gentle shadow for depth */
-    max-width: 70%; /* Restrict width for readability */
-    margin: 1.5rem auto; /* Centered within the parent container */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    color: #000000;
+    text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+    padding: 1rem 2rem;
+    border: 1px solid rgba(106, 5, 114, 0.2);
+    background-color: rgb(255 255 255 / 52%);
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 70%;
+    margin: 1.5rem auto;
 }
 .carousel-control-prev, .carousel-control-next {
     width: 12%; /* Larger clickable area for better accessibility */
@@ -444,26 +456,27 @@ form {
 }
 
 .sewerMessage {
-    color: #ff4e4e; /* Use a modern and softer red shade */
-    font-size: 2rem; /* Increase font size for better visibility */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* More modern font family stack */
-    font-weight: bold; /* Add weight to make it stand out */
-    text-shadow: 0 4px 6px rgba(255, 0, 0, 0.6); /* Subtle, softer shadow for a more modern look */
+    color: #ffe0e0; /* Soft pink from homepage palette */
+    font-size: 2.2rem;
+    font-family: 'Roboto', sans-serif; /* Matches homepage typography */
+    font-weight: bold;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6); /* Softer depth */
     display: flex;
-    justify-content: center; /* Center align text */
-    align-items: center; /* Vertically align the text */
-    margin-top: 9.5vh; /* Add a bit more space at the top */
-    margin-bottom: -4vh; /* Adjust negative margin for a more refined layout */
-    letter-spacing: 0.5px; /* Slight letter spacing for better readability */
-    text-transform: uppercase; /* Make the text uppercase for emphasis */
-    line-height: 1.5; /* Ensure proper line height for readability */
-    transition: transform 0.3s ease, color 0.3s ease; /* Smooth transitions for interaction */
+    justify-content: center;
+    align-items: center;
+    margin-top: 9.5vh;
+    margin-bottom: -4vh;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 1.6;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .sewerMessage:hover {
-    color: #ff0000; /* More intense red on hover for interaction */
-    transform: scale(1.05); /* Slight zoom effect on hover for emphasis */
+    color: #ffc4c4;
+    transform: scale(1.02);
 }
+
 
 
         @media (max-width: 765px) {
@@ -728,7 +741,7 @@ document.addEventListener('DOMContentLoaded', () => {
             {% endif %}
             {% endwith %}
             <span class="welcome">Hello &amp; Welcome To The: </span>
-            <span class="redRat"> RED RAT'S WEB: <br></span>
+            <span class="redRat">Browser Basket<br></span>
 
         </h1>
 
@@ -752,7 +765,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
     </div>
     <div class="pfp">
-        <img class="intro" src="https://wallpapers.com/images/hd/pickle-rick-coming-out-of-portal-33vnk00t94f7eezj.jpg" alt="style" width="640">
+        <img class="intro" src="../static/browser_basket_logo_fixed.png" alt="style" width="640">
     </div>
 <!--
 

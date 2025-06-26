@@ -3,13 +3,17 @@ html, body {
     height: 100%; 
     padding: 0;
     margin: 0;
-    background: #191d1e; /* Old browsers */
-    background: -moz-linear-gradient(0deg, #191d1e 50%, #283139 100%); /* FF3.6+ */
+    background: #52dcff; /* Old browsers */
+    background: -moz-linear-gradient(0deg, #0097bd 50%, #fbfdff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right bottom, color-stop(50%, #191d1e), color-stop(100%, #283139)); /* Chrome,Safari4+ */
     background: -webkit-linear-gradient(0deg, #b4d7e0 50%, #283139 100%); /* Chrome10+,Safari5.1+ */
     background: -o-linear-gradient(0deg, #191d1e 50%, #283139 100%); /* Opera 11.10+ */
     background: -ms-linear-gradient(0deg, #191d1e 50%, #283139 100%); /* IE10+ */
-    background: linear-gradient(0deg, #191d1e 50%, #283139 100%); /* W3C */
+background: 
+    linear-gradient(357deg, #cac1c1 30%, #e5dede 100%),
+    url('https://www.transparenttextures.com/patterns/dark-matter.png'),
+    rgba(232, 199, 199, 0.122);
+background-blend-mode: overlay;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#191d1e', endColorstr='#283139', GradientType=1); /* IE6-9 fallback on horizontal gradient */
     background-attachment: fixed;
 }
