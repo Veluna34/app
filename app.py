@@ -193,7 +193,7 @@ TEMPLATE_TITLES = {
     'phoboslab.html':'Games From PhobosLab (Games)',
     'popular.html':'Popular Browser Games (Games)',
     'professional.html':'Social Media For Work',
-    'project.html':'Crafts & Rennovations (Work)',
+    'projects.html':'Crafts & Rennovations (Work)',
     'reading.html':'Stream Your Books (Entertainment)',
     'recommendations.html':'Games I Recommend',
     'retail.html':'Retail Stores (Shopping)',
@@ -1962,10 +1962,9 @@ def originalgames():
 
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 5000))  # Get the port from the environment or use 5000 as default
-    app.run(host="0.0.0.0", port=port) 
-    socketio.run(app, debug=True)
-  # Initialize the database
+    port = int(os.getenv("PORT", 5000))
+    socketio.run(app, host="0.0.0.0", port=port)
+
 
 
     
