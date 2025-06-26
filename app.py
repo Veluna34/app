@@ -294,7 +294,7 @@ def fetch_and_emit_data(test_mode=True):
         # Use a short delay for testing, longer delay for production
         time.sleep(30 if test_mode else 28800)  # 28800 seconds = 8 hours for production
 
-nlp_model = pipeline("zero-shot-classification")
+nlp_model = pipeline("zero-shot-classification", model="valhalla/distilbart-mnli-12-3")
 
 @socketio.on('connect')
 def handle_connect():
